@@ -1,5 +1,6 @@
 env
 .DS_Store
-request_climate2.py
-meteo*
+__pycache__
+Draft
+Data
 

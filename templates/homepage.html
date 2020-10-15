@@ -3,34 +3,33 @@
 {% block title %}Homepage{% endblock %} 
 
 {% block body %}
-<form action="/result">
+<form action="/results">
     <p>
         <label for="month">Choose the month you want to travel</label>
-        <select name="month">
+        <select multiple name="month">
             <option value='1'>Jan</option>
             <option value='2'>Feb</option>
             <option value='3'>Mar</option>
         </select>
     </p>
-    
-    <p>
-        <label for="temperature">What's your ideal average temperature?</label>
+        <p>
+        <label for="avgtemp">What's your ideal average temperature?</label>
         <select name="tavg">
             <option value='under10'>Under 10</option>
             <option value='10to20'>Between 10-20</option>
-            <option value='above20'>Above 20</option>
+            <option value='above20'>From 20</option>
         </select>
     </p>
 
-    <p>
-        <label for="sunhours">How many hours of sunshine per month do you like?</label>
-        <select name="tsun">
-            <option value='under30hrs'>Under 30 hours is fine</option>
+    <!-- <p>
+        <label for="mintemp">How many hours of sunshine per month do you like?</label>
+        <select name="tmin">
+            <option value='under0'>Under 0</option>
             <option value='50-100hrs'>Between 50-100 hours</option>
             <option value='100-200hrs'>Between 100-200 hours</option>
             <option value='above200hrs'>More than 200 hours please</option>
         </select>
-    </p>
+    </p> -->
 
     <input type="submit">
 </form>

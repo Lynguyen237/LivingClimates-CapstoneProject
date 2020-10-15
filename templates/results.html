@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Search result{% endblock %} 
+
+{% block body %}
+<h2> Here are your ideal shelters on this beautiful Earth for the month(s) of {{ params }}</h2>
+    {% for result in results %}
+        <li>{{ result.city.city_name }} ({{ result.city.country }}): 
+            {{ result.tavg }}</li>
+    {% endfor %}
+    
+{% endblock %}

@@ -3,9 +3,12 @@
 from model import db, City, Climate, connect_to_db
 
 
-def create_city (city_name, lat, lon):
+def create_city (city_name, country, lat, lon):
     """Create and return a city with their lat & lon"""
-    city = City(city_name=city_name, lat=lat, lon=lon)
+    city = City(city_name=city_name, 
+                country=country, 
+                lat=lat, 
+                lon=lon)
 
     db.session.add(city)
     db.session.commit()

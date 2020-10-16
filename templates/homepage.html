@@ -5,11 +5,20 @@
 {% block body %}
 <form action="/results">
     <p>
-        <label for="month">Choose the month you want to travel</label>
-        <select multiple name="month">
+        <label for="month">Choose the month(s) you want to travel</label>
+        <select name="month" multiple>
             <option value='1'>Jan</option>
             <option value='2'>Feb</option>
             <option value='3'>Mar</option>
+            <option value='4'>Apr</option>
+            <option value='5'>May</option>
+            <option value='6'>Jun</option>
+            <option value='7'>Jul</option>
+            <option value='8'>Aug</option>
+            <option value='9'>Sep</option>
+            <option value='10'>Oct</option>
+            <option value='11'>Nov</option>
+            <option value='12'>Dec</option>
         </select>
     </p>
         <p>
@@ -21,16 +30,16 @@
         </select>
     </p>
 
-    <!-- <p>
-        <label for="mintemp">How many hours of sunshine per month do you like?</label>
-        <select name="tmin">
-            <option value='under0'>Under 0</option>
-            <option value='50-100hrs'>Between 50-100 hours</option>
-            <option value='100-200hrs'>Between 100-200 hours</option>
-            <option value='above200hrs'>More than 200 hours please</option>
-        </select>
-    </p> -->
+    <p>
+        <label for="mintemp">What's your ideal lowest temperature?</label>
+        <input type="number" name="tmin">
+    </p>
 
-    <input type="submit">
+    <p>
+        <label for="maxtemp">What's your ideal highest temperature?</label>
+        <input type="number" name="tmax">
+    </p>
+
+    <input type="submit" value="Show me the world">
 </form>
 {% endblock %}

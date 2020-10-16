@@ -10,7 +10,6 @@ def get_climate(lat, lon):
     return res
 
 # print (get_climate(40.712776,-74.005974)) # New York
-
 # params = dict(key="key", lat=40.712776, lon=-74.005974) # New York
 # req = requests.get(url, params=params)
 # res = req.json()['data'] # res is a python dictionary

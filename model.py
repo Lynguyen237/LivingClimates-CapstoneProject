@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 # import request_climate
 
 db = SQLAlchemy()
@@ -12,6 +13,7 @@ class City(db.Model):
                            autoincrement=True,
                            primary_key=True,)
     city_name = db.Column(db.String, nullable=False)
+    country = db.Column(db.String, nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
 
@@ -23,7 +25,7 @@ class City(db.Model):
 
 
 class Climate(db.Model):
-    """ Climate in a given month"""
+    """ Climate in a given month with temperature in celcius and precipitation in millimeter"""
 
     __tablename__ = 'climates'
 
@@ -50,6 +52,7 @@ class Climate(db.Model):
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///climates', echo=True):
+    # Configuration: https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     flask_app.config['SQLALCHEMY_ECHO'] = echo
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -65,6 +68,10 @@ if __name__ == '__main__':
     from server import app
 
     connect_to_db(app)
+
+    # Call connect_to_db(app, echo=False) if your program output gets
+    # too annoying; this will tell SQLAlchemy not to print out every
+    # query it executes.
 
 
 # Reference: https://fellowship.hackbrightacademy.com/materials/pt7g/exercises/ratings-v2/

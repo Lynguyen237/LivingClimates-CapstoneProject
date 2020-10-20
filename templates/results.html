@@ -9,7 +9,8 @@
         <li>{{ result.city.city_name }} ({{ result.city.country }}): 
             {{ result.tavg }} 
             | Min: {{ result.tmin }}
-            | Max: {{ result.tmax }} ({{ month_dict[result.month] }}) </li>
+            | Max: {{ result.tmax }}
+            | Rain: {{ result.prcp }}mm ({{ month_dict[result.month] }}) </li>
     {% endfor %}
     
 {% endblock %}

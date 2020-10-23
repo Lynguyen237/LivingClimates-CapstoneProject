@@ -13,14 +13,14 @@ os.system('createdb climates')
 model.connect_to_db(server.app)
 model.db.create_all()
 
-# Load data from a city JSON file and save it in a variable
+# Load data from a city JSON file as a list of dictionary and save it in a variable
 with open('data/samplecities.json') as f:
-    city_data = json.loads(f.read())
+    city_list = json.loads(f.read())
 
 # Create cities, store them in a list to add climate data later
 cities_in_db = []
-for city in city_data: #city is a dictionary & city_data a list of dictionaries
-    city_name, country, lat, lon = (city['city'],
+for city in city_list: #city is a dictionary & city_data a list of dictionaries
+    city_name, country, lat, lon = (city['city_ascii'],
                                     city['country'],
                                     city['lat'],
                                     city['lng'])
@@ -31,8 +31,9 @@ for city in city_data: #city is a dictionary & city_data a list of dictionaries
 # Loop over the list of city object 
 # and create corresponding climate data
 for city in cities_in_db:
-    climate_data = get_climate(city.lat, city.lon)
-
+    # Request 12-month climate data for a given city
+    climate_data = get_climate(city.lat, city.lon) 
+    
     for month_data in climate_data['data']:
 
         month, prcp, pres = (month_data['month'],

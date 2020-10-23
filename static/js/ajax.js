@@ -17,10 +17,6 @@ $('#search_filter').on('submit', (evt) => {
     };
 
     // console.log(formData); // Debug line to verify the data being captured in the formData variable
-  
-    // $.get('/results.json', formData, (results) => {
-    //     $('#search_results').text(results.city[0].city_name);
-    // })
 
     const displayResults = (response) => {
         
@@ -32,10 +28,13 @@ $('#search_filter').on('submit', (evt) => {
 
         for (const city of listOfCities) {
             container.append(`
-                <li> ${city.city_name}</li>`
+                <li> ${city.city_name} (${city.country}): ${city.tavg} (${city.month})</li>`
                 );
         }
     }
     
     $.get('/results.json', formData, displayResults)
+       // $.get('/results.json', formData, (results) => {
+    //     $('#search_results').text(results.city[0].city_name);
+    // })
 });

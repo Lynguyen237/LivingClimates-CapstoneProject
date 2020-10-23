@@ -1,5 +1,5 @@
-from flask import Flask
-from flask import (Flask, render_template, request, flash, session, redirect)
+# from flask import Flask
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db, Climate, City
 from flask_debugtoolbar import DebugToolbarExtension # Add Flask DebugToolbar
 
@@ -11,6 +11,44 @@ app.secret_key = 'random' # Set a random key for the DebugToolbar
 def homepage():
     """Show the homepage with the search filters"""
     return render_template('homepage.html')
+
+@app.route('/results.json')
+def get_query_result_json():
+    month = request.args.getlist('month[]') # Store all the months user chooses in a list
+    tavg = request.args.get('tavg')
+    tmin = request.args.get('tmin')
+    tmax = request.args.get('tmax')
+
+    # Connect to db to retrieve the city objects meeting the criteria
+    results = Climate.query
+
+    if tavg == "under10": 
+        results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
+
+    elif tavg == "10to20":
+        results = results.filter(Climate.month.in_(month),
+                                 Climate.tavg >= 10,
+                                 Climate.tavg < 20)
+    else:
+        results = results.filter(Climate.month.in_(month), Climate.tavg >= 20)
+    
+    # Check if values for tmin and tmax exist, if so add them to the query
+    if tmin:
+        results = results.filter(Climate.tmin >= tmin)
+    if tmax:
+        results = results.filter(Climate.tmax <= tmax)
+
+    results_list = []
+
+    for climate in results:
+            results_list.append({"city_name":climate.city.city_name,
+                                "country":climate.city.country,
+                                "month":climate.month,
+                                "tavg":climate.tavg
+                                })
+    
+    return jsonify({"city": results_list})
+
 
 
 @app.route('/results')

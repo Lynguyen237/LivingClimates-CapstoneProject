@@ -12,9 +12,26 @@ def homepage():
     """Show the homepage with the search filters"""
     return render_template('homepage.html')
 
+@app.route('/results_test.json')
+def get_test_result_json():
+    tmax = request.args.get('tmax')
+
+    results = Climate.query.filter(Climate.month==5,Climate.tmax<tmax)
+
+    result_list = []
+    for climate in results:
+        result_list.append({"city_name":climate.city.city_name,
+                                "country":climate.city.country,
+                                "month":climate.month,
+                                "tavg":climate.tavg
+                                })
+
+
+    return jsonify({"city": result_list})
+
 @app.route('/results.json')
 def get_query_result_json():
-    month = request.args.getlist('month[]') # Store all the months user chooses in a list
+    month = request.args.getlist('month') # Store all the months user chooses in a list
     tavg = request.args.get('tavg')
     tmin = request.args.get('tmin')
     tmax = request.args.get('tmax')
@@ -50,52 +67,60 @@ def get_query_result_json():
     return jsonify({"city": results_list})
 
 
+# =================================================================
+# Old route when submitting form requires redirecting to a new page.
+# =================================================================
+# @app.route('/results')
+# def get_query_result():
+#     """Show the search results"""
+#     # query_params = request.args.to_dict(flat=False)
+#     month = request.args.getlist('month') # Store all the months user chooses in a list
+#     tavg = request.args.get('tavg')
+#     tmin = request.args.get('tmin')
+#     tmax = request.args.get('tmax')
 
-@app.route('/results')
-def get_query_result():
-    """Show the search results"""
-    # query_params = request.args.to_dict(flat=False)
-    month = request.args.getlist('month') # Store all the months user chooses in a list
-    tavg = request.args.get('tavg')
-    tmin = request.args.get('tmin')
-    tmax = request.args.get('tmax')
+#     # Dictionary to look up the text value for the month
+#     month_dict = {1: 'Jan', 
+#                   2: 'Feb', 
+#                   3: 'Mar',
+#                   4: 'Apr',
+#                   5: 'May',
+#                   6: 'Jun',
+#                   7: 'Jul',
+#                   8: 'Aug',
+#                   9: 'Sep',
+#                   10: 'Oct',
+#                   11: 'Nov',
+#                   12: 'Dec'} 
+    
+    
+#     # Connect to db to retrieve the city objects meeting the criteria
+#     results = Climate.query
+    
+#     # Check the value of average temperature and construct the query accordingly
+#     if tavg == "under10": 
+#         results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
+#     elif tavg == "10to20":
+#         results = results.filter(Climate.month.in_(month), 
+#                                  Climate.tavg >= 10,
+#                                  Climate.tavg < 20)
+#     else:
+#         results = results.filter(Climate.month.in_(month), Climate.tavg >= 20)
+    
+#     # Check if values for tmin and tmax exist, if so add them to the query
+#     if tmin:
+#         results = results.filter(Climate.tmin >= tmin)
+#     if tmax:
+#         results = results.filter(Climate.tmax <= tmax)
 
-    # Dictionary to look up the text value for the month
-    month_dict = {1: 'Jan', 
-                  2: 'Feb', 
-                  3: 'Mar',
-                  4: 'Apr',
-                  5: 'May',
-                  6: 'Jun',
-                  7: 'Jul',
-                  8: 'Aug',
-                  9: 'Sep',
-                  10: 'Oct',
-                  11: 'Nov',
-                  12: 'Dec'} 
-    
-    
-    # Connect to db to retrieve the city objects meeting the criteria
-    results = Climate.query
-    
-    # Check the value of average temperature and construct the query accordingly
-    if tavg == "under10": 
-        results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
-    elif tavg == "10to20":
-        results = results.filter(Climate.month.in_(month), 
-                                 Climate.tavg >= 10,
-                                 Climate.tavg < 20)
-    else:
-        results = results.filter(Climate.month.in_(month), Climate.tavg >= 20)
-    
-    # Check if values for tmin and tmax exist, if so add them to the query
-    if tmin:
-        results = results.filter(Climate.tmin >= tmin)
-    if tmax:
-        results = results.filter(Climate.tmax <= tmax)
+#     return render_template('results.html', results=results, month_dict=month_dict)
 
-    return render_template('results.html', results=results, month_dict=month_dict)
-                        
+
+# @app.route('/maps')
+# def show_map():
+#     """Show map with a marker"""
+#     return render_template('maps.html')   
+
 
 if __name__ == '__main__':
 

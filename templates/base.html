@@ -2,6 +2,10 @@
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
+  <!-- Browser, by default, requests a "favicon.ico" file from your webserver
+  it determines the icon displayed in the browser tab next to the website title.
+  Insert the below tag to tell the browser if there is no favicon.ico, don't try requesting. -->
+  <link rel="icon" href="data:,">
 
   <!-- We'll load React dependencies on all pages for this app. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
@@ -19,7 +23,7 @@
   <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
   
   <!-- Include any page-specific Javascript using this block. -->
-  {% block js %}
+  {% block jshead %}
   {% endblock %}
 
   <!-- Bootstrap CSS from getbootstrap.com -->
@@ -41,7 +45,7 @@
   {% endblock %}
 
   <!-- Include any page-specific Javascript using this block. -->
-  {% block js2 %}
+  {% block jsbody %}
   {% endblock %}
 </body>
 </html>

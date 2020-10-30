@@ -1,0 +1,16 @@
+
+{% block title %}Maps{% endblock %} 
+
+{% block jshead %}
+<script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo3MUIU2NIGnXsRjlLf5l84XhJTHDaYT0&callback=initMap">
+</script>
+<script src="static/js/index.js"></script>
+{% endblock %}
+
+{% block body %}
+<h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    
+{% endblock %}

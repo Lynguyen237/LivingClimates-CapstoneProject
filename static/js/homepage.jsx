@@ -3,15 +3,21 @@ function Homepage() {
   
   // Create state variable searchResults
   const [searchResults, updateSearchResults] = React.useState([]);
+  const [tmin, setMinTemp] = React.useState('');
+  const [tmax, setMaxTemp] = React.useState('');
+  console.log(tmax)
 
   // Callback function, execute when the form Submit button is clicked
-  function ShowResults() {
+  function ShowResults(evt) {
+
+    evt.preventDefault();
 
     const params = {
       month: document.querySelector('#month').value,
       tavg: document.querySelector('#tavg').value,
       tmax: document.querySelector('#tmax').value,
-      tmin: document.querySelector('#tmin').value,
+      // tmin: document.querySelector('#tmin').value,
+      tmin: tmin
     };
     
     // jQuery solution - only works if the <form></form> tag is removed
@@ -92,17 +98,18 @@ function Homepage() {
 
         <p>
             <label htmlFor="mintemp">What's your ideal lowest temperature?</label>
-            <input id="tmin" type="number" name="tmin" />
+            <input value={tmin} onChange={evt => setMinTemp(evt.target.value)} id="tmin" type="number" name="tmin" />
         </p>
 
         <p>
             <label htmlFor="maxtemp">What's your ideal highest temperature?</label>
-            <input id="tmax" type="number" name="tmax"/>
+            <input value={tmax} onChange={evt => setMaxTemp(evt.target.value)} id="tmax" type="number" name="tmax"/>
         </p>
 
         <input type="submit" onClick={ShowResults} value="Show me the world"/>
 
       </form>
+      <br />
       <br />
       <div>{cities}</div>
     </React.Fragment>

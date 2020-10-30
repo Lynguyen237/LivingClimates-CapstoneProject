@@ -62,7 +62,7 @@ function Homepage() {
   }
   return (
     <React.Fragment>
-      {/* <form id="search_filter"> */}
+      <form id="search_filter">
         <p>
           <label htmlFor="month">Choose the month(s) you want to travel</label>
           <select id="month" name="month" multiple>
@@ -102,7 +102,7 @@ function Homepage() {
 
         <input type="submit" onClick={ShowResults} value="Show me the world"/>
 
-      {/* </form> */}
+      </form>
       <br />
       <div>{cities}</div>
     </React.Fragment>

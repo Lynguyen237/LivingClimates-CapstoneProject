@@ -3,6 +3,8 @@ function Homepage() {
   
   // Create state variable searchResults
   const [searchResults, updateSearchResults] = React.useState([]);
+  // const [month, setMonth] = React.useState([1,2]);
+  // console.log(month);
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
@@ -71,6 +73,7 @@ function Homepage() {
       <form id="search_filter">
         <p>
           <label htmlFor="month">Choose the month(s) you want to travel</label>
+          {/* <select value={month} onChange={evt => setMonth(evt.target.value)} id="month" name="month" multiple> */}
           <select id="month" name="month" multiple>
               <option value='1'>Jan</option>
               <option value='2'>Feb</option>

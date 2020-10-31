@@ -3,9 +3,9 @@ function Homepage() {
   
   // Create state variable searchResults
   const [searchResults, updateSearchResults] = React.useState([]);
+  const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
-  console.log(tmax)
 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
@@ -89,7 +89,7 @@ function Homepage() {
 
         <p>
           <label htmlFor="avgtemp">What's your ideal average temperature?</label>
-          <select id="tavg" name="tavg">
+          <select value={tavg} onChange={evt => setAvgTemp(evt.target.value)} id="tavg" name="tavg">
               <option value='under10'>Under 10</option>
               <option value='10to20'>Between 10-20</option>
               <option value='above20'>From 20</option>

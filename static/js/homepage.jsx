@@ -1,10 +1,10 @@
-// "use strict";
+"use strict";
+
 function Homepage() {
   
-  // Create state variable searchResults
+  // Create state variables
   const [searchResults, updateSearchResults] = React.useState([]);
-  // const [month, setMonth] = React.useState([1,2]);
-  // console.log(month);
+  const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
@@ -15,37 +15,23 @@ function Homepage() {
     evt.preventDefault();
 
     const params = {
-      month: document.querySelector('#month').value,
-      tavg: document.querySelector('#tavg').value,
-      tmax: document.querySelector('#tmax').value,
-      // tmin: document.querySelector('#tmin').value,
-      tmin: tmin
+      month: month,
+      tavg: tavg,
+      tmax: tmax,
+      tmin: tmin // If without state variables: tmin: document.querySelector('#tmin').value
     };
     
-    // jQuery solution - only works if the <form></form> tag is removed
-    // $.get("/results.json", params, (response) => updateSearchResults(response.city))
-    
-    // let url = new URL('http://0.0.0.0:5000/results.json?');
-    // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-    // console.log(url)
-
-    fetch("/results.json?" + new URLSearchParams(params), {
-      mode: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
+    // Retrieve the data from the json route given the parameters entered by users
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch("/results.json?" + new URLSearchParams(params))
     .then((response) => response.json())
-    //Update the searchResults variable with the data from the results.json route
-    .then((data) => {
-      console.log(data.city);
-      updateSearchResults(data.city)
-    }) 
+    .then((data) => updateSearchResults(data.city)) //Update the searchResults with the data from the results.json route
+    
+    console.log(month)
+    // jQuery solution - if not using fetch
+    // $.get("/results.json", params, (response) => updateSearchResults(response.city))
+    }
 
-    console.log(searchResults) // Why this is printed out an empty list
-
-  }
 
   // Create a function to show each city in the search result as a bullet point
   function CityInfo(props) {
@@ -59,6 +45,8 @@ function Homepage() {
   // Create an empty list for the cities
   const cities = []
 
+  // Loop through searchResults (list of objects from /results.json),
+  // create a bullet point for each city using CityInfo function
   for (const city of searchResults) {
     cities.push(
       <CityInfo
@@ -68,13 +56,26 @@ function Homepage() {
       />
     )
   }
+  
+
   return (
     <React.Fragment>
       <form id="search_filter">
         <p>
-          <label htmlFor="month">Choose the month(s) you want to travel</label>
-          {/* <select value={month} onChange={evt => setMonth(evt.target.value)} id="month" name="month" multiple> */}
-          <select id="month" name="month" multiple>
+          <label htmlFor="month">Choose the month(s) you want to travel </label>
+          <select /* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */
+            value={month} 
+            onChange={evt => {
+              const selectedMonths=[];
+              for (let i=0; i< evt.target.selectedOptions.length; i++) {
+                selectedMonths.push(parseInt(evt.target.selectedOptions[i].value));
+              }
+              setMonth(selectedMonths);
+            }} 
+            id="month" 
+            name="month" 
+            multiple
+          >
               <option value='1'>Jan</option>
               <option value='2'>Feb</option>
               <option value='3'>Mar</option>
@@ -100,12 +101,12 @@ function Homepage() {
         </p>
 
         <p>
-            <label htmlFor="mintemp">What's your ideal lowest temperature?</label>
+            <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
             <input value={tmin} onChange={evt => setMinTemp(evt.target.value)} id="tmin" type="number" name="tmin" />
         </p>
 
         <p>
-            <label htmlFor="maxtemp">What's your ideal highest temperature?</label>
+            <label htmlFor="maxtemp">What's your ideal highest temperature? </label>
             <input value={tmax} onChange={evt => setMaxTemp(evt.target.value)} id="tmax" type="number" name="tmax"/>
         </p>
 

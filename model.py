@@ -1,28 +1,53 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+from flask import jsonify # For query troubleshooting
 
 # import request_climate
 
 db = SQLAlchemy()
 
 class City(db.Model):
-    """ Coordinate comprised of lat & lon """
+    """ Cities with their lat, lon, and country info """
     
     __tablename__ = 'cities'
 
     location_id = db.Column(db.Integer,
                            autoincrement=True,
-                           primary_key=True,)
+                           primary_key=True)
     city_name = db.Column(db.String, nullable=False)
+    iso2 = db.Column(db.String) # country 2-letter code
     country = db.Column(db.String, nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
+    pop = db.Column(db.Integer)
 
-    #climates = a list of Climate object by months
-    
+    #climates = a list of Climate objects by months
+    #continent = a list of Continent objects
+
     def __repr__(self):
         """Show coordinate's lat and long"""
         return f'<city={self.city_name}: lat={self.lat} lon={self.lon}>'
+
+
+class Continent(db.Model):
+    """List of countries and their continents"""
+
+    __tablename__ = 'continents'
+
+    continent_id = db.Column(db.Integer,
+                           autoincrement=True,
+                           primary_key=True)
+    continent_name = db.Column(db.String, nullable=False)    
+    continent_code = db.Column(db.String, nullable=False)
+    location_id = db.Column(db.Integer, db.ForeignKey('cities.location_id'))
+    
+    cities = db.Relationship ('City', backref='continent')
+
+    # climates = a list of Climate objects associated with each country
+
+    def __repr__(self):
+        """Show country name, 2_letter_country_code, continent"""
+        return f'<country={self.continent_code} continent={self.continent}>'
 
 
 class Climate(db.Model):
@@ -42,8 +67,10 @@ class Climate(db.Model):
     tsun = db.Column(db.Integer)
 
     location_id = db.Column(db.Integer, db.ForeignKey('cities.location_id'))
-
+    continent_id = db.Column(db.Integer, db.ForeignKey('continents.continent_id'))
+    
     city = db.relationship('City', backref='climates')
+    continent = db.relationship('Continent', backref='climates')
     # lat = db.Column(db.Float, nullable=False)
     # lon = db.Column(db.Float, nullable=False)
 

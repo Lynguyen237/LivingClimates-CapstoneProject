@@ -17,20 +17,47 @@ model.db.create_all()
 with open('data/samplecities.json') as f:
     city_list = json.loads(f.read())
 
-# Create cities, store them in a list to add climate data later
+# Create cities (city objects), store them in a list to add climate data later
 cities_in_db = []
-for city in city_list: #city is a dictionary & city_data a list of dictionaries
-    city_name, country, lat, lon = (city['city_ascii'],
-                                    city['country'],
-                                    city['lat'],
-                                    city['lng'])
+for city in city_list: #city is a dictionary & city_list a list of dictionaries
+    city_name, country, iso2, lat, lon, pop = (city['city_ascii'],
+                                               city['country'],
+                                               city['iso2'],
+                                               city['lat'],
+                                               city['lng'],
+                                               city['population'])
     # create a city object
-    db_city = crud.create_city(city_name, country, lat, lon)
+    db_city = crud.create_city(city_name, country, iso2, lat, lon, pop)
     cities_in_db.append(db_city)
+
+
+with open('data/continent.json') as f:
+    continent_list = json.loads(f.read())
+
+continents_in_db = {}
+for continent in continent_list:
+    continent_name, continent_code = (continent['Continent_Name'],
+                                      continent['Continent_Code'])
+    # create a continent object
+    db_continent = crud.create_continent(continent_name, continent_code)
+    continents_in_db [continent_code] = db_continent
+
+
+with open('data/country-continent.json') as f:
+    country_continent = json.loads(f.read())
+
+country_continent_dict = {}
+for item in country_continent:
+    iso2 = item['Two_Leter_Country_Code']
+    country_continent_dict[iso2] = continents_in_db[item['Continent_Code']]
+
 
 # Loop over the list of city object 
 # and create corresponding climate data
 for city in cities_in_db:
+    # Associate the city with the right continent
+    continent = country_continent_dict[city.iso2]
+
     # Request 12-month climate data for a given city
     climate_data = get_climate(city.lat, city.lon) 
     
@@ -44,7 +71,8 @@ for city in cities_in_db:
                                   month_data['tmax'],
                                   month_data['tmin'],
                                   month_data['tsun'])
-
+        
+        # Create the climate rows in the 'climates' table
         db_climate = crud.create_climate (month,
                                           prcp,
                                           pres,

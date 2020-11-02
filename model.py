@@ -41,13 +41,13 @@ class Continent(db.Model):
     continent_code = db.Column(db.String, nullable=False)
     location_id = db.Column(db.Integer, db.ForeignKey('cities.location_id'))
     
-    cities = db.Relationship ('City', backref='continent')
+    cities = db.relationship ('City', backref='continent')
 
     # climates = a list of Climate objects associated with each country
 
     def __repr__(self):
         """Show country name, 2_letter_country_code, continent"""
-        return f'<country={self.continent_code} continent={self.continent}>'
+        return f'<continent_code={self.continent_code} continent={self.continent_name}>'
 
 
 class Climate(db.Model):
@@ -71,8 +71,6 @@ class Climate(db.Model):
     
     city = db.relationship('City', backref='climates')
     continent = db.relationship('Continent', backref='climates')
-    # lat = db.Column(db.Float, nullable=False)
-    # lon = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         """Show month & avg temp """

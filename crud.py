@@ -1,14 +1,16 @@
 """CRUD operations"""
 
-from model import db, City, Climate, connect_to_db
+from model import db, City, Continent, Climate, connect_to_db
 
 
-def create_city (city_name, country, lat, lon):
+def create_city (city_name, country, iso2, lat, lon, pop):
     """Create and return a city with their lat & lon"""
     city = City(city_name=city_name, 
                 country=country, 
+                iso2=iso2,
                 lat=lat, 
-                lon=lon)
+                lon=lon,
+                pop=pop)
 
     db.session.add(city)
     db.session.commit()
@@ -16,7 +18,17 @@ def create_city (city_name, country, lat, lon):
     return city
 
 
-def create_climate (month, prcp, pres, tavg, tmax, tmin, tsun, city):
+def create_continent(continent_name, continent_code):
+    """Create and return a continent"""
+    continent = Continent(continent_name=continent_name,
+                          continent_code=continent_code)
+
+    db.session.add(continent)
+    db.session.commit()
+
+    return continent
+
+def create_climate (month, prcp, pres, tavg, tmax, tmin, tsun, city, continent):
     """Create and return a month climate"""
     climate = Climate(month=month,
                       prcp=prcp,
@@ -25,7 +37,8 @@ def create_climate (month, prcp, pres, tavg, tmax, tmin, tsun, city):
                       tmax=tmax,
                       tmin=tmin,
                       tsun=tsun,
-                      city=city)
+                      city=city,
+                      continent=continent)
     
     db.session.add(climate)
     db.session.commit()

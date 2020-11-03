@@ -16,22 +16,8 @@ model.db.create_all()
 
 #========= CITY TABLE =================
 # Load data from a city JSON file as a list of dictionary and save it in a variable
-# with open('data/samplecities.json') as f:
-#     city_list = json.loads(f.read())
-
-city_list = [{
-    "city": "Tokyo",
-    "city_ascii": "Tokyo",
-    "lat": 35.6897,
-    "lng": 139.6922,
-    "country": "Japan",
-    "iso2": "JP",
-    "iso3": "JPN",
-    "admin_name": "Tōkyō",
-    "capital": "primary",
-    "population": 37977000,
-    "id": 1392685764
-  }]
+with open('data/samplecities.json') as f:
+    city_list = json.loads(f.read())
 
 # Create cities (city objects), store them in a list to add climate data later
 cities_in_db = []

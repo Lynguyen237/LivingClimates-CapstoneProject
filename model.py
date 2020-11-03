@@ -21,8 +21,12 @@ class City(db.Model):
     lon = db.Column(db.Float, nullable=False)
     pop = db.Column(db.Integer)
 
+    continent_id = db.Column(db.Integer, db.ForeignKey('continents.continent_id'))
+
+    continent = db.relationship('Continent', backref='cities')
+   
     #climates = a list of Climate objects by months
-    #continent = a list of Continent objects
+    
 
     def __repr__(self):
         """Show coordinate's lat and long"""
@@ -39,11 +43,11 @@ class Continent(db.Model):
                            primary_key=True)
     continent_name = db.Column(db.String, nullable=False)    
     continent_code = db.Column(db.String, nullable=False)
-    location_id = db.Column(db.Integer, db.ForeignKey('cities.location_id'))
-    
-    cities = db.relationship ('City', backref='continent')
 
-    # climates = a list of Climate objects associated with each country
+    
+    # cities = a list of City objects belonging to a given continent
+
+    # climates = a list of Climate objects associated with each continent
 
     def __repr__(self):
         """Show country name, 2_letter_country_code, continent"""
@@ -99,6 +103,12 @@ if __name__ == '__main__':
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
 
+# Relationship: 
+#   One city or continent can have multiple climates.
+#   One continent can have multiple cities
 
 # Reference: https://fellowship.hackbrightacademy.com/materials/pt7g/exercises/ratings-v2/
+# Reference: https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html
+# In many-to-one, the many table holds the foreign key.
+
     

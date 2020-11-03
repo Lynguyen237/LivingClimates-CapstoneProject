@@ -73,11 +73,9 @@ for item in country_continent:
 # Loop over the list of city objects 
 # and create corresponding climate data
 for city in cities_in_db:
-    # Associate the city with the right continent
+    # Find the city's continent by looking up iso2 key in the country_continent dict
     continent = country_continent_dict[city.iso2]
-    # city.continent.append(continent)
-    continent.cities.append(city) # nov 2
-    city.continent = continent #nov 2
+    city.continent = continent # Associate the city with the right continent via sqlalchemy relationship
 
     # Request 12-month climate data for a given city
     climate_data = get_climate(city.lat, city.lon) 

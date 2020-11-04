@@ -1,6 +1,6 @@
 # from flask import Flask
 from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
-from model import connect_to_db, Climate, City, db, func
+from model import connect_to_db, Climate, Continent, City, db, func
 from flask_debugtoolbar import DebugToolbarExtension # Add Flask DebugToolbar
 
 app = Flask(__name__)
@@ -32,14 +32,14 @@ def homepage():
 
 @app.route('/results.json')
 def get_query_result_json():
-    month = request.args.get('month') # month is a string after being passed
-    month = [int(i) for i in month.split(',')] # Store all the months user chooses in a list
+    month = request.args.get('month') # month is a string after being passed via HTTP
+    month = [int(i) for i in month.split(',')] # Store all the months user chooses as integer in a list
     tavg = request.args.get('tavg')
     tmin = request.args.get('tmin')
     tmax = request.args.get('tmax')
 
     # Connect to db to retrieve the city objects meeting the criteria
-    results = db.session.query(City.city_name, City.country).join(Climate)
+    results = db.session.query(City.city_name, City.country, Continent.continent_name).select_from(City).join(Climate).join(Continent)
 
     if tavg == "under10": 
         results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
@@ -57,18 +57,18 @@ def get_query_result_json():
     if tmax:
         results = results.filter(Climate.tmax <= tmax)
     
-    results = results.group_by(City.city_name, City.country).having(func.count(Climate.month)==len(month)).all()
+    results = results.group_by(City.city_name, City.country, Continent.continent_name).having(func.count(Climate.month)==len(month)).all()
 
     result_list = []
 
     for result in results:
             result_list.append({"city_name":result[0],
-                                 "country":result[1]
+                                "country":result[1],
+                                "continent":result[2]
                                 })
   
     return jsonify({"city": result_list})
     
-
 
 # Old route not handling multiple-month search correctly
 # @app.route('/results.json')

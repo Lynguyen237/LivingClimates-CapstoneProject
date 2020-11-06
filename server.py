@@ -37,6 +37,7 @@ def get_query_result_json():
     tavg = request.args.get('tavg')
     tmin = request.args.get('tmin')
     tmax = request.args.get('tmax')
+    continent = request.args.get('continent')
 
     # Connect to db to retrieve the city objects meeting the criteria
     results = db.session.query(City.city_name, City.country, Continent.continent_name).select_from(City).join(Climate).join(Continent)
@@ -51,20 +52,25 @@ def get_query_result_json():
     else:
         results = results.filter(Climate.month.in_(month), Climate.tavg >= 20)
     
-    # Check if values for tmin and tmax exist, if so add them to the query
+    # Check if the optional filters exist, if so add them to the query
     if tmin:
         results = results.filter(Climate.tmin >= tmin)
     if tmax:
         results = results.filter(Climate.tmax <= tmax)
+    if continent:
+        results = results.filter(Continent.continent_name == continent)
     
-    results = results.group_by(City.city_name, City.country, Continent.continent_name).having(func.count(Climate.month)==len(month)).all()
+    results = results.group_by(City.city_name, City.country, Continent.continent_name).having(
+                func.count(Climate.month)==len(month)).order_by(func.random()).limit(20).all()
+                # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
     result_list = []
 
     for result in results:
             result_list.append({"city_name":result[0],
                                 "country":result[1],
-                                "continent":result[2]
+                                "continent":result[2],
+                                # "tavg":result[3],
                                 })
   
     return jsonify({"city": result_list})

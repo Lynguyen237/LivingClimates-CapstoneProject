@@ -8,17 +8,19 @@ function Homepage() {
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
+  const [continent, setContinent] = React.useState('');
 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
 
-    evt.preventDefault();
+    evt.preventDefault(); // Prevent page reload default behavior upon form submission
 
     const params = {
       month: month,
       tavg: tavg,
       tmax: tmax,
-      tmin: tmin // If without state variables: tmin: document.querySelector('#tmin').value
+      tmin: tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
+      continent: continent
     };
     
     // Retrieve the data from the json route given the parameters entered by users
@@ -27,7 +29,7 @@ function Homepage() {
     .then((response) => response.json())
     .then((data) => updateSearchResults(data.city)) //Update the searchResults with the data from the results.json route
     
-    console.log(month)
+    // console.log(month) // Debug if all the months are captured after the submit button is clicked
     // jQuery solution - if not using fetch
     // $.get("/results.json", params, (response) => updateSearchResults(response.city))
     }
@@ -61,6 +63,13 @@ function Homepage() {
   return (
     <React.Fragment>
       <form id="search_filter">
+        {/* <input type="checkbox" value='1'/>
+        <label htmlFor="January">Jan</label>
+        <input type="checkbox" value='2'/>
+        <label htmlFor="February">Feb</label> */}
+
+        {/* <input type="month"/> */}
+
         <p>
           <label htmlFor="month">Choose the month(s) you want to travel </label>
           <select /* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */
@@ -73,7 +82,8 @@ function Homepage() {
               setMonth(selectedMonths);
             }} 
             id="month" 
-            name="month" 
+            name="month"
+            size="5" 
             multiple
           >
               <option value='1'>Jan</option>
@@ -101,13 +111,22 @@ function Homepage() {
         </p>
 
         <p>
-            <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
-            <input value={tmin} onChange={evt => setMinTemp(evt.target.value)} id="tmin" type="number" name="tmin" />
+          <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
+          <input value={tmin} onChange={evt => setMinTemp(evt.target.value)} id="tmin" type="number" name="tmin" />
         </p>
 
         <p>
-            <label htmlFor="maxtemp">What's your ideal highest temperature? </label>
-            <input value={tmax} onChange={evt => setMaxTemp(evt.target.value)} id="tmax" type="number" name="tmax"/>
+          <label htmlFor="maxtemp">What's your ideal highest temperature? </label>
+          <input value={tmax} onChange={evt => setMaxTemp(evt.target.value)} id="tmax" type="number" name="tmax"/>
+        </p>
+
+        <p>
+          <label htmlFor="continent">Which continent you want to visit? </label>
+          <select value={continent} onChange={evt => setContinent(evt.target.value)} id="continent" name="continent">
+              <option></option>
+              <option value="Asia">Asia</option>
+              <option value="Africa">Africa</option>
+          </select>
         </p>
 
         <input type="submit" onClick={ShowResults} value="Show me the world"/>

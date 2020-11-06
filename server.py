@@ -40,7 +40,9 @@ def get_query_result_json():
     continent = request.args.get('continent')
 
     # Connect to db to retrieve the city objects meeting the criteria
-    results = db.session.query(City.city_name, City.country, Continent.continent_name).select_from(City).join(Climate).join(Continent)
+    results = db.session.query(
+                City.city_name, City.country, Continent.continent_name, City.lat, City.lon
+                ).select_from(City).join(Climate).join(Continent)
 
     if tavg == "under10": 
         results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
@@ -60,7 +62,7 @@ def get_query_result_json():
     if continent:
         results = results.filter(Continent.continent_name == continent)
     
-    results = results.group_by(City.city_name, City.country, Continent.continent_name).having(
+    results = results.group_by(Continent.continent_name, City.city_name, City.country, City.lat, City.lon).having(
                 func.count(Climate.month)==len(month)).order_by(func.random()).limit(20).all()
                 # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
@@ -70,7 +72,8 @@ def get_query_result_json():
             result_list.append({"city_name":result[0],
                                 "country":result[1],
                                 "continent":result[2],
-                                # "tavg":result[3],
+                                "lat":result[3],
+                                "lon":result[4]
                                 })
   
     return jsonify({"city": result_list})

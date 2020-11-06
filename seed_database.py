@@ -6,9 +6,9 @@ import model
 import server
 from request_climate import get_climate
 
-#only needed if changing happens in model.py or database is changed
-os.system('dropdb climates') 
-os.system('createdb climates')
+# dropdb and createddb only needed if changing happens in model.py or database is changed
+# os.system('dropdb climates') 
+# os.system('createdb climates')
 
 model.connect_to_db(server.app)
 model.db.create_all()

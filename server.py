@@ -171,7 +171,7 @@ def get_query_result_json():
 @app.route('/maps')
 def show_map():
     """Show map with a marker"""
-    return render_template('maps-react.html')   
+    return render_template('maps.html')   
 
 
 if __name__ == '__main__':

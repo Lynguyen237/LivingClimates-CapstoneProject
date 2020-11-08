@@ -168,10 +168,10 @@ def get_query_result_json():
 #     return render_template('results.html', results=results, month_dict=month_dict)
 
 
-# @app.route('/maps')
-# def show_map():
-#     """Show map with a marker"""
-#     return render_template('maps.html')   
+@app.route('/maps')
+def show_map():
+    """Show map with a marker"""
+    return render_template('maps-react.html')   
 
 
 if __name__ == '__main__':

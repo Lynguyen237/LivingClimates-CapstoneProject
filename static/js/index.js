@@ -1,17 +1,20 @@
 // Maps API function: https://developers.google.com/maps/documentation/javascript/reference
 // Initialize and add the map
-function initMap() {
+
+  
+  alert(Hello())
+  
   // The location of Uluru
-  const center = { lat: 34.052235, lng: -118.243683 };
+  // const center = { lat: 34.052235, lng: -118.243683 };
   
   // Multiple locations
-  const locations = [
-    ['Los Angeles', 34.052235, -118.243683],
-    ['Santa Monica', 34.024212, -118.496475],
-    ['Redondo Beach', 33.849182, -118.388405],
-    ['Newport Beach', 33.628342, -117.927933],
-    ['Long Beach', 33.770050, -118.193739]
-  ];
+  // const locations = [
+  //   ['Los Angeles', 34.052235, -118.243683],
+  //   ['Santa Monica', 34.024212, -118.496475],
+  //   ['Redondo Beach', 33.849182, -118.388405],
+  //   ['Newport Beach', 33.628342, -117.927933],
+  //   ['Long Beach', 33.770050, -118.193739]
+  // ];
   
   // const locations = [
   //   ['Philz Coffee<br>\
@@ -33,13 +36,14 @@ function initMap() {
 
 
   // The map, centered at Uluru
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 9,
-    center: center,
-  });
+  // const map = new google.maps.Map(document.getElementById("map"), {
+  //   zoom: 9,
+  //   center: center,
+  // });
+  
 
   // infowindow variable as a new Google Maps Info Window to display a marker's information
-  let infowindow = new google.maps.InfoWindow({});
+  // let infowindow = new google.maps.InfoWindow({});
 
 
   // The marker, positioned at Uluru
@@ -48,20 +52,20 @@ function initMap() {
   //   map: map,
   // });
 
-  let marker, count;
+//   let marker, count;
 
-  for (count=0; count < locations.length; count++) {
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(locations[count][1],locations[count][2]),
-      map: map,
-      title: locations[count][0]
-    });
+//   for (count=0; count < locations.length; count++) {
+//     marker = new google.maps.Marker({
+//       position: new google.maps.LatLng(locations[count][1],locations[count][2]),
+//       map: map,
+//       title: locations[count][0]
+//     });
 
-    google.maps.event.addListener(marker, 'hover', (function (marker, count) {
-      return function () {
-        infowindow.setContent(locations[count][0]);
-        // infowindow.open(map, marker);
-      }
-    })(marker, count));
-  }
-}
+//     google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+//       return function () {
+//         infowindow.setContent(locations[count][0]);
+//         // infowindow.open(map, marker);
+//       }
+//     })(marker, count));
+//   }
+// }

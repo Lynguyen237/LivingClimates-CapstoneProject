@@ -9,7 +9,16 @@
     defer
 ></script>
 
+
+<script src="./static/js/maps.jsx" type="text/jsx"></script>
+<script>
+  import Hello from "./static/js/maps.jsx"
+  alert(Hello())
+</script>
+
 <script src="./static/js/index.js"></script>
+
+
 
 {% endblock %}
 
@@ -17,6 +26,7 @@
 <h3>My Google Maps Demo</h3>
     <!-- The div element for the map -->
     <div id="map"></div>
+    <div id="map-react"></div>
 {% endblock %}
 
 <!-- <!DOCTYPE html>

@@ -3,11 +3,11 @@
   text-align: center;
 }
 
-#month {
+/* #month {
   width: 100px;
   display: block;
   margin: auto;
-}
+} */
 
 /* Set the size of the div element that contains the map */
 #map {

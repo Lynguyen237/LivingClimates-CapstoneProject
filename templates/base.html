@@ -7,11 +7,12 @@
   Insert the below tag to tell the browser if there is no favicon.ico, don't try requesting. -->
   <link rel="icon" href="data:,">
 
-  <!-- We'll load React dependencies on all pages for this app. -->
+  <!-- We'll load React dependencies on all pages for this app from trading card lab -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-  <!-- Do you still need the above react package (taken from trading card lab)? -->
+  <!-- End of React -->
+
   
   <!-- Add jQuery -->
   <script
@@ -26,7 +27,10 @@
   {% block jshead %}
   {% endblock %}
 
-  <!-- Bootstrap CSS from getbootstrap.com -->
+  <!-- JSX file for navigation bar -->
+  <!-- <script src="/static/js/navigation.jsx" type="text/jsx"></script> -->
+
+  <!-- Bootstrap CSS from getbootstrap.com or https://react-bootstrap.github.io/getting-started/introduction/ -->
   <link 
     rel="stylesheet" 
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -37,7 +41,10 @@
   <link href="/static/css/site.css" rel="stylesheet">
 
 </head>
+
+
 <body>
+  <div id="navigation"></div>
   <h1>Welcome to living climate!</h1>
 
   <!-- Include the page's content with this block. -->
@@ -48,4 +55,6 @@
   {% block jsbody %}
   {% endblock %}
 </body>
+
+
 </html>

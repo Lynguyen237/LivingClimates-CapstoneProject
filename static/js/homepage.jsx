@@ -62,6 +62,7 @@ function Homepage() {
 
   return (
     <React.Fragment>
+      
       <form id="search_filter">
         {/* <input type="checkbox" value='1'/>
         <label htmlFor="January">Jan</label>
@@ -124,8 +125,12 @@ function Homepage() {
           <label htmlFor="continent">Which continent you want to visit? </label>
           <select value={continent} onChange={evt => setContinent(evt.target.value)} id="continent" name="continent">
               <option></option>
-              <option value="Asia">Asia</option>
               <option value="Africa">Africa</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="North America">North America</option>
+              <option value="Oceania">Oceania</option>
+              <option value="South America">South America</option>
           </select>
         </p>
 

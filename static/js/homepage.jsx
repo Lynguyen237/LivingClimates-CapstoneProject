@@ -9,9 +9,8 @@ function Homepage() {
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
   const [continent, setContinent] = React.useState('');
-
   const [hasResults, setHasResults] = React.useState(false);
-  let haveSearchResults=false;
+ 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
 

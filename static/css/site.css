@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.container {
+  display:block;
+  margin: auto;
+}
 /* #month {
   width: 100px;
   display: block;

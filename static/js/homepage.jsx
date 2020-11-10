@@ -27,7 +27,11 @@ function Homepage() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("/results.json?" + new URLSearchParams(params))
     .then((response) => response.json())
-    .then((data) => updateSearchResults(data.city)) //Update the searchResults with the data from the results.json route
+    .then((data) => {
+      if(data.city.length > 1) {        // If the query result is not empty,
+        updateSearchResults(data.city); // update the searchResults with the data from the results.json route
+      }
+    }) 
     
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
     // jQuery solution - if not using fetch
@@ -45,10 +49,12 @@ function Homepage() {
   }
 
   // Create an empty list for the cities
+  // const [cities, updateCities] = React.useState([])
   const cities = []
 
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
+  
   for (const city of searchResults) {
     cities.push(
       <CityInfo
@@ -59,17 +65,12 @@ function Homepage() {
     )
   }
   
+ 
 
   return (
     <React.Fragment>
       
       <form id="search_filter">
-        {/* <input type="checkbox" value='1'/>
-        <label htmlFor="January">Jan</label>
-        <input type="checkbox" value='2'/>
-        <label htmlFor="February">Feb</label> */}
-
-        {/* <input type="month"/> */}
 
         <p>
           <label htmlFor="month">Choose the month(s) you want to travel </label>

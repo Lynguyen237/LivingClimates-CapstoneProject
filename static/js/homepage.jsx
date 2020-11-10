@@ -10,6 +10,8 @@ function Homepage() {
   const [tmax, setMaxTemp] = React.useState('');
   const [continent, setContinent] = React.useState('');
 
+  const [hasResults, setHasResults] = React.useState(false);
+  let haveSearchResults=false;
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
 
@@ -27,8 +29,11 @@ function Homepage() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("/results.json?" + new URLSearchParams(params))
     .then((response) => response.json())
-    .then((data) => updateSearchResults(data.city)) //Update the searchResults with the data from the results.json route
-    
+    .then((data) => {
+      haveSearchResults=true;
+      setHasResults(true);
+      updateSearchResults(data.city) //Update the searchResults with the data from the results.json route
+    })
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
     // jQuery solution - if not using fetch
     // $.get("/results.json", params, (response) => updateSearchResults(response.city))
@@ -44,6 +49,7 @@ function Homepage() {
     )
   }
 
+ 
   // Create an empty list for the cities
   const cities = []
 
@@ -134,7 +140,7 @@ function Homepage() {
       </form>
       <br />
       <br />
-      <div>{cities}</div>
+      {searchResults.length==0 && hasResults? <div>Something</div>: <div>{cities}</div> }
     </React.Fragment>
   )
 

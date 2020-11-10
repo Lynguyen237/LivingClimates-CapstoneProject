@@ -5,10 +5,9 @@
 {% block jshead %}
 <!-- The defer attribute is a boolean attribute. It specifies that the script is executed when the page has finished parsing. -->
 <script 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0U4k3HBpsTD9IkMfDSo-rALB5sKyVoY4"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0U4k3HBpsTD9IkMfDSo-rALB5sKyVoY4&callback=initMap"
     defer
 ></script>
-
 
 <script src="./static/js/maps.jsx" type="text/jsx"></script>
 
@@ -21,6 +20,8 @@
     <!-- The div element for the map -->
     <div id="map"></div>
     <div id="map-react"></div>
+
+
 {% endblock %}
 
 <!-- <!DOCTYPE html>

@@ -9,6 +9,7 @@ function Homepage() {
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
   const [continent, setContinent] = React.useState('');
+  const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
@@ -28,9 +29,8 @@ function Homepage() {
     fetch("/results.json?" + new URLSearchParams(params))
     .then((response) => response.json())
     .then((data) => {
-      if(data.city.length > 1) {        // If the query result is not empty,
-        updateSearchResults(data.city); // update the searchResults with the data from the results.json route
-      }
+      setHasResults(true);
+      updateSearchResults(data.city); // update the searchResults with the data from the results.json route
     }) 
     
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
@@ -140,7 +140,8 @@ function Homepage() {
       </form>
       <br />
       <br />
-      <div>{cities}</div>
+      {/* When the result is empty AND resResults == true, display error message, else display the results */}
+      {searchResults.length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{cities}</div>}
     </React.Fragment>
   )
 

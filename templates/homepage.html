@@ -3,6 +3,14 @@
 {% block title %}Homepage{% endblock %} 
 
 {% block jshead %}
+<!-- Google Maps API call -->
+<!-- The defer attribute is a boolean attribute. It specifies that the script is executed when the page has finished parsing. -->
+<script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0U4k3HBpsTD9IkMfDSo-rALB5sKyVoY4"
+    defer
+></script>
+
+<!-- React file -->
 <script src="/static/js/homepage.jsx" type="text/jsx"></script>
 {% endblock %}
 
@@ -51,8 +59,10 @@
 
 <!-- Mount the react component to display the search result -->
 <div id="search_results"></div>
-<!-- Testing React -->
-<div id="test"></div>
+
+<!-- Show Map -->
+<div id="map"></div>
+
 {% endblock %}
 
 

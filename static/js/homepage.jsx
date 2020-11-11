@@ -11,6 +11,16 @@ function Homepage() {
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false);
  
+
+  console.log(`searchResults: ${searchResults}`)
+
+  // const center = { lat: searchResults[0]['lat'], lng: searchResults[0]['lon'] };
+
+  const center = {lat: 34.052235, lng: -118.243683}
+  const locations = [
+      ['Los Angeles', 34.052235, -118.243683],
+  ];
+
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
 
@@ -32,10 +42,38 @@ function Homepage() {
       setHasResults(true);
       updateSearchResults(data.city) //Update the searchResults with the data from the results.json route
     })
+    
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
-    // jQuery solution - if not using fetch
-    // $.get("/results.json", params, (response) => updateSearchResults(response.city))
+    
+    
+    
+
+    // Show Map after form button is clicked
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 9,
+      center: center,
+    });
+
+    console.log(map);
+
+    let infowindow = new google.maps.InfoWindow({});
+
+    let marker, count;
+
+    for (count=0; count < locations.length; count++) {
+      marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[count][1],locations[count][2]),
+      map: map,
+      title: locations[count][0]
+      });
+
+      google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+        return function () {
+          infowindow.setContent(locations[count][0]);
+        }
+      })(marker, count));
     }
+  }
 
 
   // Create a function to show each city in the search result as a bullet point
@@ -63,7 +101,6 @@ function Homepage() {
     )
   }
   
-  // DISPLAY MAPS
 
   return (
     <React.Fragment>

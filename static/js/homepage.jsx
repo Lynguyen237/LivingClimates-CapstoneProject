@@ -29,7 +29,6 @@ function Homepage() {
     fetch("/results.json?" + new URLSearchParams(params))
     .then((response) => response.json())
     .then((data) => {
-      haveSearchResults=true;
       setHasResults(true);
       updateSearchResults(data.city) //Update the searchResults with the data from the results.json route
     })
@@ -64,6 +63,7 @@ function Homepage() {
     )
   }
   
+  // DISPLAY MAPS
 
   return (
     <React.Fragment>

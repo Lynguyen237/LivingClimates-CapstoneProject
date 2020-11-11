@@ -56,8 +56,38 @@
 
 // ==== With George's help ====
 
-// window.initMap = function() {alert("hi")}
+// function InitMap() {
+//     const center = { lat: 34.052235, lng: -118.243683 };
 
+//     const locations = [
+//         ['Los Angeles', 34.052235, -118.243683],
+//     ];
+
+//     const map = new google.maps.Map(document.getElementById("map"), {
+//         zoom: 9,
+//         center: center,
+//     });
+    
+//     let infowindow = new google.maps.InfoWindow({});
+
+//     let marker, count;
+
+//     for (count=0; count < locations.length; count++) {
+//         marker = new google.maps.Marker({
+//         position: new google.maps.LatLng(locations[count][1],locations[count][2]),
+//         map: map,
+//         title: locations[count][0]
+//         });
+
+//         google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+//         return function () {
+//             infowindow.setContent(locations[count][0]);
+//             // infowindow.open(map, marker);
+//         }
+//         })(marker, count));
+//     }
+  
+    
 function InitMap() {
     const center = { lat: 34.052235, lng: -118.243683 };
 
@@ -65,39 +95,40 @@ function InitMap() {
         ['Los Angeles', 34.052235, -118.243683],
     ];
 
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 9,
-        center: center,
-    });
+    function ShowMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 9,
+            center: center,
+        });
 
-    // let infowindow = new google.maps.InfoWindow({});
+        let infowindow = new google.maps.InfoWindow({});
 
-    // let marker, count;
+        let marker, count;
 
-    // for (count=0; count < locations.length; count++) {
-    //     marker = new google.maps.Marker({
-    //     position: new google.maps.LatLng(locations[count][1],locations[count][2]),
-    //     map: map,
-    //     title: locations[count][0]
-    //     });
+        for (count=0; count < locations.length; count++) {
+                marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[count][1],locations[count][2]),
+                map: map,
+                title: locations[count][0]
+                });
+        
+                google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+                return function () {
+                    infowindow.setContent(locations[count][0]);
+                    // infowindow.open(map, marker);
+                }
+                })(marker, count));
+            }
+    }
 
-    //     google.maps.event.addListener(marker, 'hover', (function (marker, count) {
-    //     return function () {
-    //         infowindow.setContent(locations[count][0]);
-    //         // infowindow.open(map, marker);
-    //     }
-    //     })(marker, count));
-    // }
-  
     return (
       <React.Fragment>
-        <p>hello</p>
-        {/* <input type="submit" value="Show Map" onClick={()=>InitMap()}/> */}
+        <input type="submit" value="Show Map" onClick={()=>ShowMap()}/>
+        {/* <p>{map}</p> */}
       </React.Fragment>
     )
     // ReactDOM.render(<MapComponent title="hello1" />, document.querySelector('#map-react'))
 }
-
 
 // InitMap();
 

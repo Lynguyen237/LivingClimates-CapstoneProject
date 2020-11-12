@@ -1,7 +1,45 @@
 "use strict";
 
-function Homepage() {
+
+
+function convertToCelcius(temp) {
+  return (temp-32)*5/9;
+}
+
+function TempFormatToggle(props) {
   
+  const [checked, setChecked] = React.useState(false);
+  const [radioValue, setRadioValue] = React.useState('C');
+  
+  const radios = [
+    { name: 'C', value: 'C' },
+    { name: 'F', value: 'F' }
+  ];
+
+  return (
+    <React.Fragment>
+      <ReactBootstrap.ButtonGroup toggle>
+        {radios.map((radio, idx) => (
+          <ReactBootstrap.ToggleButton
+            key={idx}
+            type="radio"
+            variant="secondary"
+            name="radio"
+            value={radio.value}
+            checked={radioValue === radio.value}
+            onChange={(e) => props.setTempFormat(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ReactBootstrap.ToggleButton>
+        ))}
+      </ReactBootstrap.ButtonGroup>
+    </React.Fragment>
+  );
+}
+
+
+function Homepage() {
+
   // Create state variables
   const [searchResults, updateSearchResults] = React.useState([]);
   const [month, setMonth] = React.useState([1]);
@@ -10,16 +48,17 @@ function Homepage() {
   const [tmax, setMaxTemp] = React.useState('');
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false);
+  const [tempFormat, setTempFormat] = React.useState('C');
  
 
-  console.log(`searchResults: ${searchResults}`)
+  console.log(`searchResults line 15: ${searchResults}`)
 
   // const center = { lat: searchResults[0]['lat'], lng: searchResults[0]['lon'] };
 
   const center = {lat: 34.052235, lng: -118.243683}
-  const locations = [
-      ['Los Angeles', 34.052235, -118.243683],
-  ];
+  // const locations = [
+  //     ['Los Angeles', 34.052235, -118.243683],
+  // ];
 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
@@ -29,8 +68,8 @@ function Homepage() {
     const params = {
       month: month,
       tavg: tavg,
-      tmax: tmax,
-      tmin: tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
+      tmax: tempFormat === 'F' ? convertToCelcius(tmax) : tmax,
+      tmin: tempFormat === 'F' ? convertToCelcius(tmin) : tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
       continent: continent
     };
     
@@ -40,41 +79,77 @@ function Homepage() {
     .then((response) => response.json())
     .then((data) => {
       setHasResults(true);
+      console.log(data);
       updateSearchResults(data.city) //Update the searchResults with the data from the results.json route
     })
     
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
     
-    
-    
 
     // Show Map after form button is clicked
+    // const map = new google.maps.Map(document.getElementById("map"), {
+    //   zoom: 9,
+    //   center: center,
+    // });
+
+    // let infowindow = new google.maps.InfoWindow({});
+
+    // let marker, count;
+
+    // console.log(searchResults.length)
+    // for (count=0; count < searchResults.length; count++) {
+    //   marker = new google.maps.Marker({
+    //     position: new google.maps.LatLng(searchResults[count].lat,searchResults[count].lon),
+    //     map: map,
+    //     title: searchResults[count].city_name
+    //   });
+    //   console.log(searchResults)
+    //   console.log(searchResults[count].lat)
+
+    //   google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+    //     return function () {
+    //       infowindow.setContent(searchResults[count].city_name);
+    //     }
+    //   })(marker, count));
+    // }
+  }
+
+  // testing
+
+  if (searchResults.length){
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 9,
-      center: center,
+      // zoom: 9,
+      // center: center,
     });
 
-    console.log(map);
+    // console.log(map);
 
     let infowindow = new google.maps.InfoWindow({});
 
     let marker, count;
 
-    for (count=0; count < locations.length; count++) {
+    console.log(searchResults.length)
+
+    const bounds = new google.maps.LatLngBounds();
+
+    for (count=0; count < searchResults.length; count++) {
       marker = new google.maps.Marker({
-      position: new google.maps.LatLng(locations[count][1],locations[count][2]),
-      map: map,
-      title: locations[count][0]
+        position: new google.maps.LatLng(searchResults[count].lat,searchResults[count].lon),
+        map: map,
+        title: searchResults[count].city_name
       });
+
+      bounds.extend(marker.getPosition());
 
       google.maps.event.addListener(marker, 'hover', (function (marker, count) {
         return function () {
-          infowindow.setContent(locations[count][0]);
+          infowindow.setContent(searchResults[count].city_name);
         }
       })(marker, count));
     }
-  }
 
+    map.fitBounds(bounds);
+  }
 
   // Create a function to show each city in the search result as a bullet point
   function CityInfo(props) {
@@ -104,13 +179,8 @@ function Homepage() {
 
   return (
     <React.Fragment>
+      <TempFormatToggle setTempFormat={setTempFormat}/>
       <form id="search_filter">
-        {/* <input type="checkbox" value='1'/>
-        <label htmlFor="January">Jan</label>
-        <input type="checkbox" value='2'/>
-        <label htmlFor="February">Feb</label> */}
-
-        {/* <input type="month"/> */}
 
         <p>
           <label htmlFor="month">Choose the month(s) you want to travel </label>
@@ -177,6 +247,7 @@ function Homepage() {
       <br />
       <br />
       {searchResults.length==0 && hasResults? <div>Something</div>: <div>{cities}</div> }
+      
     </React.Fragment>
   )
 

@@ -69,7 +69,7 @@ function Homepage() {
       month: month,
       tavg: tavg,
       tmax: tempFormat === 'F' ? convertToCelcius(tmax) : tmax,
-      tmin: tempFormat === 'F' ? convertToCelcius(tmin) : tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
+      tmin: tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
       continent: continent
     };
     
@@ -84,38 +84,10 @@ function Homepage() {
     })
     
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
-    
-
-    // Show Map after form button is clicked
-    // const map = new google.maps.Map(document.getElementById("map"), {
-    //   zoom: 9,
-    //   center: center,
-    // });
-
-    // let infowindow = new google.maps.InfoWindow({});
-
-    // let marker, count;
-
-    // console.log(searchResults.length)
-    // for (count=0; count < searchResults.length; count++) {
-    //   marker = new google.maps.Marker({
-    //     position: new google.maps.LatLng(searchResults[count].lat,searchResults[count].lon),
-    //     map: map,
-    //     title: searchResults[count].city_name
-    //   });
-    //   console.log(searchResults)
-    //   console.log(searchResults[count].lat)
-
-    //   google.maps.event.addListener(marker, 'hover', (function (marker, count) {
-    //     return function () {
-    //       infowindow.setContent(searchResults[count].city_name);
-    //     }
-    //   })(marker, count));
-    // }
+ 
   }
 
-  // testing
-
+  // Show Map
   if (searchResults.length){
     const map = new google.maps.Map(document.getElementById("map"), {
       // zoom: 9,
@@ -180,6 +152,7 @@ function Homepage() {
   return (
     <React.Fragment>
       <TempFormatToggle setTempFormat={setTempFormat}/>
+      
       <form id="search_filter">
 
         <p>

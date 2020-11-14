@@ -42,7 +42,8 @@ function Homepage() {
   function CityInfo(props) {
     return (
       <React.Fragment>
-        <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/>
+        {/* <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/> */}
+        <input type="checkbox" id={`${props.id}`} onClick={saveFavorite}/>
         <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country})</label><br/>
       </React.Fragment>
     )
@@ -51,6 +52,7 @@ function Homepage() {
   function saveFavorite(evt) {
     if (evt.target.checked) {
       console.log("saved");
+      console.log(searchResults[evt.target.id]);
     } else {
       console.log("unsaved");
     }
@@ -63,15 +65,24 @@ function Homepage() {
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
   
-  for (const city of searchResults) {
+  for (const [idx, city] of searchResults.entries()) {
     cities.push(
       <CityInfo
       key={city.city_name}
+      id={idx}
       city_name={city.city_name}
       country={city.country}
       />
     )
   }
+
+  // for (const [idx, city] of searchResults.entries()) {
+  //   console.log(idx, city.city_name)
+  // }
+
+  // searchResults.forEach(function (city, idx) {
+  //   console.log(city, idx);
+  // })
   
  
 

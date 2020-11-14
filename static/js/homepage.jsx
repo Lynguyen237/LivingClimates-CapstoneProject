@@ -38,14 +38,22 @@ function Homepage() {
     // $.get("/results.json", params, (response) => updateSearchResults(response.city))
     }
 
-
   // Create a function to show each city in the search result as a bullet point
   function CityInfo(props) {
     return (
       <React.Fragment>
-        <li>{props.city_name} ({props.country})</li>
+        <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/>
+        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country})</label><br/>
       </React.Fragment>
     )
+  }
+  
+  function saveFavorite(evt) {
+    if (evt.target.checked) {
+      console.log("saved");
+    } else {
+      console.log("unsaved");
+    }
   }
 
   // Create an empty list for the cities
@@ -140,7 +148,7 @@ function Homepage() {
       </form>
       <br />
       <br />
-      {/* When the result is empty AND resResults == true, display error message, else display the results */}
+      {/* When the result is empty AND resResults == true, display error message, else display the result */}
       {searchResults.length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{cities}</div>}
     </React.Fragment>
   )

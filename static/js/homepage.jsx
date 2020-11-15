@@ -48,18 +48,19 @@ function Homepage() {
       </React.Fragment>
     )
   }
-  
+
+
   function saveFavorite(evt) {
     if (evt.target.checked) {
       console.log("saved");
-      console.log(searchResults[evt.target.id]);
+      // console.log(searchResults[evt.target.id]);
+      $.get("/save_to_session", searchResults[evt.target.id])
     } else {
       console.log("unsaved");
     }
   }
 
   // Create an empty list for the cities
-  // const [cities, updateCities] = React.useState([])
   const cities = []
 
   // Loop through searchResults (list of objects from /results.json),
@@ -75,15 +76,6 @@ function Homepage() {
       />
     )
   }
-
-  // for (const [idx, city] of searchResults.entries()) {
-  //   console.log(idx, city.city_name)
-  // }
-
-  // searchResults.forEach(function (city, idx) {
-  //   console.log(city, idx);
-  // })
-  
  
 
   return (

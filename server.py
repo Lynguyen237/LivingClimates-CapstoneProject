@@ -63,7 +63,20 @@ def get_query_result_json():
 @app.route('/maps')
 def show_map():
     """Show map with a marker"""
-    return render_template('maps.html')   
+
+    return render_template('maps.html', session=session)   
+
+
+@app.route('/save_to_session')
+def save_to_session():
+    
+    city_name = request.args.get('city_name')
+    
+    session[city_name] = city_name
+    
+    print(f"city name: {city_name}")
+
+    return redirect('/')
 
 
 if __name__ == '__main__':

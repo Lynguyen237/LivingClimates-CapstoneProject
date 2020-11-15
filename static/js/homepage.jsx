@@ -32,11 +32,8 @@ function Homepage() {
       setHasResults(true);
       updateSearchResults(data.city); // update the searchResults with the data from the results.json route
     }) 
-    
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
-    // jQuery solution - if not using fetch
-    // $.get("/results.json", params, (response) => updateSearchResults(response.city))
-    }
+  }
 
   // Create a function to show each city in the search result as a bullet point
   function CityInfo(props) {
@@ -51,12 +48,17 @@ function Homepage() {
 
 
   function saveFavorite(evt) {
+    let params = {
+      month:month,
+      city_name:searchResults[evt.target.id]['city_name']
+    }
     if (evt.target.checked) {
       console.log("saved");
-      // console.log(searchResults[evt.target.id]);
-      $.get("/save_to_session", searchResults[evt.target.id])
+      console.log(searchResults[evt.target.id]);
+      fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
       console.log("unsaved");
+      fetch("/unsave_to_session?" + new URLSearchParams(params));
     }
   }
 
@@ -65,7 +67,6 @@ function Homepage() {
 
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
-  
   for (const [idx, city] of searchResults.entries()) {
     cities.push(
       <CityInfo

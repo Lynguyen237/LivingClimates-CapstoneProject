@@ -79,6 +79,18 @@ def save_to_session():
     return redirect('/')
 
 
+@app.route('/unsave_to_session')
+def unsave_to_session():
+
+    city_name = request.args.get('city_name')
+
+    session.pop(city_name)
+
+    print(f"city name to remove: {city_name}")
+
+    return redirect('/')
+
+
 if __name__ == '__main__':
 
     # connect to your database before app.run gets called. If you don’t do this, 

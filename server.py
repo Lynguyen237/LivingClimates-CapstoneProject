@@ -43,21 +43,27 @@ def get_query_result_json():
     if continent:
         results = results.filter(Continent.continent_name == continent)
     
-    results = results.group_by(City,Continent).having(
-                func.count(Climate.month)==len(month)).order_by(func.random()).limit(20).all()
-                # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
+    results = results.group_by(City,Continent)\
+                     .having(func.count(Climate.month)==len(month))\
+                     .order_by(func.random()).limit(20).all()
+    # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
     result_list = []
 
     for (city, continent) in results: 
-            result_list.append({"city_name":city.city_name,
-                                "country":city.country,
-                                "continent":continent.continent_name,
-                                "lat":city.lat,
-                                "lon":city.lon
-                                })
+        result_list.append({"city_name":city.city_name,
+                            "country":city.country,
+                            "continent":continent.continent_name,
+                            "lat":city.lat,
+                            "lon":city.lon
+                            })
+
+        # result_list[continent.continent_name] = {city.country:{city.city_name:{'city_name':city.city_name,
+        #                                                                        'lat':city.lat,
+        #                                                                        'lon':city.lon
+        #                                                                       }}}
   
-    return jsonify({"city": result_list})
+    return jsonify({'city':result_list})
     
 
 @app.route('/maps')

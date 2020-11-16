@@ -39,9 +39,8 @@ function Homepage() {
   function CityInfo(props) {
     return (
       <React.Fragment>
-        {/* <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/> */}
         <input type="checkbox" id={`${props.id}`} onClick={saveFavorite}/>
-        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country})</label><br/>
+        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country}) ({props.continent})</label><br/>
       </React.Fragment>
     )
   }
@@ -64,9 +63,10 @@ function Homepage() {
 
   // Create an empty list for the cities
   const cities = []
-
+  
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
+
   for (const [idx, city] of searchResults.entries()) {
     cities.push(
       <CityInfo
@@ -74,6 +74,7 @@ function Homepage() {
       id={idx}
       city_name={city.city_name}
       country={city.country}
+      continent={city.continent}
       />
     )
   }

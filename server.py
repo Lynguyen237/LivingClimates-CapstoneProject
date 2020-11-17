@@ -48,22 +48,28 @@ def get_query_result_json():
                      .order_by(func.random()).limit(20).all()
     # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
-    result_list = []
+    
+    result_dict = {}
 
     for (city, continent) in results: 
-        result_list.append({"city_name":city.city_name,
-                            "country":city.country,
-                            "continent":continent.continent_name,
-                            "lat":city.lat,
-                            "lon":city.lon
-                            })
-
-        # result_list[continent.continent_name] = {city.country:{city.city_name:{'city_name':city.city_name,
-        #                                                                        'lat':city.lat,
-        #                                                                        'lon':city.lon
-        #                                                                       }}}
-  
-    return jsonify({'city':result_list})
+        city_info = {'lat':city.lat,
+                     'lon':city.lon}
+                     
+        if continent.continent_name not in result_dict:
+            result_dict[continent.continent_name] = {city.country:\
+                                                    {city.city_name:city_info}}
+        
+        if city.country not in result_dict[continent.continent_name]:
+            result_dict[continent.continent_name]\
+                       .update({city.country:\
+                               {city.city_name:city_info}})
+            
+        if city.city_name not in result_dict[continent.continent_name][city.country]:
+            result_dict[continent.continent_name]\
+                       [city.country]\
+                       .update({city.city_name:city_info})
+                                                                                      
+    return jsonify({'city':result_dict})
     
 
 @app.route('/maps')

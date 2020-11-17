@@ -52,10 +52,9 @@ def get_query_result_json():
     result_dict = {}
 
     for (city, continent) in results: 
-        city_info = {'name':city.city_name,
-                     'lat':city.lat,
+        city_info = {'lat':city.lat,
                      'lon':city.lon}
-
+                     
         if continent.continent_name not in result_dict:
             result_dict[continent.continent_name] = {city.country:\
                                                     {city.city_name:city_info}}

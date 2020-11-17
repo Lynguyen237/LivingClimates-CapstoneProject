@@ -102,7 +102,6 @@ function Homepage() {
         continents.push(
           <CityInfo
             key={city}
-            // id={idx}
             city_name={city}
             country={country}
             continent={cont}
@@ -111,18 +110,6 @@ function Homepage() {
       }
     }
   }
-
-  // for (const [idx, city] of searchResults.entries()) {
-  //   cities.push(
-  //     <CityInfo
-  //     key={city.city_name}
-  //     id={idx}
-  //     city_name={city.city_name}
-  //     country={city.country}
-  //     continent={city.continent}
-  //     />
-  //   )
-  // }
  
 
   return (

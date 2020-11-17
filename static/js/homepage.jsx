@@ -60,21 +60,22 @@ function Homepage() {
   function CityInfo(props) {
     return (
       <React.Fragment>
-        <input type="checkbox" id={`${props.id}`} onClick={saveFavorite}/>
+        <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/>
         <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country}) ({props.continent})</label><br/>
       </React.Fragment>
     )
   }
   
-  
+
   function saveFavorite(evt) {
     let params = {
       month:month,
-      city_name:searchResults[evt.target.id]['city_name']
+      // city_name:searchResults[evt.target.id]['city_name']
+      city_name:evt.target.id.replace("_"," ")
     }
     if (evt.target.checked) {
       console.log("saved");
-      console.log(searchResults[evt.target.id]);
+      console.log(params.city_name);
       fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
       console.log("unsaved");
@@ -90,17 +91,12 @@ function Homepage() {
   // create a bullet point for each city using CityInfo function
 
   for (const cont in searchResults) {
-    console.log(cont)
     continents.push(
-      <Continent
-        continent={cont}
-      />
+      <Continent continent={cont}/>
     )
     for (const country in searchResults[cont]) {
       continents.push(
-        <Country
-          country={country}
-        />
+        <Country country={country}/>
       )
       for (const city in searchResults[cont][country]) {
         continents.push(

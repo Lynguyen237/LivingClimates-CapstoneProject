@@ -70,7 +70,6 @@ function Homepage() {
   function saveFavorite(evt) {
     let params = {
       month:month,
-      // city_name:searchResults[evt.target.id]['city_name']
       city_name:evt.target.id.replace("_"," ")
     }
     if (evt.target.checked) {
@@ -91,13 +90,9 @@ function Homepage() {
   // create a bullet point for each city using CityInfo function
 
   for (const cont in searchResults) {
-    continents.push(
-      <Continent continent={cont}/>
-    )
+    continents.push(<Continent continent={cont}/>)
     for (const country in searchResults[cont]) {
-      continents.push(
-        <Country country={country}/>
-      )
+      continents.push(<Country country={country}/>)
       for (const city in searchResults[cont][country]) {
         continents.push(
           <CityInfo

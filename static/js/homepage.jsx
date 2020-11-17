@@ -3,7 +3,7 @@
 function Homepage() {
   
   // Create state variables
-  const [searchResults, updateSearchResults] = React.useState([]);
+  const [searchResults, updateSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
@@ -35,9 +35,28 @@ function Homepage() {
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
   }
 
-  // Create a function to show each continent in the search result
 
-  // Create a function to show each city in the search result as a checkbox
+  // Create a function to show each continent in the searchResults
+  function Continent(props) {
+    return (
+      <React.Fragment>
+        <div className="continent">
+          <h3>{props.continent}</h3>
+        </div>
+      </React.Fragment>
+    )
+  }
+  
+  // Create a function to show each country in the searchResults
+  function Country(props) {
+    return (
+      <React.Fragment>
+        <p>{props.country}</p>
+      </React.Fragment>
+    )
+  }
+
+  // Create a function to show each city in the searchResults as a checkbox
   function CityInfo(props) {
     return (
       <React.Fragment>
@@ -46,7 +65,7 @@ function Homepage() {
       </React.Fragment>
     )
   }
-
+  
   
   function saveFavorite(evt) {
     let params = {
@@ -63,19 +82,28 @@ function Homepage() {
     }
   }
 
-  // Create an empty list for the cities
-  const cities = []
-  
+
+  // Create an empty list for continents
+  const continents = []
+
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
 
   for (const cont in searchResults) {
     console.log(cont)
+    continents.push(
+      <Continent
+        continent={cont}
+      />
+    )
     for (const country in searchResults[cont]) {
-      console.log(country)
+      continents.push(
+        <Country
+          country={country}
+        />
+      )
       for (const city in searchResults[cont][country]) {
-        console.log(city)
-        cities.push(
+        continents.push(
           <CityInfo
             key={city}
             // id={idx}
@@ -175,7 +203,7 @@ function Homepage() {
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {searchResults.length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{cities}</div>}
+      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{continents}</div>}
     </React.Fragment>
   )
 

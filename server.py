@@ -59,13 +59,6 @@ def get_query_result_json():
         #                     "lon":city.lon
         #                     })
 
-        # result_list.update({ continent.continent_name: {} })
-        # result_list[continent.continent_name].update({ city.country:{} })
-        # result_list[continent.continent_name][city.country].update({ city.city_name: {} })
-        # result_list[continent.continent_name][city.country][city.city_name]['city_name'] = city.city_name
-        # result_list[continent.continent_name][city.country][city.city_name]['lat'] = city.lat
-        # result_list[continent.continent_name][city.country][city.city_name]['lon'] = city.lon
-        
         if continent.continent_name not in result_dict:
             result_dict[continent.continent_name] = {city.country:\
                                                     {city.city_name:\
@@ -82,17 +75,7 @@ def get_query_result_json():
                        [city.country]\
                        .update({city.city_name:\
                                {'name':city.city_name}})
-                               
-        
-        # result_list.update({continent.continent_name: {city.country:{city.city_name:{'city_name':city.city_name,
-        #                                                                     'lat':city.lat,
-        #                                                                     'lon':city.lon
-        #                                                                     }}}})
-        # result_list[continent.continent_name] = {city.country:{city.city_name:{'city_name':city.city_name,
-        #                                                                     'lat':city.lat,
-        #                                                                     'lon':city.lon
-        #                                                                     }}}                                     
-  
+                                                                                      
     return jsonify({'city':result_dict})
     
 

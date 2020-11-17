@@ -35,7 +35,9 @@ function Homepage() {
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
   }
 
-  // Create a function to show each city in the search result as a bullet point
+  // Create a function to show each continent in the search result
+
+  // Create a function to show each city in the search result as a checkbox
   function CityInfo(props) {
     return (
       <React.Fragment>
@@ -45,7 +47,7 @@ function Homepage() {
     )
   }
 
-
+  
   function saveFavorite(evt) {
     let params = {
       month:month,
@@ -67,17 +69,36 @@ function Homepage() {
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
 
-  for (const [idx, city] of searchResults.entries()) {
-    cities.push(
-      <CityInfo
-      key={city.city_name}
-      id={idx}
-      city_name={city.city_name}
-      country={city.country}
-      continent={city.continent}
-      />
-    )
+  for (const cont in searchResults) {
+    console.log(cont)
+    for (const country in searchResults[cont]) {
+      console.log(country)
+      for (const city in searchResults[cont][country]) {
+        console.log(city)
+        cities.push(
+          <CityInfo
+            key={city}
+            // id={idx}
+            city_name={city}
+            country={country}
+            continent={cont}
+          />
+        )
+      }
+    }
   }
+
+  // for (const [idx, city] of searchResults.entries()) {
+  //   cities.push(
+  //     <CityInfo
+  //     key={city.city_name}
+  //     id={idx}
+  //     city_name={city.city_name}
+  //     country={city.country}
+  //     continent={city.continent}
+  //     />
+  //   )
+  // }
  
 
   return (

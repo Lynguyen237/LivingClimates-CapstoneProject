@@ -52,29 +52,23 @@ def get_query_result_json():
     result_dict = {}
 
     for (city, continent) in results: 
-        # result_list.append({"city_name":city.city_name,
-        #                     "country":city.country,
-        #                     "continent":continent.continent_name,
-        #                     "lat":city.lat,
-        #                     "lon":city.lon
-        #                     })
+        city_info = {'name':city.city_name,
+                     'lat':city.lat,
+                     'lon':city.lon}
 
         if continent.continent_name not in result_dict:
             result_dict[continent.continent_name] = {city.country:\
-                                                    {city.city_name:\
-                                                    {'name':city.city_name}}}
+                                                    {city.city_name:city_info}}
         
         if city.country not in result_dict[continent.continent_name]:
             result_dict[continent.continent_name]\
                        .update({city.country:\
-                               {city.city_name:\
-                               {'name':city.city_name}}})
+                               {city.city_name:city_info}})
             
         if city.city_name not in result_dict[continent.continent_name][city.country]:
             result_dict[continent.continent_name]\
                        [city.country]\
-                       .update({city.city_name:\
-                               {'name':city.city_name}})
+                       .update({city.city_name:city_info})
                                                                                       
     return jsonify({'city':result_dict})
     

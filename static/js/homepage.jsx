@@ -3,7 +3,7 @@
 function Homepage() {
   
   // Create state variables
-  const [searchResults, updateSearchResults] = React.useState([]);
+  const [searchResults, updateSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
@@ -35,25 +35,46 @@ function Homepage() {
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
   }
 
-  // Create a function to show each city in the search result as a bullet point
-  function CityInfo(props) {
+
+  // Create a function to show each continent in the searchResults
+  function Continent(props) {
     return (
       <React.Fragment>
-        <input type="checkbox" id={`${props.id}`} onClick={saveFavorite}/>
-        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country}) ({props.continent})</label><br/>
+        <div className="continent">
+          <h3>{props.continent}</h3>
+        </div>
+      </React.Fragment>
+    )
+  }
+  
+  // Create a function to show each country in the searchResults
+  function Country(props) {
+    return (
+      <React.Fragment>
+        <p>{props.country}</p>
       </React.Fragment>
     )
   }
 
+  // Create a function to show each city in the searchResults as a checkbox
+  function CityInfo(props) {
+    return (
+      <React.Fragment>
+        <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/>
+        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country}) ({props.continent})</label><br/>
+      </React.Fragment>
+    )
+  }
+  
 
   function saveFavorite(evt) {
     let params = {
       month:month,
-      city_name:searchResults[evt.target.id]['city_name']
+      city_name:evt.target.id.replace("_"," ")
     }
     if (evt.target.checked) {
       console.log("saved");
-      console.log(searchResults[evt.target.id]);
+      console.log(params.city_name);
       fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
       console.log("unsaved");
@@ -61,22 +82,28 @@ function Homepage() {
     }
   }
 
-  // Create an empty list for the cities
-  const cities = []
-  
+
+  // Create an empty list for continents
+  const continents = []
+
   // Loop through searchResults (list of objects from /results.json),
   // create a bullet point for each city using CityInfo function
 
-  for (const [idx, city] of searchResults.entries()) {
-    cities.push(
-      <CityInfo
-      key={city.city_name}
-      id={idx}
-      city_name={city.city_name}
-      country={city.country}
-      continent={city.continent}
-      />
-    )
+  for (const cont in searchResults) {
+    continents.push(<Continent continent={cont}/>)
+    for (const country in searchResults[cont]) {
+      continents.push(<Country country={country}/>)
+      for (const city in searchResults[cont][country]) {
+        continents.push(
+          <CityInfo
+            key={city}
+            city_name={city}
+            country={country}
+            continent={cont}
+          />
+        )
+      }
+    }
   }
  
 
@@ -154,7 +181,7 @@ function Homepage() {
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {searchResults.length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{cities}</div>}
+      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{continents}</div>}
     </React.Fragment>
   )
 

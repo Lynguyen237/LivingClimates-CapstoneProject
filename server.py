@@ -71,7 +71,7 @@ def get_query_result_json():
                        [city.country]\
                        .update({city.city_name:city_info})
 
-    return jsonify({'results':result_dict)
+    return jsonify({'results':result_dict})
     
 
 @app.route('/maps')

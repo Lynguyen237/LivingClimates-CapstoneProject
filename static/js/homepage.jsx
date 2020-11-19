@@ -1,7 +1,8 @@
 "use strict";
+
 // Create a component to show each continent in the searchResults
 function Continent(props) {
-  console.log(props)
+  // console.log(props)
   const countries = Object.keys(props.countries);
   return (
     <React.Fragment>
@@ -12,7 +13,6 @@ function Continent(props) {
       {countries.map(c => (
         <Country key={c} cities={props.countries[c]} name={c} favoriteList={props.favoriteList}/>
       ))}
-      
     </React.Fragment>
   )
 }
@@ -27,7 +27,6 @@ function Country(props) {
       {cities.map(c => (
         <City key={c} name={c} favoriteList={props.favoriteList}/>
       ))}
-      
     </React.Fragment>
   )
 }
@@ -36,10 +35,6 @@ function Country(props) {
 function City(props) {
 
   function saveFavorite(evt) {
-    
-    // setChecked(evt.target.checked)
-    console.log(evt.target.checked)
-    // console.log(favoriteList)
    
     let params = {
       month:month,
@@ -47,9 +42,8 @@ function City(props) {
     }
 
     if (evt.target.checked) {
-      console.log("saved");
-      console.log(params.city_name);
-      fetch("/save_to_session?" + new URLSearchParam(params));
+      console.log("saved" `${params.city_name}`);
+      fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
       console.log("unsaved");
       fetch("/unsave_to_session?" + new URLSearchParams(params));
@@ -82,9 +76,9 @@ function Homepage() {
 
 
   React.useEffect(() => {
-    $.get('/favorites.json',(result)=> {
-      setFavoriteList(result.favorites)
-    });
+    fetch('/favorites.json')
+    .then((response) => response.json())
+    .then((data) => setFavoriteList(data.favorites))
   },[])
 
   // Callback function, execute when the form Submit button is clicked

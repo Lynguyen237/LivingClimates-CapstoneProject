@@ -14,7 +14,7 @@ function Navigation() {
 
         <ReactBootstrap.Navbar bg="dark" variant="dark" expand="lg">
           
-          <ReactBootstrap.Navbar.Brand href="/">Living Climate</ReactBootstrap.Navbar.Brand>
+          <ReactBootstrap.Navbar.Brand href="/">Living Climates</ReactBootstrap.Navbar.Brand>
           {/* Show hamburger menu when the page width is too small */}
           <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" /> 
           

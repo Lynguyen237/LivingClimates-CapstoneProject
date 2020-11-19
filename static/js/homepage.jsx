@@ -17,6 +17,7 @@ function Continent(props) {
   )
 }
 
+
 // Create a component to show each country in the searchResults
 function Country(props) {
   const cities = Object.keys(props.cities);
@@ -30,6 +31,7 @@ function Country(props) {
     </React.Fragment>
   )
 }
+
 
 // Create a component to show each city in the searchResults as a checkbox
 function City(props) {
@@ -68,8 +70,8 @@ function Homepage() {
   const [searchResults, setSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
-  const [tmin, setMinTemp] = React.useState('');
-  const [tmax, setMaxTemp] = React.useState('');
+  const [tmin, setMinTemp] = React.useState(10);
+  const [tmax, setMaxTemp] = React.useState(20);
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
   const [favoriteList, setFavoriteList] = React.useState([])
@@ -184,6 +186,8 @@ function Homepage() {
 
         <input type="submit" onClick={ShowResults} value="Show me the world"/>
 
+
+
       </form>
       <br />
       <br />
@@ -195,3 +199,40 @@ function Homepage() {
 }
 
 ReactDOM.render(<Homepage />, document.querySelector('#search_results'))
+
+
+////////
+const useStyles = makeStyles({
+  root: {
+    width: 300,
+  },
+});
+
+function valuetext(value) {
+  return `${value}`;
+}
+
+function RangeSlider() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState([20, 37]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Typography id="range-slider" gutterBottom>
+        Temperature range
+      </Typography>
+      <Slider
+        value={value}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        aria-labelledby="range-slider"
+        getAriaValueText={valuetext}
+      />
+    </div>
+  );
+}
+ReactDOM.render(<RangeSlider />, document.querySelector("#test"));

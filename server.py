@@ -71,13 +71,7 @@ def get_query_result_json():
                        [city.country]\
                        .update({city.city_name:city_info})
 
-    city_list = []
-
-    for (city, continent) in results:
-        city_list.append(city.city_name)
-
-    return jsonify({'results':result_dict,
-                    'city_list': city_list})
+    return jsonify({'results':result_dict)
     
 
 @app.route('/maps')

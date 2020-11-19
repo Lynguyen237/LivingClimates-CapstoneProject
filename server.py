@@ -15,6 +15,8 @@ def homepage():
 
 @app.route('/results.json')
 def get_query_result_json():
+    """Get search query results and save them in a json file"""
+
     month = request.args.get('month') # month is a string after being passed via HTTP
     month = [int(i) for i in month.split(',')] # Store all the months user chooses as integer in a list
     tavg = request.args.get('tavg')
@@ -68,8 +70,14 @@ def get_query_result_json():
             result_dict[continent.continent_name]\
                        [city.country]\
                        .update({city.city_name:city_info})
-                                                                                      
-    return jsonify({'city':result_dict})
+
+    city_list = []
+
+    for (city, continent) in results:
+        city_list.append(city.city_name)
+
+    return jsonify({'results':result_dict,
+                    'city_list': city_list})
     
 
 @app.route('/maps')
@@ -83,10 +91,9 @@ def show_map():
 def save_to_session():
     
     city_name = request.args.get('city_name')
-    
-    session[city_name] = city_name
-    
-    print(f"city name: {city_name}")
+    session[city_name] = city_name  # Create a key with the city name in the session
+
+    # session[month] = {'city_name':city_name}
 
     return redirect('/')
 
@@ -95,12 +102,19 @@ def save_to_session():
 def unsave_to_session():
 
     city_name = request.args.get('city_name')
-
-    session.pop(city_name)
-
-    print(f"city name to remove: {city_name}")
+    session.pop(city_name) # Remove the key with the city name from the session
 
     return redirect('/')
+
+
+@app.route('/favorites.json')
+def get_favorites():
+    """Get the list of favorite cities to determine if the favorite box should be checked"""
+    fav_cities = []
+    for city in session:
+        fav_cities.append(city)
+
+    return(jsonify({'favorites':fav_cities}))
 
 
 if __name__ == '__main__':

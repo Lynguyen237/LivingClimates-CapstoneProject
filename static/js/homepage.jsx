@@ -1,15 +1,91 @@
 "use strict";
+// Create a component to show each continent in the searchResults
+function Continent(props) {
+  console.log(props)
+  const countries = Object.keys(props.countries);
+  return (
+    <React.Fragment>
+      <div className="continent">
+        <h3>{props.name}</h3>
+      </div>
+      
+      {countries.map(c => (
+        <Country key={c} cities={props.countries[c]} name={c} favoriteList={props.favoriteList}/>
+      ))}
+      
+    </React.Fragment>
+  )
+}
 
+// Create a component to show each country in the searchResults
+function Country(props) {
+  const cities = Object.keys(props.cities);
+  return (
+    <React.Fragment>
+      <p>{props.name}</p>
+
+      {cities.map(c => (
+        <City key={c} name={c} favoriteList={props.favoriteList}/>
+      ))}
+      
+    </React.Fragment>
+  )
+}
+
+// Create a component to show each city in the searchResults as a checkbox
+function City(props) {
+
+  function saveFavorite(evt) {
+    
+    // setChecked(evt.target.checked)
+    console.log(evt.target.checked)
+    // console.log(favoriteList)
+   
+    let params = {
+      month:month,
+      city_name:evt.target.id.replace("_"," ")
+    }
+
+    if (evt.target.checked) {
+      console.log("saved");
+      console.log(params.city_name);
+      fetch("/save_to_session?" + new URLSearchParam(params));
+    } else {
+      console.log("unsaved");
+      fetch("/unsave_to_session?" + new URLSearchParams(params));
+    }
+  }
+  
+  const isFavorite = props.favoriteList.includes(props.name)
+
+  return (
+    <React.Fragment>
+      <input type="checkbox" defaultChecked={isFavorite} id={`${props.name.replace(" ","_")}`} onClick={saveFavorite}/>
+      <label htmlFor={`${props.name}`}>{props.name}</label><br/>
+    </React.Fragment>
+  )
+}
+
+
+// Main Component
 function Homepage() {
   
   // Create state variables
-  const [searchResults, updateSearchResults] = React.useState({});
+  const [searchResults, setSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
   const [tmin, setMinTemp] = React.useState('');
   const [tmax, setMaxTemp] = React.useState('');
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
+  const [favoriteList, setFavoriteList] = React.useState([])
+
+
+  React.useEffect(() => {
+    $.get('/favorites.json',(result)=> {
+      setFavoriteList(result.favorites)
+    });
+  },[])
 
   // Callback function, execute when the form Submit button is clicked
   function ShowResults(evt) {
@@ -30,82 +106,19 @@ function Homepage() {
     .then((response) => response.json())
     .then((data) => {
       setHasResults(true);
-      updateSearchResults(data.city); // update the searchResults with the data from the results.json route
+      setSearchResults(data.results); // update the searchResults with the data from the results.json route
     }) 
     // console.log(month) // Debug if all the months are captured after the submit button is clicked
   }
 
-
-  // Create a function to show each continent in the searchResults
-  function Continent(props) {
-    return (
-      <React.Fragment>
-        <div className="continent">
-          <h3>{props.continent}</h3>
-        </div>
-      </React.Fragment>
-    )
-  }
+  // Create an empty list to display search results on the homepage
+  const data = []
   
-  // Create a function to show each country in the searchResults
-  function Country(props) {
-    return (
-      <React.Fragment>
-        <p>{props.country}</p>
-      </React.Fragment>
-    )
-  }
-
-  // Create a function to show each city in the searchResults as a checkbox
-  function CityInfo(props) {
-    return (
-      <React.Fragment>
-        <input type="checkbox" id={`${props.city_name.replace(" ","_")}`} onClick={saveFavorite}/>
-        <label htmlFor={`${props.city_name}`}>{props.city_name} ({props.country}) ({props.continent})</label><br/>
-      </React.Fragment>
-    )
-  }
-  
-
-  function saveFavorite(evt) {
-    let params = {
-      month:month,
-      city_name:evt.target.id.replace("_"," ")
-    }
-    if (evt.target.checked) {
-      console.log("saved");
-      console.log(params.city_name);
-      fetch("/save_to_session?" + new URLSearchParams(params));
-    } else {
-      console.log("unsaved");
-      fetch("/unsave_to_session?" + new URLSearchParams(params));
-    }
-  }
-
-
-  // Create an empty list for continents
-  const continents = []
-
-  // Loop through searchResults (list of objects from /results.json),
-  // create a bullet point for each city using CityInfo function
-
+  // Loop through searchResults (list of objects from /results.json)
   for (const cont in searchResults) {
-    continents.push(<Continent continent={cont}/>)
-    for (const country in searchResults[cont]) {
-      continents.push(<Country country={country}/>)
-      for (const city in searchResults[cont][country]) {
-        continents.push(
-          <CityInfo
-            key={city}
-            city_name={city}
-            country={country}
-            continent={cont}
-          />
-        )
-      }
-    }
+    data.push(<Continent key={cont} name={cont} countries={searchResults[cont]} favoriteList={favoriteList} />)
   }
- 
+
 
   return (
     <React.Fragment>
@@ -181,7 +194,7 @@ function Homepage() {
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{continents}</div>}
+      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{data}</div>}
     </React.Fragment>
   )
 

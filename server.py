@@ -8,9 +8,12 @@ app.secret_key = 'random' # Set a random key for the DebugToolbar
 
 
 @app.route('/')
+@app.route('/about')
+@app.route('/favorites')
 def homepage():
     """Show the homepage with the search filters"""
-    return render_template('homepage.html')
+    return render_template('main.html')
+
 
 
 @app.route('/results.json')
@@ -78,7 +81,7 @@ def get_query_result_json():
 def show_map():
     """Show map with a marker"""
 
-    return render_template('maps.html', session=session)   
+    return render_template('maps-react.html', session=session)   
 
 
 @app.route('/save_to_session')

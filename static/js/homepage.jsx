@@ -3,13 +3,14 @@
 // Create a component to show each continent in the searchResults
 function Continent(props) {
   // console.log(props)
-  const countries = Object.keys(props.countries);
+  const countries = Object.keys(props.countries); // Get the keys of the object (dictionary) in an array (list)
   return (
     <React.Fragment>
       <div className="continent">
         <h3>{props.name}</h3>
       </div>
       
+      {/* Use .map() method to create a new array populated with the results of calling a function on every element in the calling array */}
       {countries.map(c => (
         <Country key={c} cities={props.countries[c]} name={c} favoriteList={props.favoriteList}/>
       ))}
@@ -44,7 +45,7 @@ function City(props) {
     }
 
     if (evt.target.checked) {
-      console.log("saved" `${params.city_name}`);
+      console.log(`saved ${params.city_name}`);
       fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
       console.log("unsaved");
@@ -113,12 +114,13 @@ function Homepage() {
   // Loop through searchResults (list of objects from /results.json)
   for (const cont in searchResults) {
     data.push(<Continent key={cont} name={cont} countries={searchResults[cont]} favoriteList={favoriteList} />)
+    // console.log(data) // data is a list of React elements / components
   }
 
 
   return (
     <React.Fragment>
-      
+      <h1>Explore your ideal climates</h1>
       <form id="search_filter">
 
         <p>
@@ -198,41 +200,41 @@ function Homepage() {
 
 }
 
-ReactDOM.render(<Homepage />, document.querySelector('#search_results'))
+// ReactDOM.render(<Homepage />, document.querySelector('#search_results'))
 
 
 ////////
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     width: 300,
+//   },
+// });
 
-function valuetext(value) {
-  return `${value}`;
-}
+// function valuetext(value) {
+//   return `${value}`;
+// }
 
-function RangeSlider() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState([20, 37]);
+// function RangeSlider() {
+//   const classes = useStyles();
+//   const [value, setValue] = React.useState([20, 37]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+//   const handleChange = (event, newValue) => {
+//     setValue(newValue);
+//   };
 
-  return (
-    <div className={classes.root}>
-      <Typography id="range-slider" gutterBottom>
-        Temperature range
-      </Typography>
-      <Slider
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        aria-labelledby="range-slider"
-        getAriaValueText={valuetext}
-      />
-    </div>
-  );
-}
-ReactDOM.render(<RangeSlider />, document.querySelector("#test"));
+//   return (
+//     <div className={classes.root}>
+//       <Typography id="range-slider" gutterBottom>
+//         Temperature range
+//       </Typography>
+//       <Slider
+//         value={value}
+//         onChange={handleChange}
+//         valueLabelDisplay="auto"
+//         aria-labelledby="range-slider"
+//         getAriaValueText={valuetext}
+//       />
+//     </div>
+//   );
+// }
+// ReactDOM.render(<RangeSlider />, document.querySelector("#test"));

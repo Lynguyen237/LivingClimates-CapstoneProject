@@ -71,7 +71,7 @@ function Homepage() {
   const [searchResults, setSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
   const [tavg, setAvgTemp] = React.useState('10to20');
-  const [tmin, setMinTemp] = React.useState(10);
+  const [tmin, setMinTemp] = React.useState(5);
   const [tmax, setMaxTemp] = React.useState(20);
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked

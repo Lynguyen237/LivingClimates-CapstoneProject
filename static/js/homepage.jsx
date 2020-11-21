@@ -202,38 +202,45 @@ function Homepage() {
 
 
 
-////////
-// const useStyles = makeStyles({
-//   root: {
-//     width: 300,
-//   },
-// });
+// Test slider
+const {
+  Typography,
+  makeStyles,
+  withStyles,
+  Slider,
+} = MaterialUI;
 
-// function valuetext(value) {
-//   return `${value}`;
-// }
+const useStyles = makeStyles({
+  root: {
+    width: 250,
+  },
+});
 
-// function RangeSlider() {
-//   const classes = useStyles();
-//   const [value, setValue] = React.useState([20, 37]);
+function valuetext(value) {
+  return `${value}`;
+}
 
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
+function RangeSlider() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState([20, 37]);
 
-//   return (
-//     <div className={classes.root}>
-//       <Typography id="range-slider" gutterBottom>
-//         Temperature range
-//       </Typography>
-//       <Slider
-//         value={value}
-//         onChange={handleChange}
-//         valueLabelDisplay="auto"
-//         aria-labelledby="range-slider"
-//         getAriaValueText={valuetext}
-//       />
-//     </div>
-//   );
-// }
-// ReactDOM.render(<RangeSlider />, document.querySelector("#test"));
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Typography id="range-slider" gutterBottom>
+        Temperature range
+      </Typography>
+      <Slider
+        value={value}
+        onChange={handleChange}
+        aria-labelledby="range-slider"
+        max={50}
+        getAriaValueText={valuetext}
+        valueLabelDisplay="on"
+      />
+    </div>
+  );
+}

@@ -27,13 +27,11 @@
             </ReactBootstrap.Nav.Link>
         
           </ReactBootstrap.Nav>
-
        
         </ReactBootstrap.Navbar.Collapse>
 
 
       </ReactBootstrap.Navbar>
-
 
 
       <ReactRouterDOM.Switch>
@@ -52,9 +50,11 @@
 
           <ReactRouterDOM.Route path='/' exact>
             <Homepage />
+            <RangeSlider />
           </ReactRouterDOM.Route>
       </ReactRouterDOM.Switch>
       
+
     </ReactRouterDOM.BrowserRouter>
     </React.Fragment>
   );

@@ -1,9 +1,9 @@
 "use strict";
 
-function About(){
-    Return (
-        <React.Fragment>
-            <p>hi</p>
-        </React.Fragment>
-    )
+function About() {
+  return (
+    <React.Fragment>
+      <p>hello there</p>
+    </React.Fragment>
+  )
 }

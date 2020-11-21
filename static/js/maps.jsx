@@ -47,7 +47,9 @@ function MapComponent(props) {
       //   borderRadius: 0.5, 
       //   width: props.mapDimensions.width }}
       // ref={ref}
-    ></div>
+    >
+      <h3>My Favorites</h3>
+    </div>
   )
 }
 
@@ -100,10 +102,7 @@ function Favorites() {
 
   return (
     <React.Fragment>
-      <h3>My Google Maps Demo</h3>
-      {/* The div element for the map */}
       <div id="favorites">{favorites}</div>
-      
     </React.Fragment>
   )
 }

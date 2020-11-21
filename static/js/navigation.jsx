@@ -1,44 +1,39 @@
-  
-function About() {
-  return <div>About</div>
-}
+  "Use strict";
 
-function App() {
+  function App() {
   return (
-      <nav>
-          <ReactRouterDOM.BrowserRouter>
-              <p>
-                  <ReactRouterDOM.Link to='/about'>About
-                  </ReactRouterDOM.Link>
-              </p>
-              <p>
-                  <ReactRouterDOM.Link to='/favorites'>Saved Locations
-                  </ReactRouterDOM.Link>
-              </p>
-              <p>
-                  <ReactRouterDOM.Link to='/'>Homepage
-                  </ReactRouterDOM.Link>
-              </p>
+    <ReactRouterDOM.BrowserRouter>
+      {/* <ReactBootstrap.Navbar bg="dark" variant="dark" expand="lg"> */}
+        
+        <ReactRouterDOM.Link to='/about'>About
+        </ReactRouterDOM.Link>
+    
+    
+        <ReactRouterDOM.Link to='/favorites'>Saved Locations
+        </ReactRouterDOM.Link>
+    
+    
+        <ReactRouterDOM.Link to='/'>Homepage
+        </ReactRouterDOM.Link>
+       
 
-              <ReactRouterDOM.Switch>
-                  <ReactRouterDOM.Route path='/about'>
-                      <About />
-                  </ReactRouterDOM.Route>
-                  
-                  {/* <ReactRouterDOM.Route path='/favorites'>
-                      <MapComponent />
-                  </ReactRouterDOM.Route> */}
+        <ReactRouterDOM.Switch>
+            <ReactRouterDOM.Route path='/about'>
+                <About />
+            </ReactRouterDOM.Route>
 
-                  <ReactRouterDOM.Route path='/favorites'>
-                      <Favorites />
-                  </ReactRouterDOM.Route>
+            <ReactRouterDOM.Route path='/favorites'>
+              <MapComponent />
+                <Favorites />
+            </ReactRouterDOM.Route>
 
-                  <ReactRouterDOM.Route path='/' exact>
-                      <Homepage />
-                  </ReactRouterDOM.Route>
-              </ReactRouterDOM.Switch>
-          </ReactRouterDOM.BrowserRouter>
-      </nav>
+            <ReactRouterDOM.Route path='/' exact>
+                <Homepage />
+            </ReactRouterDOM.Route>
+        </ReactRouterDOM.Switch>
+      
+      {/* </ReactBootstrap.Navbar> */}
+    </ReactRouterDOM.BrowserRouter>
   );
 }
 

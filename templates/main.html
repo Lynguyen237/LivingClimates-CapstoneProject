@@ -47,7 +47,15 @@
   
   <!-- Maps / Favorites-->
   <script src="/static/js/maps.jsx" type="text/jsx"></script>
-  
+  <!-- Google Maps API call -->
+  <!-- The defer attribute is a boolean attribute. It specifies that the script is executed when the page has finished parsing. -->
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0U4k3HBpsTD9IkMfDSo-rALB5sKyVoY4&callback=initMap&libraries=&v=weekly"
+  defer
+  ></script>
+  <script src="static/js/index.js"></script>
+
+
   <!-- About -->
   <script src="/static/js/about.jsx" type="text/jsx"></script>
 
@@ -64,7 +72,7 @@
     crossorigin="anonymous"/>
   
   <!-- Custom styles after bootstrap -->
-  <link href="/static/css/site.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/site.css" >
 
 </head>
 
@@ -75,6 +83,7 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <div id="navigation"></div>
+  <div id="map"></div>
 </body>
 
 

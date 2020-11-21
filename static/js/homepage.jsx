@@ -200,7 +200,6 @@ function Homepage() {
 
 }
 
-// ReactDOM.render(<Homepage />, document.querySelector('#search_results'))
 
 
 ////////

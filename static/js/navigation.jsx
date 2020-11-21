@@ -50,9 +50,9 @@
               <About />
           </ReactRouterDOM.Route>
 
-          {/* <ReactRouterDOM.Route path='/' exact>
+          <ReactRouterDOM.Route path='/' exact>
             <Homepage />
-          </ReactRouterDOM.Route> */}
+          </ReactRouterDOM.Route>
       </ReactRouterDOM.Switch>
       
     </ReactRouterDOM.BrowserRouter>

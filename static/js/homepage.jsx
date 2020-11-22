@@ -27,7 +27,12 @@ function Country(props) {
       <p>{props.name}</p>
 
       {cities.map(c => (
-        <City key={c} name={c} favoriteList={props.favoriteList}/>
+        <City 
+          key={c} 
+          name={c} 
+          lat={props.cities[c]['lat']} 
+          lon={props.cities[c]['lon']}
+          favoriteList={props.favoriteList}/>
       ))}
     </React.Fragment>
   )
@@ -40,25 +45,31 @@ function City(props) {
   function saveFavorite(evt) {
    
     let params = {
-      month:month,
-      city_name:evt.target.id.replace("_"," ")
+      // month:month,
+      city_name:evt.target.id.replace("_"," "),
+      lat:evt.target.dataset.lat,
+      lon:evt.target.dataset.lon
     }
 
+    console.log(params)
     if (evt.target.checked) {
-      console.log(`saved ${params.city_name}`);
+      console.log(`Home: saved ${params.city_name}`);
       fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
-      console.log("unsaved");
+      console.log(`Home: unsaved ${params.city_name}`);
       fetch("/unsave_to_session?" + new URLSearchParams(params));
     }
   }
   
-  const isFavorite = props.favoriteList.includes(props.name)
+  const isFavorite = Object.keys(props.favoriteList).includes(props.name)
 
   return (
     <React.Fragment>
-      <input type="checkbox" defaultChecked={isFavorite} id={`${props.name.replace(" ","_")}`} onClick={saveFavorite}/>
-      <label htmlFor={`${props.name}`}>{props.name}</label><br/>
+      <input type="checkbox" data-lat={props.lat} data-lon={props.lon} 
+             defaultChecked={isFavorite} 
+             id={`${props.name.replace(" ","_")}`} 
+             onClick={saveFavorite}/>
+      <label htmlFor={`${props.name.replace(" ","_")}`}>{props.name}</label><br/>
     </React.Fragment>
   )
 }

@@ -38,7 +38,7 @@ function MapComponent(props) {
   // }
   
   return (
-    <div id="xyz">
+    <div id="map">
       <h3>My Favorites</h3>
     </div>
   )
@@ -48,27 +48,31 @@ function MapComponent(props) {
 
 // ==== Listing favorite cities ====
 function City(props) {
-  function saveFavorite(evt) {
+  // function saveFavorite(evt) {
    
-    let params = {
-      // month:month,
-      city_name:evt.target.id.replace("_"," ")
-    }
+  //   let params = {
+  //     // month:month,
+  //     city_name:evt.target.id.replace("_"," "),
+  //   }
 
-    if (evt.target.checked) {
-      console.log(`saved ${params.city_name}`);
-      fetch("/save_to_session?" + new URLSearchParams(params));
-    } else {
-      console.log("unsaved");
-      fetch("/unsave_to_session?" + new URLSearchParams(params));
-    }
-  }
+  //   if (evt.target.checked) {
+  //     console.log(`Maps: saved ${params.city_name}`);
+  //     fetch("/save_to_session?" + new URLSearchParams(params));
+  //   } else {
+  //     console.log(`Maps: saved ${params.city_name}`);
+  //     fetch("/unsave_to_session?" + new URLSearchParams(params));
+  //   }
+  // }
 
-  let isFavorite = props.favoriteList.includes(props.name)
+  let isFavorite = Object.keys(props.favoriteList).includes(props.name)
 
   return (
     <React.Fragment>
-      <input type="checkbox" defaultChecked={isFavorite} id={`${props.name}`} onClick={saveFavorite} />
+      <input type="checkbox"
+             id={`${props.name.replace(" ","_")}`}
+             defaultChecked={isFavorite}>
+             {/* onClick={saveFavorite}>  */}
+      </input>
       <label htmlFor={`${props.name}`}>{props.name}</label><br/>
     </React.Fragment>
   )
@@ -86,7 +90,7 @@ function Favorites() {
 
   // Create an empty array of favorite cities then loop through the favoriteList to add each city to the array
   const favorites = []
-  for (const city of favoriteList) {
+  for (const city of Object.keys(favoriteList)) {
     favorites.push(<City key={city.replace(" ","_")} name={city} favoriteList={favoriteList}/>)
   }
 

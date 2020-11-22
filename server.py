@@ -86,9 +86,14 @@ def show_map():
 
 @app.route('/save_to_session')
 def save_to_session():
-    
+    """Save the favorited cities to the session cookie"""
+
     city_name = request.args.get('city_name')
-    session[city_name] = city_name  # Create a key with the city name in the session
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+
+    # Create a city_name key in the session
+    session[city_name] = {'lat':lat,'lon':lon} 
 
     # session[month] = {'city_name':city_name}
 
@@ -97,8 +102,11 @@ def save_to_session():
 
 @app.route('/unsave_to_session')
 def unsave_to_session():
-
+    """Save the favorited cities to the session cookie"""
+    
     city_name = request.args.get('city_name')
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
     session.pop(city_name) # Remove the key with the city name from the session
 
     return redirect('/')
@@ -107,9 +115,9 @@ def unsave_to_session():
 @app.route('/favorites.json')
 def get_favorites():
     """Get the list of favorite cities to determine if the favorite box should be checked"""
-    fav_cities = []
+    fav_cities = {}
     for city in session:
-        fav_cities.append(city)
+        fav_cities[city]=session[city]
 
     return(jsonify({'favorites':fav_cities}))
 

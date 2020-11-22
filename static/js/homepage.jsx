@@ -65,7 +65,9 @@ function City(props) {
 
   return (
     <React.Fragment>
-      <input type="checkbox" data-lat={props.lat} data-lon={props.lon} 
+      <input type="checkbox" 
+             data-lat={props.lat} 
+             data-lon={props.lon} 
              defaultChecked={isFavorite} 
              id={`${props.name.replace(" ","_")}`} 
              onClick={saveFavorite}/>
@@ -214,44 +216,44 @@ function Homepage() {
 
 
 // Test slider
-const {
-  Typography,
-  makeStyles,
-  withStyles,
-  Slider,
-} = MaterialUI;
+// const {
+//   Typography,
+//   makeStyles,
+//   withStyles,
+//   Slider,
+// } = MaterialUI;
 
-const useStyles = makeStyles({
-  root: {
-    width: 250,
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     width: 250,
+//   },
+// });
 
-function valuetext(value) {
-  return `${value}`;
-}
+// function valuetext(value) {
+//   return `${value}`;
+// }
 
-function RangeSlider() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState([20, 37]);
+// function RangeSlider() {
+//   const classes = useStyles();
+//   const [value, setValue] = React.useState([20, 37]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+//   const handleChange = (event, newValue) => {
+//     setValue(newValue);
+//   };
 
-  return (
-    <div className={classes.root}>
-      <Typography id="range-slider" gutterBottom>
-        Temperature range
-      </Typography>
-      <Slider
-        value={value}
-        onChange={handleChange}
-        aria-labelledby="range-slider"
-        max={50}
-        getAriaValueText={valuetext}
-        valueLabelDisplay="on"
-      />
-    </div>
-  );
-}
+//   return (
+//     <div className={classes.root}>
+//       <Typography id="range-slider" gutterBottom>
+//         Temperature range
+//       </Typography>
+//       <Slider
+//         value={value}
+//         onChange={handleChange}
+//         aria-labelledby="range-slider"
+//         max={50}
+//         getAriaValueText={valuetext}
+//         valueLabelDisplay="on"
+//       />
+//     </div>
+//   );
+// }

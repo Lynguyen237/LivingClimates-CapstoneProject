@@ -50,7 +50,7 @@
 
           <ReactRouterDOM.Route path='/' exact>
             <Homepage />
-            <RangeSlider />
+            {/* <RangeSlider /> */}
           </ReactRouterDOM.Route>
       </ReactRouterDOM.Switch>
       

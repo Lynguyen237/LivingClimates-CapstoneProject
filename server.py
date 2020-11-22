@@ -58,7 +58,8 @@ def get_query_result_json():
 
     for (city, continent) in results: 
         city_info = {'lat':city.lat,
-                     'lon':city.lon}
+                     'lon':city.lon,
+                     'iso2':city.iso2}
                      
         if continent.continent_name not in result_dict:
             result_dict[continent.continent_name] = {city.country:\
@@ -86,7 +87,7 @@ def show_map():
 
 @app.route('/save_to_session')
 def save_to_session():
-    """Save the favorited cities to the session cookie"""
+    """Save the favorited cities to the 'session' cookie"""
 
     city_name = request.args.get('city_name')
     lat = request.args.get('lat')

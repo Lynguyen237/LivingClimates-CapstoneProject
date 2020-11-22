@@ -12,7 +12,7 @@ function Continent(props) {
       
       {/* Use .map() method to create a new array populated with the results of calling a function on every element in the calling array */}
       {countries.map(c => (
-        <Country key={c} cities={props.countries[c]} name={c} favoriteList={props.favoriteList}/>
+        <Country key={c} cities={props.countries[c]} name={c} favoriteDict={props.favoriteDict}/>
       ))}
     </React.Fragment>
   )
@@ -25,14 +25,15 @@ function Country(props) {
   return (
     <React.Fragment>
       <p>{props.name}</p>
-
       {cities.map(c => (
         <City 
-          key={c} 
+          key={`${c}_${props.cities[c]['iso2']}`} 
           name={c} 
           lat={props.cities[c]['lat']} 
           lon={props.cities[c]['lon']}
-          favoriteList={props.favoriteList}/>
+          country={props.name}
+          iso2={props.cities[c]['iso2']}
+          favoriteDict={props.favoriteDict}/>
       ))}
     </React.Fragment>
   )
@@ -48,7 +49,8 @@ function City(props) {
       // month:month,
       city_name:evt.target.id.replace("_"," "),
       lat:evt.target.dataset.lat,
-      lon:evt.target.dataset.lon
+      lon:evt.target.dataset.lon,
+      country:evt.target.dataset.country
     }
 
     console.log(params)
@@ -61,13 +63,14 @@ function City(props) {
     }
   }
   
-  const isFavorite = Object.keys(props.favoriteList).includes(props.name)
+  const isFavorite = Object.keys(props.favoriteDict).includes(props.name)
 
   return (
     <React.Fragment>
       <input type="checkbox" 
              data-lat={props.lat} 
-             data-lon={props.lon} 
+             data-lon={props.lon}
+             data-country={props.country}
              defaultChecked={isFavorite} 
              id={`${props.name.replace(" ","_")}`} 
              onClick={saveFavorite}/>
@@ -88,13 +91,13 @@ function Homepage() {
   const [tmax, setMaxTemp] = React.useState(20);
   const [continent, setContinent] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
-  const [favoriteList, setFavoriteList] = React.useState([])
+  const [favoriteDict, setFavoriteDict] = React.useState([])
 
 
   React.useEffect(() => {
     fetch('/favorites.json')
     .then((response) => response.json())
-    .then((data) => setFavoriteList(data.favorites))
+    .then((data) => setFavoriteDict(data.favorites))
   },[])
 
   // Callback function, execute when the form Submit button is clicked
@@ -126,7 +129,7 @@ function Homepage() {
   
   // Loop through searchResults (list of objects from /results.json)
   for (const cont in searchResults) {
-    data.push(<Continent key={cont} name={cont} countries={searchResults[cont]} favoriteList={favoriteList} />)
+    data.push(<Continent key={cont} name={cont} countries={searchResults[cont]} favoriteDict={favoriteDict} />)
     // console.log(data) // data is a list of React elements / components
   }
 

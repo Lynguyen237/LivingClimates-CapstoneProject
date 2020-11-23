@@ -93,6 +93,7 @@ function Favorites() {
   console.log(favoriteDict)
 
   //==== Insert map =====
+  
   console.log('rendering the map')
 
   const center = { lat: 34.052235, lng: -118.243683 };
@@ -104,13 +105,11 @@ function Favorites() {
   // infowindow variable as a new Google Maps Info Window to display a marker's information
   let infowindow = new google.maps.InfoWindow({});
   let marker;
-
   const bounds = new google.maps.LatLngBounds();
 
   for (const city of Object.keys(favoriteDict)) {
     marker = new google.maps.Marker({
-      position: new google.maps.LatLng(favoriteDict[city].lat,
-                                      favoriteDict[city].lon),
+      position: new google.maps.LatLng(favoriteDict[city].lat, favoriteDict[city].lon),
       map: map,
       title: city
     });

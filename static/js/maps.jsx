@@ -93,36 +93,37 @@ function Favorites() {
   console.log(favoriteDict)
 
   //==== Insert map =====
-  
+  const mapsdiv = React.useRef(null)
   console.log('rendering the map')
 
-  const center = { lat: 34.052235, lng: -118.243683 };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    // zoom: 9,
-    // center: center,
-  });
-
-  // infowindow variable as a new Google Maps Info Window to display a marker's information
-  let infowindow = new google.maps.InfoWindow({});
-  let marker;
-  const bounds = new google.maps.LatLngBounds();
-
-  for (const city of Object.keys(favoriteDict)) {
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(favoriteDict[city].lat, favoriteDict[city].lon),
-      map: map,
-      title: city
+  React.useEffect(() => {
+    const map = new google.maps.Map(mapsdiv.current, {
+      // zoom: 9,
+      // center: center,
     });
-    
-    bounds.extend(marker.getPosition());
-    
-    google.maps.event.addListener(marker, 'hover', (function (city) {
-      return function () {
-        infowindow.setContent(city);
-      }
-    })(marker, city));
-  }
-  map.fitBounds(bounds);
+
+    // infowindow variable as a new Google Maps Info Window to display a marker's information
+    let infowindow = new google.maps.InfoWindow({});
+    let marker;
+    const bounds = new google.maps.LatLngBounds();
+
+    for (const city of Object.keys(favoriteDict)) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(favoriteDict[city].lat, favoriteDict[city].lon),
+        map: map,
+        title: city
+      });
+      
+      bounds.extend(marker.getPosition());
+      
+      google.maps.event.addListener(marker, 'hover', (function (city) {
+        return function () {
+          infowindow.setContent(city);
+        }
+      })(marker, city));
+    }
+    map.fitBounds(bounds);
+  })
   // ==== End map insertion ====
 
 
@@ -131,7 +132,7 @@ function Favorites() {
   return (
     <React.Fragment>
       {console.log('Final return runs')}
-      
+      <div ref={mapsdiv} id="map"></div>
       {/* <MapComponent title="My Favorite" favoriteDict={favoriteDict} map="map"></MapComponent> */}
       <br/>
       <div id="favorites">{favoriteData}</div>

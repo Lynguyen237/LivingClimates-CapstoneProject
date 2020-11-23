@@ -41,7 +41,7 @@
 
           <ReactRouterDOM.Route path='/favorites'>
             <Favorites />
-            <MapComponent />
+            {/* <MapComponent /> */}
           </ReactRouterDOM.Route>
 
           <ReactRouterDOM.Route path='/save-our-planet'>

@@ -1,66 +1,66 @@
 "use strict";
 
-function MapComponent(props) {
-  console.log('Map Component runs')
-  const mapsdiv = React.useRef(null)
+// function MapComponent(props) {
+//   console.log('Map Component runs')
+//   const mapsdiv = React.useRef(null)
 
-  const center = { lat: 34.052235, lng: -118.243683 };
+//   const center = { lat: 34.052235, lng: -118.243683 };
   
-  // Multiple locations
-  const locations = [
-    ['Los Angeles', 34.052235, -118.243683],
-  ];
-  console.log(props.favoriteDict)
+//   // Multiple locations
+//   const locations = [
+//     ['Los Angeles', 34.052235, -118.243683],
+//   ];
+//   console.log(props.favoriteDict)
   
-  console.log('Map component ends before useEffect')
-  // mapdiv is defined but not assigned
-  React.useEffect( () => {
-    console.log(`useEffect runs`)
-    const map = new google.maps.Map(mapsdiv.current, {
-    zoom: 9,
-    center: center,
-    });
+//   console.log('Map component ends before useEffect')
+//   // mapdiv is defined but not assigned
+//   React.useEffect( () => {
+//     console.log(`useEffect runs`)
+//     const map = new google.maps.Map(mapsdiv.current, {
+//     zoom: 9,
+//     center: center,
+//     });
 
-    let marker, count;
+//     let marker, count;
     
-    console.log(mapsdiv.current)
-    console.log(`Inside useEffect: ${props.favoriteDict}`)
-    for (count=0; count < locations.length; count++) {
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[count][1],locations[count][2]),
-        map: map,
-        title: locations[count][0]
-      });    
+//     console.log(mapsdiv.current)
+//     console.log(`Inside useEffect: ${props.favoriteDict}`)
+//     for (count=0; count < locations.length; count++) {
+//       marker = new google.maps.Marker({
+//         position: new google.maps.LatLng(locations[count][1],locations[count][2]),
+//         map: map,
+//         title: locations[count][0]
+//       });    
       
-    // for (const city of Object.keys(props.favoriteDict)) {
-    //   marker = new google.maps.Marker({
-    //     position: new google.maps.LatLng(props.favoriteDict[city].lat,
-    //                                      props.favoriteDict[city].lon),
-    //     map: map,
-    //     title: city
-    //   });
+//     // for (const city of Object.keys(props.favoriteDict)) {
+//     //   marker = new google.maps.Marker({
+//     //     position: new google.maps.LatLng(props.favoriteDict[city].lat,
+//     //                                      props.favoriteDict[city].lon),
+//     //     map: map,
+//     //     title: city
+//     //   });
 
-      // infowindow variable as a new Google Maps Info Window to display a marker's information
-      google.maps.event.addListener(marker, 'hover', (function (marker, count) {
-        return function () {
-          infowindow.setContent(locations[count][0]);
-          // infowindow.open(map, marker);
-        }
-      })(marker, count));
-    }
-    console.log(`useEffect ENDs`)
-  }, []);
+//       // infowindow variable as a new Google Maps Info Window to display a marker's information
+//       google.maps.event.addListener(marker, 'hover', (function (marker, count) {
+//         return function () {
+//           infowindow.setContent(locations[count][0]);
+//           // infowindow.open(map, marker);
+//         }
+//       })(marker, count));
+//     }
+//     console.log(`useEffect ENDs`)
+//   }, []);
 
 
-  return (
-    <React.Fragment>
-    {console.log(`Map Component Return runs ${props.title}, ${props.map}`)}
-    <h3>{props.title}</h3>
-    <div ref={mapsdiv} id={props.map}></div>
-    {console.log('Map Component Return ends')}
-    </React.Fragment>
-  )
-}
+//   return (
+//     <React.Fragment>
+//     {console.log(`Map Component Return runs ${props.title}, ${props.map}`)}
+//     <h3>{props.title}</h3>
+//     <div ref={mapsdiv} id={props.map}></div>
+//     {console.log('Map Component Return ends')}
+//     </React.Fragment>
+//   )
+// }
 
 
 
@@ -126,12 +126,11 @@ function Favorites() {
   })
   // ==== End map insertion ====
 
-
-
   console.log('Favorites function ends')
   return (
     <React.Fragment>
       {console.log('Final return runs')}
+      <h3>My Favorites</h3>
       <div ref={mapsdiv} id="map"></div>
       {/* <MapComponent title="My Favorite" favoriteDict={favoriteDict} map="map"></MapComponent> */}
       <br/>

@@ -12,7 +12,7 @@ function MapComponent(props) {
   ];
   console.log(props.favoriteDict)
   
-  console.log('Map component ends before useEffect')
+  // console.log('Map component ends before useEffect')
   // mapdiv is defined but not assigned
   React.useEffect( () => {
     console.log(`useEffect runs`)
@@ -48,16 +48,16 @@ function MapComponent(props) {
         }
       })(marker, count));
     }
-    console.log(`useEffect ENDs`)
+    // console.log(`useEffect ENDs`)
   }, []);
 
 
   return (
     <React.Fragment>
-    {console.log(`Map Component Return runs ${props.title}, ${props.map}`)}
+    {/* {console.log(`Map Component Return runs ${props.title}, ${props.map}`)} */}
     <h3>{props.title}</h3>
     <div ref={mapsdiv} id={props.map}></div>
-    {console.log('Map Component Return ends')}
+    {/* {console.log('Map Component Return ends')} */}
     </React.Fragment>
   )
 }
@@ -69,13 +69,13 @@ function Favorites() {
   console.log('Favorites function runs')
   const [favoriteDict, setFavoriteDict] = React.useState([])
   
-  console.log('Before Favorites useEffect')
+  // console.log('Before Favorites useEffect')
   React.useEffect(() => {
-    console.log('Fetching starts')
+    // console.log('Fetching starts')
     fetch('/favorites.json')
     .then((response) => response.json())
     .then((data) => setFavoriteDict(data.favorites))
-    console.log('Fetching done')
+    // console.log('Fetching done')
   },[])
 
   // Create an empty array of favorite cities then loop through the favoriteDict to add each city to the array
@@ -94,12 +94,12 @@ function Favorites() {
   console.log('Favorites function ends')
   return (
     <React.Fragment>
-      {console.log('Final return runs')}
+      {/* {console.log('Final return runs')} */}
       <MapComponent title="My Favorite" favoriteDict={favoriteDict} map="map"></MapComponent>
       <br/>
       <div id="favorites">{favoriteData}</div>
       {console.log(favoriteDict)}
-      {console.log('Final return ends')}
+      {/* {console.log('Final return ends')} */}
     </React.Fragment>
   )
 }

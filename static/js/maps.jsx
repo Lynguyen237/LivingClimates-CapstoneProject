@@ -27,7 +27,7 @@ function Favorites() {
                       />)
   ))}
   // console.log(favoriteDict)
-
+  
   //==== Insert map =====
   const mapsdiv = React.useRef(null)
   console.log('rendering the map')

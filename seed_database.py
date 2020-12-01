@@ -6,17 +6,16 @@ import model
 import server
 from request_climate import get_climate
 
-# dropdb and createddb only needed if changing happens in model.py or database is changed
 # os.system('dropdb climates') 
 # os.system('createdb climates')
 
 model.connect_to_db(server.app)
-model.db.create_all()
+# model.db.create_all()
 
 
 #========= CITY TABLE =================
 # Load data from a city JSON file as a list of dictionary and save it in a variable
-with open('data/first_2k_cities.json') as f:
+with open('') as f:
     city_list = json.loads(f.read())
 
 # Create cities (city objects), store them in a list to add climate data later

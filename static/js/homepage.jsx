@@ -154,9 +154,9 @@ function Homepage() {
   
     return (
       <div className={classes.root}>
-        <Typography id="range-slider" gutterBottom>
+        {/* <Typography id="range-slider" gutterBottom>
           Your ideal average temperature (°C)
-        </Typography>
+        </Typography> */}
         <br/>
         <br/>
         <Slider
@@ -215,40 +215,40 @@ function Homepage() {
   return (
     <React.Fragment>
       <h1>Explore your ideal climates</h1>
-      <form id="search_filter">
+      <ReactBootstrap.Form id="search_filter">
 
-        <p>
-          <label htmlFor="month">Choose the month(s) you want to travel </label>
-          <select /* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */
-            value={month} 
-            onChange={evt => {
-              const selectedMonths=[];
-              for (let i=0; i< evt.target.selectedOptions.length; i++) {
-                selectedMonths.push(parseInt(evt.target.selectedOptions[i].value));
-              }
-              setMonth(selectedMonths);
-            }} 
-            id="month" 
-            name="month"
-            size="5" 
-            multiple
-          >
-              <option value='1'>Jan</option>
-              <option value='2'>Feb</option>
-              <option value='3'>Mar</option>
-              <option value='4'>Apr</option>
-              <option value='5'>May</option>
-              <option value='6'>Jun</option>
-              <option value='7'>Jul</option>
-              <option value='8'>Aug</option>
-              <option value='9'>Sep</option>
-              <option value='10'>Oct</option>
-              <option value='11'>Nov</option>
-              <option value='12'>Dec</option>
-          </select>
-        </p>
+        <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect2">
+        <ReactBootstrap.Form.Label>Month(s) you want to travel</ReactBootstrap.Form.Label>
+        {/* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */}
+        <ReactBootstrap.Form.Control id="month-bootstrap" name="month" as="select" multiple
+          value={month} 
+          onChange={evt => {
+            const selectedMonths=[];
+            for (let i=0; i< evt.target.selectedOptions.length; i++) {
+              selectedMonths.push(parseInt(evt.target.selectedOptions[i].value));
+            }
+            setMonth(selectedMonths);
+          }}
+        >
+          <option value='1'>January</option>
+          <option value='2'>February</option>
+          <option value='3'>March</option>
+          <option value='4'>April</option>
+          <option value='5'>May</option>
+          <option value='6'>Jun</option>
+          <option value='7'>July</option>
+          <option value='8'>August</option>
+          <option value='9'>Septempber</option>
+          <option value='10'>October</option>
+          <option value='11'>November</option>
+          <option value='12'>December</option>
+        </ReactBootstrap.Form.Control>
+        </ReactBootstrap.Form.Group>
 
+        
+        <ReactBootstrap.Form.Label>Your ideal average temperature (°C)</ReactBootstrap.Form.Label>
         <RangeSlider/>
+
 
         <p hidden>
           <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
@@ -281,10 +281,11 @@ function Homepage() {
               <option value="Indonesia">Indonesia</option>
           </select>
         </p>
+        <ReactBootstrap.Button id="search-button" onClick={ShowResults}>Show me the world</ReactBootstrap.Button>{' '}
 
-        <input type="submit" onClick={ShowResults} value="Show me the world"/>
+        
+      </ReactBootstrap.Form>
 
-      </form>
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}

@@ -2,7 +2,7 @@
 
 // ==== Listing favorite cities ====
 function Favorites() {
-  const [favoriteDict, setFavoriteDict] = React.useState([])
+  const [favoriteDict, setFavoriteDict] = React.useState({})
   
   React.useEffect(() => {
     fetch('/favorites.json')

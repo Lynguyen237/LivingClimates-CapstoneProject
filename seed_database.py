@@ -16,7 +16,7 @@ model.db.create_all()
 
 #========= CITY TABLE =================
 # Load data from a city JSON file as a list of dictionary and save it in a variable
-with open('data/samplecities.json') as f:
+with open('data/first_2k_cities.json') as f:
     city_list = json.loads(f.read())
 
 # Create cities (city objects), store them in a list to add climate data later
@@ -28,6 +28,9 @@ for city in city_list: #city is a dictionary & city_list a list of dictionaries
                                                city['lat'],
                                                city['lng'],
                                                city['population'])
+    
+    # Associate the right city with the right continent object
+    
     # create a city object
     db_city = crud.create_city(city_name, country, iso2, lat, lon, pop)
     cities_in_db.append(db_city)
@@ -62,6 +65,7 @@ for city in cities_in_db:
     # Find the city's continent by looking up iso2 key in the country_continent dict
     continent = country_continent_dict[city.iso2]
     city.continent = continent # Associate the city with the right continent via sqlalchemy relationship
+    model.db.session.commit() # Commit changes
 
     # Request 12-month climate data for a given city
     climate_data = get_climate(city.lat, city.lon) 

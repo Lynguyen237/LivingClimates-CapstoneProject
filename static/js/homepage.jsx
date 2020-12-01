@@ -2,7 +2,7 @@
 
 // Create a component to show each continent in the searchResults
 function Continent(props) {
-  // console.log(props)
+ 
   const countries = Object.keys(props.countries); // Get the keys of the object (dictionary) in an array (list)
   return (
     <React.Fragment>
@@ -86,10 +86,10 @@ function Homepage() {
   // Create state variables
   const [searchResults, setSearchResults] = React.useState({});
   const [month, setMonth] = React.useState([1]);
-  const [tavg, setAvgTemp] = React.useState('10to20');
-  const [tmin, setMinTemp] = React.useState(5);
-  const [tmax, setMaxTemp] = React.useState(20);
+  const [tavgLow, setTavgLow] = React.useState(15);
+  const [tavgHigh, setTavgHigh] = React.useState(27);
   const [continent, setContinent] = React.useState('');
+  const [country, setCountry] = React.useState('');
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
   const [favoriteDict, setFavoriteDict] = React.useState([])
 
@@ -100,17 +100,96 @@ function Homepage() {
     .then((data) => setFavoriteDict(data.favorites))
   },[])
 
-  // Callback function, execute when the form Submit button is clicked
+
+  // ==== Slider Component ==== https://material-ui.com/api/slider/
+  
+  const changeMinMax = (event, newValue) => {
+    document.querySelector('#tavgLow').value = newValue[0]
+    document.querySelector('#tavgHigh').value = newValue[1]
+    // setTavgLow(newValue[0])
+    // setTavgHigh(newValue[1])
+  }
+
+  const {
+    Typography,
+    makeStyles,
+    Slider,
+  } = MaterialUI;
+  
+  
+  const useStyles = makeStyles({
+    root: {
+      width: 300,
+    },
+  });
+  
+  const marks = [
+    {
+      value: 0,
+      label: '0°C',
+    },
+    {
+      value: 20,
+      label: '20°C',
+    },
+    {
+      value: -20,
+      label: '-20°C',
+    },
+  ];
+
+  function valuetext(value) {
+    return `${value}`;
+  }
+  function RangeSlider() {
+    const classes = useStyles();
+    const [value, setValue] = React.useState([tavgLow, tavgHigh]);
+    // const [value, setValue] = React.useState([tavgLow, tavgHigh]);
+    
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+      // setTavgLow(newValue[0]);
+      // setTavgHigh(newValue[1])
+    };
+  
+    return (
+      <div className={classes.root}>
+        <Typography id="range-slider" gutterBottom>
+          Your ideal average temperature (°C)
+        </Typography>
+        <br/>
+        <br/>
+        <Slider
+          value={value}
+          onChange={handleChange}
+          onChangeCommitted={changeMinMax}
+          aria-labelledby="range-slider"
+          min={-50}
+          max={60}
+          marks={marks}
+          getAriaValueText={valuetext}
+          valueLabelDisplay="on"
+        />
+      </div>
+    );
+  }
+  // ==== End of Slider component ====
+
+
+  // ==== Callback function, execute when the form Submit button is clicked ====
   function ShowResults(evt) {
 
     evt.preventDefault(); // Prevent page reload default behavior upon form submission
 
+    setTavgLow(document.querySelector('#tavgLow').value) // Set new tavgLow and tavgHigh
+    setTavgHigh(document.querySelector('#tavgHigh').value)
+
     const params = {
       month: month,
-      tavg: tavg,
-      tmax: tmax,
-      tmin: tmin, // If not using React state variables, can use JavaScript tmin: document.querySelector('#tmin').value
-      continent: continent
+      tavgLow: document.querySelector('#tavgLow').value,
+      tavgHigh: document.querySelector('#tavgHigh').value,
+      continent: continent,
+      country: country
     };
     
     // Retrieve the data from the json route given the parameters entered by users
@@ -130,7 +209,6 @@ function Homepage() {
   // Loop through searchResults (list of objects from /results.json)
   for (const cont in searchResults) {
     data.push(<Continent key={cont} name={cont} countries={searchResults[cont]} favoriteDict={favoriteDict} />)
-    // console.log(data) // data is a list of React elements / components
   }
 
 
@@ -170,29 +248,22 @@ function Homepage() {
           </select>
         </p>
 
-        <p>
-          <label htmlFor="avgtemp">What's your ideal average temperature?</label>
-          <select value={tavg} onChange={evt => setAvgTemp(evt.target.value)} id="tavg" name="tavg">
-              <option value='under10'>Under 10</option>
-              <option value='10to20'>Between 10-20</option>
-              <option value='above20'>From 20</option>
-          </select>
-        </p>
+        <RangeSlider/>
 
-        <p>
+        <p hidden>
           <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
-          <input value={tmin} onChange={evt => setMinTemp(evt.target.value)} id="tmin" type="number" name="tmin" />
+          <input value={tavgLow} onChange={evt => setTavgLow(evt.target.value)} id="tavgLow" type="number" name="tavgLow"/>
         </p>
 
-        <p>
+        <p hidden>
           <label htmlFor="maxtemp">What's your ideal highest temperature? </label>
-          <input value={tmax} onChange={evt => setMaxTemp(evt.target.value)} id="tmax" type="number" name="tmax"/>
+          <input value={tavgHigh} onChange={evt => setTavgHigh(evt.target.value)} id="tavgHigh" type="number" name="tavgHigh"/>
         </p>
 
         <p>
-          <label htmlFor="continent">Which continent you want to visit? </label>
+          <label htmlFor="continent">Which continent do you want to visit? </label>
           <select value={continent} onChange={evt => setContinent(evt.target.value)} id="continent" name="continent">
-              <option></option>
+              <option ></option>
               <option value="Africa">Africa</option>
               <option value="Asia">Asia</option>
               <option value="Europe">Europe</option>
@@ -202,9 +273,16 @@ function Homepage() {
           </select>
         </p>
 
+        <p>
+          <label htmlFor="country">Which country do you want to visit? </label>
+          <select value={country} onChange={evt => setCountry(evt.target.value)} id="country" name="country">
+              <option></option>
+              <option value="Japan">Japan</option>
+              <option value="Indonesia">Indonesia</option>
+          </select>
+        </p>
+
         <input type="submit" onClick={ShowResults} value="Show me the world"/>
-
-
 
       </form>
       <br />
@@ -219,45 +297,46 @@ function Homepage() {
 
 
 // Test slider
-const {
-  Typography,
-  makeStyles,
-  // withStyles,
-  Slider,
-} = MaterialUI;
+// const {
+//   Typography,
+//   makeStyles,
+//   Slider,
+// } = MaterialUI;
 
 
-const useStyles = makeStyles({
-  root: {
-    width: 250,
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     width: 250,
+//   },
+// });
 
-function valuetext(value) {
-  return `${value}`;
-}
+// function valuetext(value) {
+//   return `${value}`;
+// }
 
-function RangeSlider() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState([20, 37]);
+// function RangeSlider() {
+//   const classes = useStyles();
+//   const [value, setValue] = React.useState([20, 37]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+//   const handleChange = (event, newValue) => {
+//     setValue(newValue);
+//   };
 
-  return (
-    <div className={classes.root}>
-      <Typography id="range-slider" gutterBottom>
-        Temperature range
-      </Typography>
-      <Slider
-        value={value}
-        onChange={handleChange}
-        aria-labelledby="range-slider"
-        max={50}
-        getAriaValueText={valuetext}
-        valueLabelDisplay="on"
-      />
-    </div>
-  );
-}
+//   return (
+//     <div className={classes.root}>
+//       <Typography id="range-slider" gutterBottom>
+//         Your ideal average temperature
+//       </Typography>
+//       <br/>
+//       <br/>
+//       <Slider
+//         value={value}
+//         onChange={handleChange}
+//         aria-labelledby="range-slider"
+//         max={60}
+//         getAriaValueText={valuetext}
+//         valueLabelDisplay="on"
+//       />
+//     </div>
+//   );
+// }

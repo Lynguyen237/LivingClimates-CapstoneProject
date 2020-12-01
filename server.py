@@ -22,35 +22,23 @@ def get_query_result_json():
 
     month = request.args.get('month') # month is a string after being passed via HTTP
     month = [int(i) for i in month.split(',')] # Store all the months user chooses as integer in a list
-    tavg = request.args.get('tavg')
-    tmin = request.args.get('tmin')
-    tmax = request.args.get('tmax')
+    tavgLow = request.args.get('tavgLow')
+    tavgHigh = request.args.get('tavgHigh')
     continent = request.args.get('continent')
+    country = request.args.get('country')
 
     # Connect to db to retrieve the city objects meeting the criteria
-    results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)
+    results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)\
+                .filter(Climate.month.in_(month), Climate.tavg >= tavgLow, Climate.tavg <= tavgHigh)    
 
-    if tavg == "under10": 
-        results = results.filter(Climate.month.in_(month), Climate.tavg < 10)
-
-    elif tavg == "10to20":
-        results = results.filter(Climate.month.in_(month),
-                                 Climate.tavg >= 10,
-                                 Climate.tavg < 20)
-    else:
-        results = results.filter(Climate.month.in_(month), Climate.tavg >= 20)
-    
-    # Check if the optional filters exist, if so add them to the query
-    if tmin:
-        results = results.filter(Climate.tmin >= tmin)
-    if tmax:
-        results = results.filter(Climate.tmax <= tmax)
     if continent:
         results = results.filter(Continent.continent_name == continent)
+    if country:
+        results = results.filter(City.country == country)
     
     results = results.group_by(City,Continent)\
-                     .having(func.count(Climate.month)==len(month))\
-                     .order_by(func.random()).limit(20).all()
+                     .having(func.count(Climate.month)==len(month)).limit(20).all()
+    print(results)
     # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
     

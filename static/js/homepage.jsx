@@ -6,9 +6,7 @@ function Continent(props) {
   const countries = Object.keys(props.countries); // Get the keys of the object (dictionary) in an array (list)
   return (
     <React.Fragment>
-      <div className="continent">
-        <h3>{props.name}</h3>
-      </div>
+      <h3 className="continent-name">{props.name}</h3>
       
       {/* Use .map() method to create a new array populated with the results of calling a function on every element in the calling array */}
       {countries.map(c => (
@@ -24,7 +22,7 @@ function Country(props) {
   const cities = Object.keys(props.cities);
   return (
     <React.Fragment>
-      <p>{props.name}</p>
+      <h5>{props.name}</h5>
       {cities.map(c => (
         <City 
           key={`${c}_${props.cities[c]['iso2']}`} 
@@ -46,7 +44,7 @@ function City(props) {
   function saveFavorite(evt) {
    
     let params = {
-      // month:month,
+      // month:month, //Future feature
       city_name:evt.target.id.replace("_"," "),
       lat:evt.target.dataset.lat,
       lon:evt.target.dataset.lon,
@@ -85,7 +83,7 @@ function Homepage() {
   
   // Create state variables
   const [searchResults, setSearchResults] = React.useState({});
-  const [month, setMonth] = React.useState([1]);
+  const [month, setMonth] = React.useState([3]);
   const [tavgLow, setTavgLow] = React.useState(15);
   const [tavgHigh, setTavgHigh] = React.useState(27);
   const [continent, setContinent] = React.useState('');
@@ -111,7 +109,6 @@ function Homepage() {
   }
 
   const {
-    Typography,
     makeStyles,
     Slider,
   } = MaterialUI;
@@ -144,7 +141,6 @@ function Homepage() {
   function RangeSlider() {
     const classes = useStyles();
     const [value, setValue] = React.useState([tavgLow, tavgHigh]);
-    // const [value, setValue] = React.useState([tavgLow, tavgHigh]);
     
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -154,9 +150,6 @@ function Homepage() {
   
     return (
       <div className={classes.root}>
-        {/* <Typography id="range-slider" gutterBottom>
-          Your ideal average temperature (°C)
-        </Typography> */}
         <br/>
         <br/>
         <Slider
@@ -200,11 +193,9 @@ function Homepage() {
       setHasResults(true);
       setSearchResults(data.results); // update the searchResults with the data from the results.json route
     }) 
-    // console.log(month) // Debug if all the months are captured after the submit button is clicked
   }
 
-  // Create an empty list to display search results on the homepage
-  const data = []
+  const data = [] // Create an empty list to display search results on the homepage
   
   // Loop through searchResults (list of objects from /results.json)
   for (const cont in searchResults) {
@@ -214,11 +205,15 @@ function Homepage() {
 
   return (
     <React.Fragment>
-      <h1>Explore your ideal climates</h1>
-      <ReactBootstrap.Form id="search_filter">
+      <div class="container">
+        <h1>Explore your ideal climates</h1>
+      </div>
+      
+      <div class="container" id="search_form">
+      <ReactBootstrap.Form>
 
         <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect2">
-        <ReactBootstrap.Form.Label>Month(s) you want to travel</ReactBootstrap.Form.Label>
+        <ReactBootstrap.Form.Label>Travel Month(s)</ReactBootstrap.Form.Label>
         {/* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */}
         <ReactBootstrap.Form.Control id="month-bootstrap" name="month" as="select" multiple
           value={month} 
@@ -244,9 +239,8 @@ function Homepage() {
           <option value='12'>December</option>
         </ReactBootstrap.Form.Control>
         </ReactBootstrap.Form.Group>
-
         
-        <ReactBootstrap.Form.Label>Your ideal average temperature (°C)</ReactBootstrap.Form.Label>
+        <ReactBootstrap.Form.Label>Ideal average temperature (°C)</ReactBootstrap.Form.Label>
         <RangeSlider/>
 
 
@@ -260,84 +254,47 @@ function Homepage() {
           <input value={tavgHigh} onChange={evt => setTavgHigh(evt.target.value)} id="tavgHigh" type="number" name="tavgHigh"/>
         </p>
 
-        <p>
-          <label htmlFor="continent">Which continent do you want to visit? </label>
-          <select value={continent} onChange={evt => setContinent(evt.target.value)} id="continent" name="continent">
-              <option ></option>
-              <option value="Africa">Africa</option>
-              <option value="Asia">Asia</option>
-              <option value="Europe">Europe</option>
-              <option value="North America">North America</option>
-              <option value="Oceania">Oceania</option>
-              <option value="South America">South America</option>
-          </select>
-        </p>
 
-        <p>
-          <label htmlFor="country">Which country do you want to visit? </label>
-          <select value={country} onChange={evt => setCountry(evt.target.value)} id="country" name="country">
-              <option></option>
+        <div class="row">
+
+          <div class="col"> 
+            <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect1">
+            <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
+            <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
+                <option >Anywhere</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="North America">North America</option>
+                <option value="Oceania">Oceania</option>
+                <option value="South America">South America</option>
+            </ReactBootstrap.Form.Control>
+            </ReactBootstrap.Form.Group>
+          </div>
+
+          <div class="col">
+            <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect1">
+            <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
+            <ReactBootstrap.Form.Control as="select" value={country} onChange={evt => setCountry(evt.target.value)} name="country">
+              <option >Anywhere</option>
               <option value="Japan">Japan</option>
               <option value="Indonesia">Indonesia</option>
-          </select>
-        </p>
+            </ReactBootstrap.Form.Control>
+            </ReactBootstrap.Form.Group>
+          </div>
+
+        </div>
         <ReactBootstrap.Button id="search-button" onClick={ShowResults}>Show me the world</ReactBootstrap.Button>{' '}
 
-        
       </ReactBootstrap.Form>
+      </div>
+    
 
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div>{data}</div>}
+      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div class="container">{data}</div>}
     </React.Fragment>
   )
 
 }
-
-
-
-// Test slider
-// const {
-//   Typography,
-//   makeStyles,
-//   Slider,
-// } = MaterialUI;
-
-
-// const useStyles = makeStyles({
-//   root: {
-//     width: 250,
-//   },
-// });
-
-// function valuetext(value) {
-//   return `${value}`;
-// }
-
-// function RangeSlider() {
-//   const classes = useStyles();
-//   const [value, setValue] = React.useState([20, 37]);
-
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
-
-//   return (
-//     <div className={classes.root}>
-//       <Typography id="range-slider" gutterBottom>
-//         Your ideal average temperature
-//       </Typography>
-//       <br/>
-//       <br/>
-//       <Slider
-//         value={value}
-//         onChange={handleChange}
-//         aria-labelledby="range-slider"
-//         max={60}
-//         getAriaValueText={valuetext}
-//         valueLabelDisplay="on"
-//       />
-//     </div>
-//   );
-// }

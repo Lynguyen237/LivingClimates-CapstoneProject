@@ -51,12 +51,9 @@ function City(props) {
       country:evt.target.dataset.country
     }
 
-    console.log(params)
     if (evt.target.checked) {
-      console.log(`Home: saved ${params.city_name}`);
       fetch("/save_to_session?" + new URLSearchParams(params));
     } else {
-      console.log(`Home: unsaved ${params.city_name}`);
       fetch("/unsave_to_session?" + new URLSearchParams(params));
     }
   }
@@ -65,14 +62,16 @@ function City(props) {
 
   return (
     <React.Fragment>
-      <input type="checkbox" 
-             data-lat={props.lat} 
-             data-lon={props.lon}
-             data-country={props.country}
-             defaultChecked={isFavorite} 
-             id={`${props.name.replace(" ","_")}`} 
-             onClick={saveFavorite}/>
-      <label htmlFor={`${props.name.replace(" ","_")}`}>{props.name}</label><br/>
+      <ReactBootstrap.Form.Group controlId="formBasicCheckbox">
+        <ReactBootstrap.Form.Check type="checkbox" label={props.name} 
+          data-lat={props.lat} 
+          data-lon={props.lon}
+          data-country={props.country}
+          defaultChecked={isFavorite} 
+          id={`${props.name.replace(" ","_")}`} 
+          onClick={saveFavorite}
+        />
+      </ReactBootstrap.Form.Group>
     </React.Fragment>
   )
 }
@@ -205,11 +204,11 @@ function Homepage() {
 
   return (
     <React.Fragment>
-      <div class="container">
+      <div className="container">
         <h1>Explore your ideal climates</h1>
       </div>
       
-      <div class="container" id="search_form">
+      <div className="container" id="search_form">
       <ReactBootstrap.Form>
 
         <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect2">
@@ -255,10 +254,10 @@ function Homepage() {
         </p>
 
 
-        <div class="row">
+        <div className="row">
 
-          <div class="col"> 
-            <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect1">
+          <div className="col"> 
+            <ReactBootstrap.Form.Group controlId="continent_group">
             <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
                 <option >Anywhere</option>
@@ -272,8 +271,8 @@ function Homepage() {
             </ReactBootstrap.Form.Group>
           </div>
 
-          <div class="col">
-            <ReactBootstrap.Form.Group controlId="exampleForm.ControlSelect1">
+          <div className="col">
+            <ReactBootstrap.Form.Group controlId="country_group">
             <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={country} onChange={evt => setCountry(evt.target.value)} name="country">
               <option >Anywhere</option>
@@ -293,7 +292,7 @@ function Homepage() {
       <br />
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {Object.keys(searchResults).length == 0 && hasResults? <div> Your climate does not exist on Earth!</div> : <div class="container">{data}</div>}
+      {Object.keys(searchResults).length == 0 && hasResults? <div className="container"> Your climate does not exist on Earth!</div> : <div className="container">{data}</div>}
     </React.Fragment>
   )
 

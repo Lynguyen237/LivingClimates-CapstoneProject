@@ -17,15 +17,15 @@
 
           <ReactBootstrap.Nav className="mr-auto"> {/* Separate the route as lines or boxes */}
 
-            <ReactBootstrap.Nav.Link as={ReactRouterDOM.Link} to='/about'>About
-            </ReactBootstrap.Nav.Link>
-        
             <ReactBootstrap.Nav.Link as={ReactRouterDOM.Link} to='/favorites'>My Favorites
             </ReactBootstrap.Nav.Link>
 
             <ReactBootstrap.Nav.Link as={ReactRouterDOM.Link} to='/save-our-planet'>Save Our Planet
             </ReactBootstrap.Nav.Link>
         
+            <ReactBootstrap.Nav.Link as={ReactRouterDOM.Link} to='/about'>About
+            </ReactBootstrap.Nav.Link>
+            
           </ReactBootstrap.Nav>
        
         </ReactBootstrap.Navbar.Collapse>
@@ -45,7 +45,7 @@
           </ReactRouterDOM.Route>
 
           <ReactRouterDOM.Route path='/save-our-planet'>
-              <About />
+              <SavePlanet />
           </ReactRouterDOM.Route>
 
           <ReactRouterDOM.Route path='/' exact>

@@ -10,6 +10,7 @@ app.secret_key = 'random' # Set a random key for the DebugToolbar
 @app.route('/')
 @app.route('/about')
 @app.route('/favorites')
+@app.route('/save-our-planet')
 def homepage():
     """Show the homepage with the search filters"""
     return render_template('main.html')
@@ -25,7 +26,7 @@ def get_query_result_json():
     tavgLow = request.args.get('tavgLow')
     tavgHigh = request.args.get('tavgHigh')
     continent = request.args.get('continent')
-    country = request.args.get('country')
+    iso2 = request.args.get('iso2')
 
     # Connect to db to retrieve the city objects meeting the criteria
     results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)\
@@ -33,8 +34,8 @@ def get_query_result_json():
 
     if continent:
         results = results.filter(Continent.continent_name == continent)
-    if country:
-        results = results.filter(City.country == country)
+    if iso2:
+        results = results.filter(City.iso2 == iso2)
     
     results = results.group_by(City,Continent)\
                      .having(func.count(Climate.month)==len(month)).limit(20).all()

@@ -1,6 +1,6 @@
 .body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
-  text-align: center;
+  text-align: center !important;
 }
 
 .container {

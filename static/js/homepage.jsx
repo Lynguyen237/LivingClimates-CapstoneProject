@@ -259,7 +259,7 @@ function Homepage() {
 
         <div className="row">
 
-          <ReactBootstrap.Form.Group controlId="continent_group" className="col-12 col-md-6">
+          <ReactBootstrap.Form.Group controlId="continent-group" className="col-12 col-md-6">
           <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
           <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
               <option >Anywhere</option>
@@ -272,7 +272,7 @@ function Homepage() {
           </ReactBootstrap.Form.Control>
           </ReactBootstrap.Form.Group>
 
-          <ReactBootstrap.Form.Group controlId="country_group" className="col-12 col-md-6">
+          <ReactBootstrap.Form.Group controlId="country-group" className="col-12 col-md-6">
           <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
           <ReactBootstrap.Form.Control as="select" value={iso2} onChange={evt => setIso2(evt.target.value)} name="iso2">
             <option >Anywhere</option>
@@ -530,7 +530,7 @@ function Homepage() {
 
         </div>
 
-        <ReactBootstrap.Button id="search-button" onClick={ShowResults}>Show me the world</ReactBootstrap.Button>{' '}
+        <ReactBootstrap.Button id="search-button" onClick={ShowResults}>Show Me The World</ReactBootstrap.Button>{' '}
 
       </ReactBootstrap.Form>
       </div>
@@ -540,7 +540,8 @@ function Homepage() {
       {Object.keys(searchResults).length == 0 && hasResults? 
         <div className="container results" id="no-result" > Your climate sadly does not exist. Edit your filters or expand your search to Mars!</div> : 
         <div hidden={!hasResults} className="container results">
-          <p>Check the boxes to mark your favorite destinations!</p>
+          <p className="side-notes">These are your top 20 searches. Refine your search filters to see more results.</p>
+          <p className="side-notes">Check the boxes to save your favorite destinations!</p>
           {data}
         </div>}
       

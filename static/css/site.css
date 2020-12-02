@@ -1,6 +1,6 @@
 
 body {
-  background-image: url("/static/img/cactus.jpg");
+  background-image: url("/static/img/snow.jpg");
   background-repeat: no-repeat;
   background-color: white;
   background-size: cover;
@@ -15,12 +15,13 @@ body {
 }
 
 
-/* HOMEPAGE */
+/* ==== HOMEPAGE ==== */
 #search_form {
   background-color:rgba(255, 255, 255, 0.7);
   text-align: center;
   padding-top: 15px;
   padding-bottom: 15px;
+  border-radius: 5px;
 }
 
 #slider {
@@ -40,8 +41,10 @@ body {
 
 .results {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
 /* Search result styling */
@@ -49,6 +52,9 @@ body {
   background-color: rgba(63, 81, 181, 0.9);
   color: white;
   border-radius: 5px;
+  padding-bottom: 5px;
+  padding-top: 3px;
+  margin-top:0.25rem
 }
 
 .country-name {
@@ -62,12 +68,29 @@ body {
   font-style: italic;
 }
 
-/* Set the size of the div element that contains the map */
+.side-notes {
+  color: #6c757d;
+  opacity: 80%;
+  font-style: italic;
+  margin-bottom: 0.25rem;
+}
+
+/* ==== MAPS ==== */
 #map {
-  border-radius: 10px;
-  box-shadow: whitesmoke;
+  border-radius: 5px;
+  padding-bottom: 10px;
   height: 400px;
   /* The height is 400 pixels */
   width: 100%;
   /* The width is the width of the web page */
+}
+
+/* ==== ABOUT PAGE ==== */
+.about-paragraph {
+  text-align: left;
+}
+
+#about {
+  font-style: italic;
+  background-color: rgba(255, 255, 255, 0.5);
 }

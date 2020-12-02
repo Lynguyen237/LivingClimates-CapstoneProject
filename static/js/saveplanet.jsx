@@ -1,7 +1,7 @@
 function SavePlanet() {
   return (
     <React.Fragment>
-      <div className="container-fluid" id="saveplanet">
+      <div className="container" id="saveplanet">
         <h1>Save Our Planet</h1>
         <p> 
             The climate data in this project (covering 1960-1990 period) may not be highly accurate in today's context given the climate change in the past decades.
@@ -24,7 +24,7 @@ function SavePlanet() {
 
         <ReactBootstrap.CardDeck>
             <ReactBootstrap.Card>
-                {/* <ReactBootstrap.Card.Img variant="top" src="holder.js/100px160" /> */}
+                {/* <ReactBootstrap.Card.Img variant="top" src="static/img/ocean.jpg" /> */}
                 <ReactBootstrap.Card.Body>
                 <ReactBootstrap.Card.Title>Planet Hereos</ReactBootstrap.Card.Title>
                 <ReactBootstrap.Card.Text>

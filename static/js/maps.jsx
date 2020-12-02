@@ -25,9 +25,14 @@ function Favorites() {
 
   return (
     <React.Fragment>
+      <div className="container">
       <MapComponent title="My Favorites" favoriteDict={favoriteDict} map="map"></MapComponent>
       <br/>
-      <div className="container" id="favorites">{favoriteData}</div>
+      <div className="results" id="favorites">
+        <p className="side-notes">Your favorites will be saved until you clear cache & cookies in your brower.</p>
+        {favoriteData}
+      </div>
+      </div>
     </React.Fragment>
   )
 }
@@ -60,10 +65,8 @@ function MapComponent(props) {
 
   return (
     <React.Fragment>
-    <div className="container-fluid">
-      <h3>{props.title}</h3>
+      <h1>{props.title}</h1>
       <div ref={mapsdiv} id={props.map}></div>
-    </div>
     </React.Fragment>
   )
 }

@@ -1,33 +1,71 @@
-.body {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  text-align: center !important;
+
+body {
+  background-image: url("/static/img/cactus.jpg");
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  width: auto;
+  position:relative;
+ }
+
+#logo {
+  border-radius:50%;
 }
 
-.container {
-  display:block;
-  margin: auto;
+
+/* HOMEPAGE */
+#search_form {
+  background-color:rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-#month-bootstrap {
-  width:100%
-}
-
-#search-button {
-  background-color: #3f51b5
-}
-
-.data {
+#slider {
   display:block;
   margin:auto;
 }
 
+#month-bootstrap {
+  display:block;
+  margin:auto;
+  width:50%
+}
+
+#search-button {
+  background-color: #3f51b5;
+}
+
+.results {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 10px 10px 10px;
+}
+
 /* Search result styling */
-/* .continent-name {
-  color: 3f51b5;
-} */
+.continent-name {
+  background-color: rgba(63, 81, 181, 0.9);
+  color: white;
+  border-radius: 5px;
+}
+
+.country-name {
+  color:rgba(63, 81, 181, 1);
+  font-weight: bold;
+}
+
+#no-result{
+  color:rgba(63, 81, 181, 1);
+  font-weight: bold;
+  font-style: italic;
+}
 
 /* Set the size of the div element that contains the map */
 #map {
+  border-radius: 10px;
+  box-shadow: whitesmoke;
   height: 400px;
   /* The height is 400 pixels */
   width: 100%;

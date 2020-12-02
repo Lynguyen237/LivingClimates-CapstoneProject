@@ -6,9 +6,18 @@
     <ReactRouterDOM.BrowserRouter>
       <ReactBootstrap.Navbar bg="dark" variant="dark" expand="lg">
         
-        <ReactBootstrap.Navbar.Brand as={ReactRouterDOM.Link} to="/">Living Climates
+        <ReactBootstrap.Navbar.Brand as={ReactRouterDOM.Link} to="/">
+          {/* <img
+            src="/static/img/spring.jpg"
+            width="30"
+            height="30"
+            id="logo"
+            className="d-inline-block align-top"
+            alt="Living Climates Logo"
+          />{' '}  */}
+          Living Climates
         </ReactBootstrap.Navbar.Brand>
-        
+
         {/* Show hamburger menu when the page width is too small */}
         <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" /> 
         

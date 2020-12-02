@@ -32,7 +32,7 @@ function About() {
           <a href="https://datahub.io/JohnSnowLabs/country-and-continent-codes-list#python"> DataHub.io </a>
           and <a href="https://www.freeformatter.com/iso-country-list-html-select.html">FreeFormatter</a>.
         </p>
-        
+        {/* https://nat0graphy.com/ */}
       </div>
     </React.Fragment>
   )

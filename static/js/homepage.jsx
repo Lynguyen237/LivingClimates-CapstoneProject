@@ -445,7 +445,7 @@ function Homepage() {
             <option value="OM">Oman</option>
             <option value="PK">Pakistan</option>
             <option value="PW">Palau</option>
-            <option value="PS">Palestinian Territory, Occupied</option>
+            <option value="PS">Palestinian Territory</option>
             <option value="PA">Panama</option>
             <option value="PG">Papua New Guinea</option>
             <option value="PY">Paraguay</option>

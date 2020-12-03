@@ -5,7 +5,7 @@ function About() {
     <React.Fragment>
       <div className="container">
         <h1>About</h1>
-        <div className="about-paragraph results" id="about">
+        <div className="intro paragraph results">
           
           <p>This project is the capstone of my part-time Software Engineering Bootcamp, in which I dabble in the world of coding 
             and learn a new approach to problem solving. 
@@ -19,7 +19,7 @@ function About() {
           </p>
         </div>
      
-        <div className="about-paragraph results">
+        <div className="paragraph results">
           <h3>Climate Data</h3>
           <p>Climate data is based on long-term averages of historical weather observations over a 30-year period from 1960 to 1990. </p>
           <p>Source: <a href="https://meteostat.net/" target="_blank">Meteostat</a>. 
@@ -29,12 +29,12 @@ function About() {
           </p>
         </div>
         
-        <div className="about-paragraph results">
+        <div className="paragraph results">
           <h3>World Cities Database</h3>
           <p>The list of ~26,000 cities and their longtitudes and lattitudes are retrieved from <a href="https://simplemaps.com/data">SimpleMaps</a>.</p>
         </div>
         
-        <div className="about-paragraph results">
+        <div className="paragraph results">
           <h3>Country and Continent Database</h3>
           <p>Country and continent codes list is made available by 
             <a href="https://datahub.io/JohnSnowLabs/country-and-continent-codes-list#python"> DataHub.io </a>
@@ -42,7 +42,7 @@ function About() {
           </p>
         </div>
 
-        <div className="about-paragraph results">
+        <div className="paragraph results">
           <h3>Photography</h3>
           <p>It is my honor to showcase amazing nature photos taken by my kind & talented friend Natalie Wong.
             Check out <a href="https://nat0graphy.com/"> nat0graphy.com </a> for more of her work.

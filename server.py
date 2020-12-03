@@ -83,9 +83,10 @@ def save_to_session():
     city_name = request.args.get('city_name')
     lat = request.args.get('lat')
     lon = request.args.get('lon')
+    country = request.args.get('country')
 
     # Create a city_name key in the session
-    session[city_name] = {'lat':lat,'lon':lon} 
+    session[city_name] = {'lat':lat,'lon':lon, 'country':country} 
 
     # session[month] = {'city_name':city_name}
 
@@ -97,8 +98,7 @@ def unsave_to_session():
     """Save the favorited cities to the session cookie"""
     
     city_name = request.args.get('city_name')
-    lat = request.args.get('lat')
-    lon = request.args.get('lon')
+
     session.pop(city_name) # Remove the key with the city name from the session
 
     return redirect('/')

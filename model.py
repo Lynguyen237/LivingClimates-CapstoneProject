@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
-from flask import jsonify # For query troubleshooting
-# import request_climate
 
 db = SQLAlchemy()
 

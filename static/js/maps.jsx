@@ -17,8 +17,8 @@ function Favorites() {
     favoriteData.push(<City 
                       key={c.replace(" ","_")} 
                       name={c}
-                      lat={favoriteDict[c].lat}
-                      lon={favoriteDict[c].lon}
+                      lat={favoriteDict[c].lat} // To add info to the element only
+                      lon={favoriteDict[c].lon} // To add info to the element only
                       favoriteDict={favoriteDict}
                       />)
   ))}
@@ -29,7 +29,7 @@ function Favorites() {
       <MapComponent title="My Favorites" favoriteDict={favoriteDict} map="map"></MapComponent>
       <br/>
       <div className="results" id="favorites">
-        <p className="side-notes">Your favorites will be saved until you clear cache & cookies in your brower.</p>
+        <p className="side-notes">Your favorites will be saved until you clear cache & cookies in your browser.</p>
         {favoriteData}
       </div>
       </div>

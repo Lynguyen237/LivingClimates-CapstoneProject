@@ -45,10 +45,10 @@ function City(props) {
    
     let params = {
       // month:month, //Future feature
-      city_name:evt.target.id.replace("_"," "),
-      lat:evt.target.dataset.lat,
-      lon:evt.target.dataset.lon,
-      country:evt.target.dataset.country
+      city_name: evt.target.id.replace("_"," "),
+      lat: evt.target.dataset.lat,
+      lon: evt.target.dataset.lon,
+      country: evt.target.dataset.country
     }
 
     if (evt.target.checked) {
@@ -68,7 +68,7 @@ function City(props) {
           data-lon={props.lon}
           data-country={props.country}
           defaultChecked={isFavorite} 
-          id={`${props.name.replace(" ","_")}`} 
+          id={`${props.name.replace(" ","_")}`}
           onClick={saveFavorite}
         />
       </ReactBootstrap.Form.Group>
@@ -538,7 +538,7 @@ function Homepage() {
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
       {Object.keys(searchResults).length == 0 && hasResults? 
-        <div className="container results" id="no-result" > Your climate sadly does not exist. Edit your filters or expand your search to Mars!</div> : 
+        <div className="container results" id="no-result" > Your climate sadly does not exist. Try modifying your filters or expanding your search to the Galaxy!</div> : 
         <div hidden={!hasResults} className="container results">
           <p className="side-notes">These are your top 20 searches. Refine your search filters to see more results.</p>
           <p className="side-notes">Check the boxes to save your favorite destinations!</p>

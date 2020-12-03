@@ -1,6 +1,6 @@
 
 body {
-  background-image: url("/static/img/snow.jpg");
+  background-image: url("/static/img/cactus2.jpg");
   background-repeat: no-repeat;
   background-color: white;
   background-size: cover;
@@ -9,7 +9,7 @@ body {
   width: auto;
   position:relative;
  }
-
+/* Try to figure out a way to fixed the height from the bottom */
 #logo {
   border-radius:50%;
 }
@@ -86,11 +86,24 @@ body {
 }
 
 /* ==== ABOUT PAGE ==== */
-.about-paragraph {
+.paragraph {
   text-align: left;
 }
 
-#about {
+.intro {
   font-style: italic;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==== SAVE-PLANET PAGE ==== */
+/* Override bootstrap card classes */
+.card-body{
+  border-top: 1px solid rgba(0,0,0,.125);
+  padding-bottom: 0.5rem;
+}
+
+.card-footer {
+  background-color: transparent;
+  border-top: none;
+  padding-top: 0.25rem;
 }

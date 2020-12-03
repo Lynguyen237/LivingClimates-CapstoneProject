@@ -57,7 +57,7 @@ function SavePlanet() {
                   <ReactBootstrap.Card.Text>
                     Growth Accerlerator providing funding and bringing commercial opportunities to entreprenuers
                     in the climate space.
-                    Refer a <b>climate-tech</b> startup you know or apply your own startup!
+                    Refer a <b>climate-tech</b> startup you know or apply your own!
                   </ReactBootstrap.Card.Text>
                 </ReactBootstrap.Card.Body>
                 <ReactBootstrap.Card.Footer>

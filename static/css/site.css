@@ -24,6 +24,12 @@ body {
   border-radius: 5px;
 }
 
+/* override bootstrap */
+.form-label {
+  color: rgba(58, 55, 66, 1);
+  font-weight: 450;
+}
+
 #slider {
   display:block;
   margin:auto;
@@ -37,6 +43,7 @@ body {
 
 #search-button {
   background-color: #3f51b5;
+  border-color:rgba(63, 81, 181, .8)
 }
 
 .results {
@@ -93,6 +100,8 @@ body {
 .intro {
   font-style: italic;
   background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* ==== SAVE-PLANET PAGE ==== */

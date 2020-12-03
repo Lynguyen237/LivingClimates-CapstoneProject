@@ -7,14 +7,14 @@
       <ReactBootstrap.Navbar bg="dark" variant="dark" expand="lg">
         
         <ReactBootstrap.Navbar.Brand as={ReactRouterDOM.Link} to="/">
-          {/* <img
-            src="/static/img/spring.jpg"
+          <img
+            src="/static/img/leaflogo_teal.png"
             width="30"
             height="30"
             id="logo"
             className="d-inline-block align-top"
             alt="Living Climates Logo"
-          />{' '}  */}
+          />{' '} 
           Living Climates
         </ReactBootstrap.Navbar.Brand>
 

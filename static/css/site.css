@@ -26,8 +26,6 @@ h1 {
 /* Font awesome icons */
 .footer {
   text-align: center;
-  position:relative;
-  position:bottom;
   bottom:0;
   width: 100%;
 }
@@ -71,7 +69,7 @@ h1 {
 #month-bootstrap {
   display:block;
   margin:auto;
-  width:50%
+  width:40%
 }
 
 #search-button {

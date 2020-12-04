@@ -85,8 +85,9 @@ function Homepage() {
   const [month, setMonth] = React.useState([3]);
   const [tavgLow, setTavgLow] = React.useState(15);
   const [tavgHigh, setTavgHigh] = React.useState(27);
+  const [prcp, setPrcp] = React.useState('');
   const [continent, setContinent] = React.useState('');
-  const [iso2, setIso2] = React.useState('');
+  const [iso2, setIso2] = React.useState(''); // Country 2-letter code
   const [hasResults, setHasResults] = React.useState(false); // Set this var to true when the button is clicked
   const [favoriteDict, setFavoriteDict] = React.useState([])
 
@@ -111,7 +112,6 @@ function Homepage() {
     makeStyles,
     Slider,
   } = MaterialUI;
-  
   
   const useStyles = makeStyles({
     root: {
@@ -181,6 +181,7 @@ function Homepage() {
       month: month,
       tavgLow: document.querySelector('#tavgLow').value,
       tavgHigh: document.querySelector('#tavgHigh').value,
+      prcp: prcp,
       continent: continent,
       iso2: iso2
     };
@@ -211,7 +212,7 @@ function Homepage() {
         <h1>Explore your ideal climates</h1>
      
       <ReactBootstrap.Form>
-
+    
         <ReactBootstrap.Form.Group controlId="month_group">
           <ReactBootstrap.Form.Label>Travel Month(s)</ReactBootstrap.Form.Label>
           {/* https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react */}
@@ -233,18 +234,18 @@ function Homepage() {
             <option value='6'>Jun</option>
             <option value='7'>July</option>
             <option value='8'>August</option>
-            <option value='9'>Septempber</option>
+            <option value='9'>September</option>
             <option value='10'>October</option>
             <option value='11'>November</option>
             <option value='12'>December</option>
           </ReactBootstrap.Form.Control>
         </ReactBootstrap.Form.Group>
-        
+
+      
         <ReactBootstrap.Form.Group controlId="slider_group">
           <ReactBootstrap.Form.Label>Ideal average temperature (°C)</ReactBootstrap.Form.Label>
           <RangeSlider/>
         </ReactBootstrap.Form.Group>
-
 
         <p hidden>
           <label htmlFor="mintemp">What's your ideal lowest temperature? </label>
@@ -258,23 +259,34 @@ function Homepage() {
 
 
         <div className="row">
-
-          <ReactBootstrap.Form.Group controlId="continent-group" className="col-12 col-md-6">
-          <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
-          <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
-              <option >Anywhere</option>
-              <option value="Africa">Africa</option>
-              <option value="Asia">Asia</option>
-              <option value="Europe">Europe</option>
-              <option value="North America">North America</option>
-              <option value="Oceania">Oceania</option>
-              <option value="South America">South America</option>
-          </ReactBootstrap.Form.Control>
+          
+          <ReactBootstrap.Form.Group controlId="prcp-group" className="col-12 col-md-4">
+            <ReactBootstrap.Form.Label>Precipitation</ReactBootstrap.Form.Label>
+            <ReactBootstrap.Form.Control as="select" value={prcp} onChange={evt => setPrcp(evt.target.value)} name="precipitation">
+                <option >Any Level</option>
+                <option value="quartile1">Low (0-27 mm/month)</option>
+                <option value="quartile2">Medium Low (28-60 mm/month)</option>
+                <option value="quartile3">Medium High (61-110 mm/month)</option>
+                <option value="quartile4">High (111 mm+/month)</option>
+            </ReactBootstrap.Form.Control>
           </ReactBootstrap.Form.Group>
 
-          <ReactBootstrap.Form.Group controlId="country-group" className="col-12 col-md-6">
-          <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
-          <ReactBootstrap.Form.Control as="select" value={iso2} onChange={evt => setIso2(evt.target.value)} name="iso2">
+          <ReactBootstrap.Form.Group controlId="continent-group" className="col-12 col-md-4">
+            <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
+            <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
+                <option >Anywhere</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="North America">North America</option>
+                <option value="Oceania">Oceania</option>
+                <option value="South America">South America</option>
+            </ReactBootstrap.Form.Control>
+          </ReactBootstrap.Form.Group>
+
+          <ReactBootstrap.Form.Group controlId="country-iso2-group" className="col-12 col-md-4">
+            <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
+            <ReactBootstrap.Form.Control as="select" value={iso2} onChange={evt => setIso2(evt.target.value)} name="iso2">
             <option >Anywhere</option>
             <option value="AF">Afghanistan</option>
             <option value="AX">Åland Islands</option>

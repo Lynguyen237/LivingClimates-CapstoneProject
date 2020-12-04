@@ -27,12 +27,22 @@ def get_query_result_json():
     month = [int(i) for i in month.split(',')] # Store all the months user chooses as integer in a list
     tavgLow = request.args.get('tavgLow')
     tavgHigh = request.args.get('tavgHigh')
+    prcp = request.args.get('prcp')
     continent = request.args.get('continent')
     iso2 = request.args.get('iso2')
 
-    # Connect to db to retrieve the city objects meeting the criteria
+    # Connect to db to retrieve the city & continent objects meeting the criteria
     results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)\
                 .filter(Climate.month.in_(month), Climate.tavg >= tavgLow, Climate.tavg <= tavgHigh)    
+    
+    if prcp == "quartile1":
+        results = results.filter(Climate.prcp <=27)
+    elif prcp == "quartile2":
+        results = results.filter(Climate.prcp > 27, Climate.prcp <=60)
+    elif prcp == "quartile3":
+        results = results.filter(Climate.prcp > 60, Climate.prcp <=110)
+    elif prcp == "quartile4":
+        results = results.filter(Climate.prcp > 110)
 
     if continent:
         results = results.filter(Continent.continent_name == continent)
@@ -66,6 +76,7 @@ def get_query_result_json():
                        [city.country]\
                        .update({city.city_name:city_info})
 
+    print(result_dict)
     return jsonify({'results':result_dict})
     
 

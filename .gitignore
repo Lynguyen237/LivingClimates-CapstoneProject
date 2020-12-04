@@ -2,10 +2,11 @@ env
 .DS_Store
 __pycache__
 Draft
-Data
 homepage2.jsx
 dict.py
 .vscode/
 fix_city_continent_rltp.py
 climates_2003_cities.sql
 Img_unused
+backup_postgreSQL
+cities_json

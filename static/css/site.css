@@ -1,4 +1,5 @@
 
+/* ==== ALL PAGES ==== */
 body {
   background-image: url("/static/img/cactus2.jpg");
   background-repeat: no-repeat;
@@ -9,9 +10,36 @@ body {
   width: auto;
   position:relative;
  }
-/* Try to figure out a way to fixed the height from the bottom */
+
+h1 {
+  font-family: 'Pangolin', cursive;
+}
+
 #logo {
   border-radius:50%;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: rgb(92, 225, 230);
+}
+
+/* Font awesome icons */
+.footer {
+  text-align: center;
+  position:relative;
+  position:bottom;
+  bottom:0;
+  width: 100%;
+}
+
+.fab {
+  margin: .5rem;
+  color:rgba(63, 81, 181, 1);
+  opacity: .7;
+  background-color:rgba(255, 255, 255, .85);
+  padding:.25rem;
+  border-radius: .25rem;
+  text-align: center;
 }
 
 
@@ -34,6 +62,11 @@ body {
   display:block;
   margin:auto;
 }
+
+/* Adjust the slider mark label .MuiSlider-markLabelActive .jss5 */
+/* .MuiSlider-markLabelActive {
+  font-family: 'Pangolin', cursive;
+} */
 
 #month-bootstrap {
   display:block;
@@ -116,3 +149,5 @@ body {
   border-top: none;
   padding-top: 0.25rem;
 }
+
+/* Teal color rgb(92, 225, 230)*/

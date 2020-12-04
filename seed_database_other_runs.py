@@ -9,17 +9,17 @@ connect_to_db(server.app)
 
 #========= CONTINENT-RELEATED DICTIONARIES =================
 # Open continens_in_db dictionary (keys = 2-letter continent codes, values = continent objects)
-with open("continents_in_db.pkl","rb") as f:
+with open("data/continents_in_db.pkl","rb") as f:
     continents_in_db = pickle.load(f)
 
 # Open country_continent dictionary (keys = iso2 country codes, values = continent objects)
-with open("country_continent_dict.pkl","rb") as f:
+with open("data/country_continent_dict.pkl","rb") as f:
     country_continent_dict = pickle.load(f)
 
 
 #========= CITY TABLE - ROW CREATION =================
 # Load data from a city JSON file as a list of dictionary and save it in a variable
-with open('data/cities_json/cities_batch_3_4001to6k.json') as f:
+with open('data/cities_json/cities_batch_3_fixit.json') as f:
     city_list = json.loads(f.read())
 
 
@@ -29,7 +29,7 @@ city_name_list=[]
 for city in City.query.all():
     city_name_list.append(city.city_name)
 
-for city in city_list[:4]:
+for city in city_list[1:4]:
     if city['city_ascii'] in city_name_list:
         print(city['city_ascii'])
         raise (f'Doublecheck if city already exists in database')
@@ -38,7 +38,7 @@ for city in city_list[:4]:
 
 # Create cities (city objects), store them in a list to add climate data later
 cities_in_db = []
-for city in city_list[4:]: #city is a dictionary & city_list a list of dictionaries
+for city in city_list[1:]: #city is a dictionary & city_list a list of dictionaries
     city_name, country, iso2, lat, lon, pop = (city['city_ascii'],
                                                city['country'],
                                                city['iso2'],

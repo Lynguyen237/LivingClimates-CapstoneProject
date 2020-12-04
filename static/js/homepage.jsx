@@ -544,16 +544,6 @@ function Homepage() {
           <p className="side-notes">Check the boxes to save your favorite destinations!</p>
           {data}
         </div>}
-      
-      <footer className="container results">
-        <ul id="footer-links">
-          
-            <a href=""><i class="fab fa-linkedin-in"></i></a>  
-            <a href=""><i class="fab fa-github"></i></a>
-            <a href=""><i class="fab fa-medium-m"></i></a>
-        </ul>
-      </footer>
-      
       </ReactBootstrap.Container>
     </React.Fragment>
   )

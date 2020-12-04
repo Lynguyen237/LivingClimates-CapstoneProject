@@ -39,7 +39,6 @@
        
         </ReactBootstrap.Navbar.Collapse>
 
-
       </ReactBootstrap.Navbar>
 
 
@@ -61,6 +60,19 @@
             <Homepage />
           </ReactRouterDOM.Route>
       </ReactRouterDOM.Switch>
+      
+      <ReactBootstrap.Container>
+        <footer className="footer">
+          <div className="row">
+            <div className="col-12 py-5">
+            <a href="https://www.linkedin.com/in/lynguyen237/" target="_blank"><i className="fab fa-linkedin-in"></i></a>  
+            <a href="https://github.com/Lynguyen237" target="_blank"><i className="fab fa-github"></i></a>
+            <a href="https://medium.com/@lynguyen237" target="_blank"><i className="fab fa-medium-m"></i></a>
+            </div>
+          </div>
+        </footer>
+      </ReactBootstrap.Container>
+      
       
 
     </ReactRouterDOM.BrowserRouter>

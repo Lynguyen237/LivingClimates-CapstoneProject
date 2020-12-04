@@ -13,12 +13,12 @@ continents_in_db = {}
 for continent_object in Continent.query.all():
     continents_in_db[continent_object.continent_code] = continent_object
 
-f = open("continents_in_db.pkl","wb")
+f = open("data/continents_in_db.pkl","wb")
 pickle.dump(continents_in_db,f)
 f.close()
 
     # **** Unpickle syntax (use rb to read binary file) ***
-    # with open("continents_in_db.pkl","rb") as f:
+    # with open("data/continents_in_db.pkl","rb") as f:
     #     continents_in_db = pickle.load(f)
 
 
@@ -34,13 +34,15 @@ for item in country_continent:
     iso2 = item['Two_Letter_Country_Code']
     country_continent_dict[iso2] = continents_in_db[item['Continent_Code']]
 
-with open("country_continent_dict.pkl", "wb") as f:
+with open("data/country_continent_dict.pkl", "wb") as f:
     pickle.dump(country_continent_dict,f)
 
 
 #========= CITY FILES (JSON) =================
+# Divide the list of cities into smaller files, each containing 2k cities or fewer
+# to comply with the 2k daily climates API requests.
 # https://appdividend.com/2019/11/13/how-to-convert-python-list-to-json-example/ 
-with open('data/worldcities.json') as f:
+with open('data/cities_json/worldcities_edited.json') as f:
     worldcities = json.loads(f.read())
 
 no_of_cities = len(worldcities) #26542

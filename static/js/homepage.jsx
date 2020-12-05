@@ -7,7 +7,6 @@ function Continent(props) {
   return (
     <React.Fragment>
       <h3 className="continent-name">{props.name}</h3>
-      
       {/* Use .map() method to create a new array populated with the results of calling a function on every element in the calling array */}
       {countries.map(c => (
         <Country key={c} cities={props.countries[c]} name={c} favoriteDict={props.favoriteDict}/>
@@ -133,6 +132,14 @@ function Homepage() {
       value: -20,
       label: '-20°C',
     },
+    {
+      value: -40,
+      label: '-40°C',
+    },
+    {
+      value: 40,
+      label: '-40°C',
+    },
   ];
 
   function valuetext(value) {
@@ -144,6 +151,7 @@ function Homepage() {
     
     const handleChange = (event, newValue) => {
       setValue(newValue);
+      console.log(newValue)
       // setTavgLow(newValue[0]);
       // setTavgHigh(newValue[1])
     };
@@ -209,7 +217,7 @@ function Homepage() {
       <br/>
       <ReactBootstrap.Container fluid className="homepage">
       <div className="container" id="search_form">
-        <h1>Explore your ideal climates</h1>
+        <h1 id="tagline">Explore your ideal climates</h1>
      
       <ReactBootstrap.Form>
     
@@ -263,7 +271,7 @@ function Homepage() {
           <ReactBootstrap.Form.Group controlId="prcp-group" className="col-12 col-md-4">
             <ReactBootstrap.Form.Label>Precipitation</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={prcp} onChange={evt => setPrcp(evt.target.value)} name="precipitation">
-                <option >Any Level</option>
+                <option value="">Any Level</option>
                 <option value="quartile1">Low (0-27 mm/month)</option>
                 <option value="quartile2">Medium Low (28-60 mm/month)</option>
                 <option value="quartile3">Medium High (61-110 mm/month)</option>
@@ -274,7 +282,7 @@ function Homepage() {
           <ReactBootstrap.Form.Group controlId="continent-group" className="col-12 col-md-4">
             <ReactBootstrap.Form.Label>Continent</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={continent} onChange={evt => setContinent(evt.target.value)} name="continent">
-                <option >Anywhere</option>
+                <option value="">Anywhere</option>
                 <option value="Africa">Africa</option>
                 <option value="Asia">Asia</option>
                 <option value="Europe">Europe</option>
@@ -287,7 +295,7 @@ function Homepage() {
           <ReactBootstrap.Form.Group controlId="country-iso2-group" className="col-12 col-md-4">
             <ReactBootstrap.Form.Label>Country</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={iso2} onChange={evt => setIso2(evt.target.value)} name="iso2">
-            <option >Anywhere</option>
+            <option value="">Anywhere</option>
             <option value="AF">Afghanistan</option>
             <option value="AX">Åland Islands</option>
             <option value="AL">Albania</option>
@@ -549,13 +557,18 @@ function Homepage() {
 
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {Object.keys(searchResults).length == 0 && hasResults? 
-        <div className="container results" id="no-result" > Your climate sadly does not exist. Try modifying your filters or expanding your search to the Galaxy!</div> : 
-        <div hidden={!hasResults} className="container results">
-          <p className="side-notes">These are your top 20 searches. Refine your search filters to see more results.</p>
+      {/* {Object.keys(searchResults).length == 0 && hasResults?  */}
+
+      {Object.keys(searchResults).length == 0 && hasResults &&  
+        <div className="container results" id="no-result" > Your climate sadly does not exist. Try modifying your filters or expanding your search to the Galaxy!</div> } 
+      
+      {Object.keys(searchResults).length != 0 && hasResults && (
+        <div className="container results">
+          <p className="side-notes">You are seeing up to top 20 destinations. Refine your search filters to see more relevant results.</p>
           <p className="side-notes">Check the boxes to save your favorite destinations!</p>
           {data}
-        </div>}
+        </div>
+      )}
       </ReactBootstrap.Container>
     </React.Fragment>
   )

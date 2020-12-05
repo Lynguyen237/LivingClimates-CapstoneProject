@@ -35,7 +35,7 @@ def get_query_result_json():
     results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)\
                 .filter(Climate.month.in_(month), Climate.tavg >= tavgLow, Climate.tavg <= tavgHigh)    
     
-    if prcp == "quartile1":
+    if prcp == "quartile":
         results = results.filter(Climate.prcp <=27)
     elif prcp == "quartile2":
         results = results.filter(Climate.prcp > 27, Climate.prcp <=60)
@@ -50,32 +50,32 @@ def get_query_result_json():
         results = results.filter(City.iso2 == iso2)
     
     results = results.group_by(City,Continent)\
-                     .having(func.count(Climate.month)==len(month)).limit(20).all()
-    print(results)
-    # Display 20 results by random https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
+                    .having(func.count(Climate.month)==len(month)).limit(20).all()
 
+    print(results)
     
+    # Create a dictionary in JSON format
     result_dict = {}
 
     for (city, continent) in results: 
         city_info = {'lat':city.lat,
-                     'lon':city.lon,
-                     'iso2':city.iso2}
-                     
+                    'lon':city.lon,
+                    'iso2':city.iso2}
+                    
         if continent.continent_name not in result_dict:
             result_dict[continent.continent_name] = {city.country:\
                                                     {city.city_name:city_info}}
         
         if city.country not in result_dict[continent.continent_name]:
             result_dict[continent.continent_name]\
-                       .update({city.country:\
-                               {city.city_name:city_info}})
+                    .update({city.country:\
+                            {city.city_name:city_info}})
             
         if city.city_name not in result_dict[continent.continent_name][city.country]:
             result_dict[continent.continent_name]\
-                       [city.country]\
-                       .update({city.city_name:city_info})
-
+                    [city.country]\
+                    .update({city.city_name:city_info})
+    
     print(result_dict)
     return jsonify({'results':result_dict})
     

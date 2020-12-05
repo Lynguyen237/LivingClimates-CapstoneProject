@@ -49,7 +49,7 @@ function MapComponent(props) {
     const bounds = new google.maps.LatLngBounds();
 
     if (props.favoriteDict) {
-      for (const city of Object.keys(props.favoriteDict)) {
+      for (const city of Object.keys(props.favoriteDict).slice(0,10)) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(props.favoriteDict[city].lat,
                                           props.favoriteDict[city].lon),

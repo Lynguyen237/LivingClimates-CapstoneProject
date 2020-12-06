@@ -52,7 +52,6 @@ def get_query_result_json():
     results = results.group_by(City,Continent)\
                     .having(func.count(Climate.month)==len(month)).limit(20).all()
 
-    print(results)
     
     # Create a dictionary in JSON format
     result_dict = {}

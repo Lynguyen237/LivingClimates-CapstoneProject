@@ -131,7 +131,7 @@ if __name__ == '__main__':
     # Flask won’t be able to access your database!
     connect_to_db(app)
     
-    app.run(host='0.0.0.0', debug = True)
+    app.run(host='0.0.0.0')
 
     app.debug = True # Set debug mode to True before enabling the toolbar
 

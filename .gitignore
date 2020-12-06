@@ -10,3 +10,4 @@ climates_2003_cities.sql
 Img_unused
 backup_postgreSQL
 cities_json
+secrets.sh

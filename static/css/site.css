@@ -22,17 +22,10 @@ h1 {
 #tagline {
   text-shadow: none;
 }
-#slider > span > span:nth-child(11) > span > span.MuiSlider-root {
-  color: black;
-}
 
-#logo {
-  border-radius:50%; /* Make round logo */
-}
-
-.navbar-dark .navbar-toggler {
+/* .navbar-dark .navbar-toggler {
   border-color: rgb(92, 225, 230);
-}
+} */
 
 /* Font awesome icons */
 .footer {
@@ -46,7 +39,7 @@ h1 {
   margin: .5rem;
   color:rgba(63, 81, 181, 1);
   opacity: .7;
-  background-color:rgba(255, 255, 255, .9);
+  background-color:rgba(255, 255, 255, .95);
   padding:.25rem;
   border-radius: .25rem;
   text-align: center;
@@ -55,7 +48,7 @@ h1 {
 
 /* ==== HOMEPAGE ==== */
 #search_form {
-  background-color:rgba(255, 255, 255, 0.7);
+  background-color:rgba(255, 255, 255, 0.8);
   text-align: center;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -97,7 +90,7 @@ h1 {
   margin-bottom: 1rem;
 }
 
-/* Search result styling */
+/* ==== Search result styling ==== */
 .continent-name {
   background-color: rgba(63, 81, 181, 0.9);
   color: white;
@@ -108,14 +101,22 @@ h1 {
 }
 
 .country-name {
-  color:rgba(63, 81, 181, 1);
+  color: rgba(63, 81, 181, 1);
   font-weight: bold;
+  margin-top: .1rem;
+  font-size: 1.1rem;
+}
+
+.form-check-label {
+  margin-bottom: 0;
+  font-size: 1.2rem;
 }
 
 #no-result{
   color:rgba(63, 81, 181, 1);
   font-weight: bold;
   font-style: italic;
+  font-size: 1.2rem;
 }
 
 .side-notes {
@@ -164,3 +165,4 @@ h1 {
 }
 
 /* Teal color rgb(92, 225, 230)*/
+/* Complimentary color of blue: #B5A33F / rgba(181,163,63,1)*/

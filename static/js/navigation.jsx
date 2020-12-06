@@ -8,7 +8,7 @@
         
         <ReactBootstrap.Navbar.Brand as={ReactRouterDOM.Link} to="/">
           <img
-            src="/static/img/leaflogo_blue_white_bg.png"
+            src="/static/img/blue_white_4.png"
             width="30"
             height="30"
             id="logo"

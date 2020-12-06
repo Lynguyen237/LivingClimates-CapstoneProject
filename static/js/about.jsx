@@ -7,7 +7,7 @@ function About() {
         <h1>About</h1>
         <div className="intro paragraph results">
           
-          <p><strong>Living Climates</strong> is the capstone project of my Software Engineering Bootcamp, in which I dabble in the world of coding 
+          <p><strong>"Living Climates"</strong> is the capstone project of my Software Engineering Bootcamp, in which I dabble in the world of coding 
             and learn a new approach to problem solving. 
           </p>
           <p>As someone who believes in traveling and is frequently in awe of how beautiful life is, 

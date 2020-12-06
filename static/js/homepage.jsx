@@ -392,7 +392,7 @@ function Homepage() {
       {Object.keys(searchResults).length != 0 && clickSearch && (
         <div className="container results">
           <p className="side-notes">You are seeing up to top 20 destinations. Refine your search filters to see more relevant results.</p>
-          <p className="side-notes">Check the boxes to save your favorite destinations!</p>
+          <p className="side-notes">Check the boxes to automatically save your favorite destinations!</p>
           {data}
         </div>
       )}

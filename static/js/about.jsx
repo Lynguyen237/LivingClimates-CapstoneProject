@@ -30,12 +30,12 @@ function About() {
         </div>
         
         <div className="paragraph results">
-          <h3>World Cities Database</h3>
+          <h3>World Cities Data</h3>
           <p>The list of ~26,000 cities and their longtitudes and lattitudes are retrieved from <a href="https://simplemaps.com/data">SimpleMaps</a>.</p>
         </div>
         
         <div className="paragraph results">
-          <h3>Country and Continent Database</h3>
+          <h3>Country and Continent Data</h3>
           <p>Country and continent codes list is made available by 
             <a href="https://datahub.io/JohnSnowLabs/country-and-continent-codes-list#python"> DataHub.io </a>
             and <a href="https://www.freeformatter.com/iso-country-list-html-select.html">FreeFormatter</a>.

@@ -4,7 +4,7 @@
   return (
     <React.Fragment>
     <ReactRouterDOM.BrowserRouter>
-      <ReactBootstrap.Navbar bg="dark" variant="dark" expand="lg">
+      <ReactBootstrap.Navbar sticky="top" bg="dark" variant="dark" expand="lg">
         
         <ReactBootstrap.Navbar.Brand as={ReactRouterDOM.Link} to="/">
           <img

@@ -11,3 +11,4 @@ Img_unused
 backup_postgreSQL
 cities_json
 secrets.sh
+climates_1stdeploy.sql

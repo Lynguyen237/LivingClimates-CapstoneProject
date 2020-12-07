@@ -36,7 +36,7 @@ function SavePlanet() {
             </ReactBootstrap.Card>
         
             <ReactBootstrap.Card className="paragraph results">
-              <ReactBootstrap.Card.Img variant="top" src="static/img/givinggreen.png" />
+              <ReactBootstrap.Card.Img variant="top" src="static/img/GivingGreen.png" />
               <ReactBootstrap.Card.Body>
                 <ReactBootstrap.Card.Title>Giving Green</ReactBootstrap.Card.Title>
                 <ReactBootstrap.Card.Text>
@@ -51,7 +51,7 @@ function SavePlanet() {
             </ReactBootstrap.Card>
             
             <ReactBootstrap.Card className="paragraph results">
-                <ReactBootstrap.Card.Img variant="top" src="static/img/EE-logo-hero.png" />
+                <ReactBootstrap.Card.Img variant="top" src="static/img/EE-Logo-Hero.png" />
                 <ReactBootstrap.Card.Body>
                   <ReactBootstrap.Card.Title>Elemental Excelerator</ReactBootstrap.Card.Title>
                   <ReactBootstrap.Card.Text>

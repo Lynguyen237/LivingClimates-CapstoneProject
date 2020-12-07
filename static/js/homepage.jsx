@@ -102,10 +102,10 @@ function Homepage() {
             <ReactBootstrap.Form.Label>Precipitation</ReactBootstrap.Form.Label>
             <ReactBootstrap.Form.Control as="select" value={prcp} onChange={evt => setPrcp(evt.target.value)} name="precipitation">
                 <option value="">Any Level</option>
-                <option value="quartile1">Low (0-27 mm/month)</option>
-                <option value="quartile2">Medium Low (28-60 mm/month)</option>
+                <option value="quartile1">Low         (0-27 mm/month)</option>
+                <option value="quartile2">Medium Low  (28-60 mm/month)</option>
                 <option value="quartile3">Medium High (61-110 mm/month)</option>
-                <option value="quartile4">High (111 mm+/month)</option>
+                <option value="quartile4">High        (111 mm+/month)</option>
             </ReactBootstrap.Form.Control>
           </ReactBootstrap.Form.Group>
 
@@ -387,7 +387,10 @@ function Homepage() {
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
       {Object.keys(searchResults).length == 0 && clickSearch &&  
-        <div className="container results" id="no-result" > Your climate sadly does not exist. Try modifying your filters or expanding your search to the Galaxy!</div> } 
+        <div className="container results" id="no-result" > 
+          <p><i class="far fa-sad-tear"></i> Your climate sadly does not exist. 
+              Try modifying your filters or expanding your search to the Galaxy!</p>
+        </div>} 
       
       {Object.keys(searchResults).length != 0 && clickSearch && (
         <div className="container results">

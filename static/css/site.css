@@ -66,10 +66,6 @@ h1 {
   margin:auto;
 }
 
-/* Adjust the slider mark label .MuiSlider-markLabelActive .jss5 */
-/* .MuiSlider-markLabelActive {
-  font-family: 'Pangolin', cursive;
-} */
 
 #month-bootstrap {
   display:block;
@@ -103,13 +99,21 @@ h1 {
 .country-name {
   color: rgba(63, 81, 181, 1);
   font-weight: bold;
-  margin-top: .1rem;
-  font-size: 1.1rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
-.form-check-label {
-  margin-bottom: 0;
-  font-size: 1.2rem;
+.fa-star {
+  margin-right: .5rem; /* City both starred and notStarred */
+}
+
+.fas {
+  color:#B5A33F; /* City starred */
+}
+
+.city-name {
+  margin-bottom: .5rem;
+  font-size: 1.1rem;
 }
 
 #no-result{
@@ -126,9 +130,9 @@ h1 {
   margin-bottom: 0.25rem;
 }
 
-.form-check-input{
+/* .form-check-input{
   color:red;
-}
+} */
 /* ==== MAPS ==== */
 #map {
   border-radius: .5rem;

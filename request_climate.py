@@ -1,11 +1,12 @@
 from requests.auth import HTTPBasicAuth
 import requests
+import os
 
 url = "https://api.meteostat.net/v2/point/climate"
 
 
 def get_climate(lat, lon):
-    params = dict(key="key", lat=lat, lon=lon)
+    params = dict(key=os.environ['CLIMATE_API_KEY'], lat=lat, lon=lon)
     req = requests.get(url, params=params)
     res = req.json() # res is a python dictionary
     # res['latlon'] = {'lat': lat, 'lon':lon}

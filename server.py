@@ -3,10 +3,11 @@ from flask import (Flask, render_template, request, flash, session, redirect, js
 from model import connect_to_db, Climate, Continent, City, db, func
 from flask_debugtoolbar import DebugToolbarExtension # Add Flask DebugToolbar
 import datetime
+import os
 
 app = Flask(__name__)
 app.permanent_session_lifetime = datetime.timedelta(days=365)
-app.secret_key = 'random' # Set a random key for the DebugToolbar
+app.secret_key = os.environ['FLASK_SECRET_KEY'] # Set a key for the DebugToolbar
 
 
 @app.route('/')

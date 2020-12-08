@@ -26,12 +26,13 @@ function Favorites() {
   return (
     <React.Fragment>
       <div className="container">
-      <MapComponent title="My Favorites" favoriteDict={favoriteDict} map="map"></MapComponent>
-      <br/>
-      <div className="results" id="favorites">
-        <p className="side-notes">Your favorites will be saved until you clear cache & cookies in your browser.</p>
-        {favoriteData}
-      </div>
+        <MapComponent title="My Favorites" favoriteDict={favoriteDict} map="map"></MapComponent>
+        <br/>
+        <div className="results side-notes" id="favorites">
+          {Object.keys(favoriteDict).length == 0 && <p> You have not favorited any destinations yet. </p>}
+          <p>Your favorites will be saved until you clear cache & cookies in your browser.</p>
+          {favoriteData}
+        </div>
       </div>
     </React.Fragment>
   )

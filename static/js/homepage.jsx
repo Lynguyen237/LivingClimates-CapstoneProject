@@ -386,11 +386,11 @@ function Homepage() {
 
       <br />
       {/* When the result is empty AND resResults == true, display error message, else display the result */}
-      {Object.keys(searchResults).length == 0 && clickSearch &&  
+      {Object.keys(searchResults).length == 0 && clickSearch && ( 
         <div className="container results" id="no-result" > 
-          <p><i class="far fa-sad-tear"></i> Your climate sadly does not exist. 
+          <p><i className="far fa-sad-tear"></i> Your climate sadly does not exist. 
               Try modifying your filters or expanding your search to the Galaxy!</p>
-        </div>} 
+        </div>)} 
       
       {Object.keys(searchResults).length != 0 && clickSearch && (
         <div className="container results">

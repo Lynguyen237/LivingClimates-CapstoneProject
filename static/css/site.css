@@ -48,7 +48,7 @@ h1 {
 
 /* ==== HOMEPAGE ==== */
 #search_form {
-  background-color:rgba(255, 255, 255, 0.8);
+  background-color:rgba(255, 255, 255, 0.9);
   text-align: center;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -80,7 +80,7 @@ h1 {
 
 .results {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 10px 10px 10px 10px;
   border-radius: .5rem;
   margin-bottom: 1rem;
@@ -99,7 +99,7 @@ h1 {
 .country-name {
   color: rgba(63, 81, 181, 1);
   font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   font-size: 1.2rem;
 }
 
@@ -124,8 +124,8 @@ h1 {
 }
 
 .side-notes {
-  color: #6c757d;
-  opacity: 80%;
+  color: dimgray;
+  opacity: 90%;
   font-style: italic;
   margin-bottom: 0.25rem;
 }

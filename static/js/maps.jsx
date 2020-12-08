@@ -8,7 +8,7 @@ function MapComponent(props) {
   
       let marker;
       const bounds = new google.maps.LatLngBounds();
-  
+
       if (props.favoriteDict) {
         for (const city of Object.keys(props.favoriteDict).slice(0,10)) {
           marker = new google.maps.Marker({
@@ -19,8 +19,13 @@ function MapComponent(props) {
           });
           bounds.extend(marker.getPosition());
         }
+        if(Object.keys(props.favoriteDict).length == 1) {    
+          map.setZoom(5);
+          map.setCenter(marker.getPosition())
+        } else {
+          map.fitBounds(bounds);
+        }
       }
-      map.fitBounds(bounds);
     }, [props.favoriteDict]);
       
   

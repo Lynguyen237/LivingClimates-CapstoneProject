@@ -7,15 +7,17 @@ function About() {
         <h1>About</h1>
         <div className="intro paragraph results">
           
-          <p><strong>"Living Climates"</strong> is the capstone project of my Software Engineering Bootcamp, in which I dabble in the world of coding 
-            and learn a new approach to problem solving. 
+          <p><strong>"Living Climates"</strong> is the capstone project of my Software Engineering Bootcamp at  
+          <a href="https://hackbrightacademy.com/" target="_blank"> Hackbright Academy</a>, where I dabble in 
+          the world of coding and learn a new approach to problem solving. 
           </p>
           <p>As someone who believes in traveling and is frequently in awe of how beautiful life is, 
             I took up my friend's idea to build an application to search for destinations around the 
-            world based on one's climate preferences at given time of the year.
+            world based on one's climate preferences at given time of the year. 
+            You can access this site at <a href="bit.ly/LivingClimates" target="_blank">bit.ly/LivingClimates</a>.
           </p>
           <p>A heartfelt thank-you to my instructors, my fellow classmates, mentors, and friends who 
-            motivated and helped me along the way to put this project in your hand.
+            motivated and helped me along the way to put this project in your hands.
           </p>
         </div>
      
@@ -37,15 +39,15 @@ function About() {
         <div className="paragraph results">
           <h3>Country and Continent Data</h3>
           <p>Country and continent codes list is made available by 
-            <a href="https://datahub.io/JohnSnowLabs/country-and-continent-codes-list#python"> DataHub.io </a>
-            and <a href="https://www.freeformatter.com/iso-country-list-html-select.html">FreeFormatter</a>.
+            <a href="https://datahub.io/JohnSnowLabs/country-and-continent-codes-list#python" target="_blank"> DataHub.io </a>
+            and <a href="https://www.freeformatter.com/iso-country-list-html-select.html" target="_blank">FreeFormatter</a>.
           </p>
         </div>
 
         <div className="paragraph results">
           <h3>Photography</h3>
           <p>It is my honor to showcase amazing nature photos taken by my kind & talented friend Natalie Wong.
-            Check out <a href="https://nat0graphy.com/"> nat0graphy.com </a> for more of her work.
+            Check out <a href="https://nat0graphy.com/" target="_blank"> nat0graphy.com </a> for more of her work.
           </p>
         </div>
         

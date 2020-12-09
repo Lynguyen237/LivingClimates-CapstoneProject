@@ -12,12 +12,12 @@ function Homepage() {
   const [clickSearch, setClickSearch] = React.useState(false); // Set this var to true when the button is clicked
   const [favoriteDict, setFavoriteDict] = React.useState([])
 
-
+  
   React.useEffect(() => {
     fetch('/favorites.json')
     .then((response) => response.json())
     .then((data) => setFavoriteDict(data.favorites))
-  },[])
+  },[searchResults])
 
 
   // ==== Callback function, execute when the form Submit button is clicked ====
@@ -397,6 +397,11 @@ function Homepage() {
           <p className="side-notes">You are seeing up to top 20 destinations. Refine your search filters to see more relevant results.</p>
           <p className="side-notes">Click <i className="far fa-star"/>to save your favorite destinations!</p>
           {data}
+          <br/>
+          <ReactBootstrap.Nav.Link as={ReactRouterDOM.Link} to='/favorites' className="bottom-nav"> 
+            Go to "My Favorites"
+          </ReactBootstrap.Nav.Link>|
+          <a className="bottom-nav" href="#toppage">Return to top of page</a>
         </div>
       )}
       </ReactBootstrap.Container>

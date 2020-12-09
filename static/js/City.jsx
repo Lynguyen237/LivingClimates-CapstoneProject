@@ -1,6 +1,6 @@
 // Create a component to show each city in the searchResults as a checkbox
 function City(props) {
-
+  
   function saveFavorite(evt) {
     
     let params = {
@@ -21,8 +21,8 @@ function City(props) {
   }
   
   let favoriteStatus
-  const starred = "fas fa-star";
-  const notStarred = "far fa-star";
+  const starred = "fas fa-star"; // FontAwesome default class 
+  const notStarred = "far fa-star"; // FontAwesome default class 
   
   Object.keys(props.favoriteDict).includes(props.name) ? favoriteStatus = starred : favoriteStatus = notStarred
 

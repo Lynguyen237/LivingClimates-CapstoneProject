@@ -15,14 +15,20 @@ function MapComponent(props) {
             position: new google.maps.LatLng(props.favoriteDict[city].lat,
                                             props.favoriteDict[city].lon),
             map: map,
-            title: city
+            title: city,
           });
           bounds.extend(marker.getPosition());
+        }
+        
+        if(Object.keys(props.favoriteDict).length == 0) {
+          map.setZoom(1);
+          map.setCenter({lat: 0, lng: 0})
         }
         if(Object.keys(props.favoriteDict).length == 1) {    
           map.setZoom(5);
           map.setCenter(marker.getPosition())
-        } else {
+        } 
+        if(Object.keys(props.favoriteDict).length > 1) {
           map.fitBounds(bounds);
         }
       }

@@ -36,7 +36,7 @@ def get_query_result_json():
     results = db.session.query(City,Continent).select_from(City).join(Climate).join(Continent)\
                 .filter(Climate.month.in_(month), Climate.tavg >= tavgLow, Climate.tavg <= tavgHigh)    
     
-    if prcp == "quartile":
+    if prcp == "quartile1":
         results = results.filter(Climate.prcp <=27)
     elif prcp == "quartile2":
         results = results.filter(Climate.prcp > 27, Climate.prcp <=60)
@@ -98,8 +98,6 @@ def save_to_session():
 
     # Create a city_name key in the session
     session[city_name] = {'lat':lat,'lon':lon, 'country':country} 
-
-    # session[month] = {'city_name':city_name}
 
     return redirect('/')
 

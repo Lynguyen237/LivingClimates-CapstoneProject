@@ -53,31 +53,38 @@ def get_query_result_json():
     results = results.group_by(City,Continent)\
                     .having(func.count(Climate.month)==len(month)).limit(20).all()
 
-    
-    # Create a dictionary in JSON format
+    result_dict = create_result_dict(results)
+
+    return jsonify({'results':result_dict})
+
+
+# @param results: a list of tuples, each containing a city & continent object
+# @return result_dict: nested dictionary {continent_name:{country_name:{city_name:city_info}}}
+def create_result_dict(results):
+    # Create a result dictionary in JSON format
     result_dict = {}
 
     for (city, continent) in results: 
+
+        continent_name = continent.continent_name
+        country_name   = city.country
+        city_name      = city.city_name
         city_info = {'lat':city.lat,
-                    'lon':city.lon,
-                    'iso2':city.iso2}
-                    
-        if continent.continent_name not in result_dict:
-            result_dict[continent.continent_name] = {city.country:\
-                                                    {city.city_name:city_info}}
+                     'lon':city.lon,
+                     'iso2':city.iso2} # iso2 is 2-letter country code
+
+        if continent_name not in result_dict:
+            result_dict[continent_name] = {country_name:\
+                                          {city_name:city_info}}
         
-        if city.country not in result_dict[continent.continent_name]:
-            result_dict[continent.continent_name]\
-                    .update({city.country:\
-                            {city.city_name:city_info}})
+        if country_name not in result_dict[continent_name]:
+            result_dict[continent_name].update({country_name:\
+                                               {city_name:city_info}})
             
-        if city.city_name not in result_dict[continent.continent_name][city.country]:
-            result_dict[continent.continent_name]\
-                    [city.country]\
-                    .update({city.city_name:city_info})
+        if city_name not in result_dict[continent_name][country_name]:
+            result_dict[continent_name][country_name].update({city_name:city_info})
     
-    print(result_dict)
-    return jsonify({'results':result_dict})
+    return result_dict
     
 
 @app.route('/maps')
@@ -118,7 +125,7 @@ def get_favorites():
     """Get the list of favorite cities to determine if the favorite box should be checked"""
     fav_cities = {}
     for city in session:
-        fav_cities[city]=session[city]
+        fav_cities[city] = session[city]
 
     return(jsonify({'favorites':fav_cities}))
 

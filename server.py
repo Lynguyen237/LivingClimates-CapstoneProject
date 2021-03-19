@@ -61,7 +61,8 @@ def get_query_result_json():
 # @param results: a list of tuples, each containing a city & continent object
 # @return result_dict: nested dictionary {continent_name:{country_name:{city_name:city_info}}}
 def create_result_dict(results):
-    # Create a result dictionary in JSON format
+    """ Create a result dictionary to be used in get_query_result_json() later """
+    
     result_dict = {}
 
     for (city, continent) in results: 

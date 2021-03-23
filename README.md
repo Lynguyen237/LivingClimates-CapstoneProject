@@ -6,25 +6,24 @@ Living Climates is a single-page web application that enables aspiring travelers
 
 ### Table of Content (WIP)
 1. [Main Screens](#main-screens)
-    * [Explore Climates](#)
-    * [View Favorites](#)
-    * [Save Our Planet](#)
+    * [Explore Climates](#homepage)
+    * [View Favorites](#favorites)
+    * [Save Our Planet](#saveplanet)
 2. [Backend - the Data Model](#backend)
-    * [Process to populate Data](#)
+    * [Process to populate Data](WIP)
 3. [Techstack & APIs](#techstack)
 4. [Installation](#installation)
 5. [Contribution & License](#contribution)
 
 ### Main Screens <a name="main-screens"></a>
-- **Homepage**: search for travel destinations according to your travel time and preferred climates such as temperature (2-input slider) and precipitation level (dropdown). Users can narrow down the search with "Continent" and "Country" filter. Clicking on the “Search” button sends the parameters to the Flask route in the backend. The server queries the database using SQLAlchemy to find the cities that match your preferences. Users can star the cities to save them to their favorite list stored in a Flask session cookie for later review.
-
+- **Explore Climates** <a name="homepage"></a>: search for travel destinations according to your travel time and preferred climates such as temperature (2-input slider) and precipitation level (dropdown). Users can narrow down the search with "Continent" and "Country" filter. Clicking on the “Search” button sends the parameters to the Flask route in the backend. The server queries the database using SQLAlchemy to find the cities that match your preferences. Users can star the cities to save them to their favorite list stored in a Flask session cookie for later review.
 ![Explore Climates](./readme_files/homepage.png)
 ![View search results](./readme_files/search_results.png)
 
-- **View favorite locations** you have starred on a maps powered by Google Maps API. It's interactive so users can zoom in to see the physical location of the place.
+- **View favorite locations** <a name="favorites"></a>you have starred on a maps powered by Google Maps API. It's interactive so users can zoom in to see the physical location of the place.
 ![View Favorites](./readme_files/favorites_page.png)
 
-- **Support environmental initiatives**
+- **Support environmental initiatives** <a name="saveplanet"></a>
 ![Save Our Planet](./readme_files/saveplanet_page.png)
 
 ### Backend - the Data Model <a name="backend"></a>

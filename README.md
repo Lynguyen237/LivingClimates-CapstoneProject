@@ -2,7 +2,7 @@
 #### Developed by: [Ly Nguyen](https://www.linkedin.com/in/lynguyen237/)
 #### Click [here](https://www.youtube.com/watch?v=M7bOF64Q8Yw) to see the video presentation
 <br>
-Living Climates is a single-page web application that enables aspiring travelers to search for destinations around the world based on their preference for climates (temperature & precipitation) at a given time of the year. Users can refine their searches by adding filters for continent and/or country. They can then save their favorite destinations in the browser and view all of their locations on an interactive map powered by Google Maps API. As an added bonus, users can check out and support cool initiatives and causes that aim at preserving our beautiful planet.
+Living Climates is a single-page web application that enables aspiring travelers to search for destinations around the world based on their preference for climates (temperature & precipitation) at a given month(s) of the year. Users can refine their searches by adding filters for continent and/or country. They can then save their favorite destinations in the browser and view all of their locations on an interactive map powered by Google Maps API. As an added bonus, users can check out and support cool initiatives and causes that aim at preserving our beautiful planet.
 
 ### Table of Content (WIP)
 1. [Main Screens](#main-screens)
